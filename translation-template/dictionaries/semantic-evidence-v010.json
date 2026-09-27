@@ -1,0 +1,38 @@
+{
+  "schema": "vocalize.translation.semantic-evidence/v1",
+  "version": "v010.4",
+  "concepts": {
+    "meridian_affinity": {
+      "source_spans": [
+        "归经"
+      ],
+      "target_evidence": [
+        "quy kinh",
+        "vào kinh",
+        "thuộc kinh",
+        "các kinh",
+        "kinh lạc"
+      ],
+      "conflicts": [
+        "kinh nghiệm"
+      ]
+    },
+    "technique_designator": {
+      "source_spans": [
+        "诀"
+      ],
+      "target_evidence": [
+        "quyết",
+        "khẩu quyết",
+        "kiếm quyết",
+        "pháp quyết",
+        "bí quyết",
+        "công quyết"
+      ],
+      "conflicts": [
+        "thiên"
+      ],
+      "notes": "Generic lexical-semantic evidence for the Chinese technique/formula designator 诀. Vietnamese morphology is allowed to vary; the guard only flags the explicitly incompatible lexical realization supplied by this resource."
+    }
+  }
+}

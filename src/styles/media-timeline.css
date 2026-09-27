@@ -1,0 +1,50 @@
+/* ---------- timeline visibility and preview fullscreen ---------- */
+.rdvd-timeline-canvas{height:100%;min-height:100%}
+.timeline-row{min-height:38px}
+.timeline-track{min-height:38px}
+.timeline-clip{min-height:34px}
+.rdvd-ruler{min-height:24px}
+@media (max-height:820px){.rdvd-timeline{grid-template-rows:minmax(0,1fr)}.rdvd-timeline-canvas{grid-template-rows:24px repeat(4,minmax(34px,1fr));min-height:100%}}
+
+.track-eye{font-size:10px!important;letter-spacing:0}.track-eye.off{opacity:.5}.track-eye:hover{filter:brightness(1.25)}
+
+/* ---------- logo overlay, linked volume and timeline zoom ---------- */
+.rdvd-logo-drag{
+  position:absolute;
+  z-index:7;
+  transform:translate(-50%,-50%);
+  border:1px solid rgba(94,183,255,.9);
+  background:rgba(38,107,153,.08);
+  box-shadow:0 0 0 1px rgba(0,0,0,.45),0 0 18px rgba(42,151,224,.14);
+  cursor:move;
+  touch-action:none;
+  user-select:none;
+}
+.rdvd-logo-drag.dragging{border-color:#8ed2ff;box-shadow:0 0 0 1px rgba(142,210,255,.25),0 0 20px rgba(42,151,224,.22)}
+.rdvd-logo-drag>img{display:block;width:100%;height:100%;object-fit:contain;pointer-events:none;user-select:none}
+.rdvd-logo-tag{position:absolute;top:-20px;left:0;padding:3px 6px;border:1px solid #31516a;border-radius:4px;background:rgba(5,18,29,.94);color:#98cfff;font:700 7px/1 Consolas,monospace;letter-spacing:.06em;pointer-events:none}
+.rdvd-logo-remove{position:absolute;top:-21px;right:-1px;width:20px;height:18px;border:1px solid #68414b;border-radius:4px;background:rgba(46,17,27,.94);color:#ffafbb;font-size:13px;line-height:1;display:grid;place-items:center;cursor:pointer}
+.rdvd-logo-remove:hover{background:#632638;color:#fff}
+.rdvd-logo-drag .subtitle-handle{opacity:0;transition:opacity .12s ease}
+.rdvd-logo-drag:hover .subtitle-handle,.rdvd-logo-drag.dragging .subtitle-handle{opacity:1}
+.rdvd-logo-drag .subtitle-handle::before{background:#eef8ff}
+.rdvd-volume-control{display:flex;align-items:center;gap:4px;min-width:118px;flex:0 0 118px;padding:0 2px 0 0}
+.rdvd-controls .volume-toggle{width:25px;height:25px;flex:0 0 25px;border:1px solid transparent;border-radius:5px;font-size:13px}
+.rdvd-controls .volume-toggle:hover:not(:disabled){background:rgba(255,255,255,.07);border-color:#2b4a62}
+.rdvd-controls input.volume{width:84px;min-width:84px;max-width:none;flex:1}
+.timeline-zoom-range{width:76px!important;min-width:76px!important;flex:0 0 76px!important}
+@media (max-width:900px){.rdvd-volume-control{min-width:92px;flex-basis:92px}.rdvd-controls input.volume{width:58px;min-width:58px}.timeline-zoom-range{width:58px!important;min-width:58px!important;flex-basis:58px!important}}
+.rdvd-app[data-theme="light"] .rdvd-logo-tag{background:rgba(249,252,255,.96);border-color:#bfd1df;color:#2a6b93}.rdvd-app[data-theme="light"] .rdvd-logo-remove{background:rgba(255,248,250,.96);border-color:#e2b5c0;color:#aa5062}
+
+/* ---------- fixed editor surface during timeline zoom ---------- */
+.rdvd-timeline-scroll{position:relative}
+.timeline-track{display:block;position:relative;overflow:hidden}
+.timeline-ruler{padding-left:0;display:grid;grid-template-columns:86px minmax(0,1fr)}
+.timeline-ruler-label{display:flex;align-items:center;padding-left:6px;min-width:0}
+.timeline-ruler-scale{grid-auto-flow:column;grid-auto-columns:minmax(50px,1fr);align-items:center}
+.timeline-ruler-scale span{overflow:hidden}
+.timeline-media-overlay{position:absolute;bottom:0;pointer-events:none;z-index:9}
+.timeline-media-overlay .timeline-marker-layer{position:absolute;inset:0;pointer-events:none;width:100%}
+.timeline-media-overlay .playhead{position:absolute;width:2px;background:#ff475f;box-shadow:0 0 12px rgba(255,71,95,.42);z-index:10;pointer-events:none}
+.timeline-media-overlay .playhead:before{content:'';position:absolute;top:-1px;left:-4px;width:10px;height:7px;background:#ff475f;clip-path:polygon(0 0,100% 0,50% 100%)}
+.subtitle-layer-hidden{visibility:hidden!important;opacity:0!important}

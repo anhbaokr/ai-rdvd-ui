@@ -1,0 +1,5 @@
+ctranslate2>=4.6
+transformers>=4.57,<5
+huggingface_hub>=0.34
+sentencepiece>=0.2
+pandas>=2.2

@@ -1,0 +1,124 @@
+/* ---------- subtitle selector stability ---------- */
+.rdvd-subtitle-drag {
+  contain: layout paint;
+  -webkit-user-select: none;
+  user-select: none;
+  transition: none !important;
+}
+.rdvd-subtitle-box {
+  transform-origin: center;
+  transition: none !important;
+  overflow: visible;
+}
+.rdvd-subtitle-drag.dragging .subtitle-handle,
+.rdvd-subtitle-drag.dragging .rdvd-subtitle {
+  transition: none !important;
+}
+.rdvd-subtitle-drag.dragging .rdvd-subtitle {
+  pointer-events: none;
+}
+
+/* ---------- language / theme / subtitle commands ---------- */
+.rdvd-window-tools { display:flex; align-items:center; gap:6px; flex:0 0 auto; }
+.rdvd-command-group{display:flex;align-items:center;gap:4px;padding:3px;border:1px solid rgba(77,112,139,.28);border-radius:10px;background:rgba(7,19,30,.46);box-shadow:inset 0 1px 0 rgba(255,255,255,.025),0 5px 18px rgba(0,0,0,.14)}
+.rdvd-topbar-menu{position:relative;display:inline-flex}
+.rdvd-command-btn{min-height:34px;padding:5px 8px;border:1px solid transparent;border-radius:8px;display:inline-flex;align-items:center;gap:7px;color:#d7e5f0;background:transparent;transition:background .16s ease,border-color .16s ease,box-shadow .16s ease,color .16s ease}
+.rdvd-command-btn:hover{background:rgba(35,78,109,.32);border-color:rgba(81,151,206,.22)}
+.rdvd-command-btn.active,.rdvd-command-btn.subtitle-command.active{background:linear-gradient(180deg,rgba(29,84,122,.52),rgba(15,50,76,.48));border-color:rgba(83,164,224,.35);box-shadow:0 4px 12px rgba(12,65,105,.16)}
+.command-icon{width:24px;height:24px;display:grid;place-items:center;border:1px solid rgba(89,132,160,.34);border-radius:7px;background:rgba(22,46,64,.66);font-size:10px;font-weight:700;letter-spacing:.1px;color:#cfe5f6}
+.command-copy{display:grid;line-height:1.06;text-align:left;min-width:50px}
+.command-copy strong{font-size:9.5px;font-weight:700;color:#d9e7f2}
+.command-copy em{font-style:normal;font-size:8.5px;color:#7e95aa;margin-top:2px}
+.rdvd-command-btn .chevron{font-size:11px;color:#7f95aa;margin-left:1px}
+.rdvd-command-btn kbd{padding:2px 5px;border:1px solid rgba(105,140,164,.32);border-bottom-color:rgba(105,140,164,.5);border-radius:4px;background:rgba(9,22,35,.55);color:#8fa6ba;font:600 7.5px/1 Consolas,monospace;white-space:nowrap}
+.rdvd-window-divider{width:1px;height:23px;background:#203a50;margin:0 2px}
+.settings-btn{width:31px!important;height:31px!important;padding:0!important;justify-content:center}
+.rdvd-dropdown{position:absolute;top:calc(100% + 8px);right:0;min-width:238px;padding:6px;border:1px solid #29475f;border-radius:11px;background:rgba(9,23,37,.985);backdrop-filter:blur(16px);box-shadow:0 18px 38px rgba(0,0,0,.46),inset 0 1px 0 rgba(255,255,255,.025);z-index:100}
+.rdvd-floating-dropdown{
+  position:fixed;
+  right:auto;
+  z-index:6000;
+  pointer-events:auto;
+}
+.rdvd-dropdown.command-dropdown{display:grid;gap:3px}
+.dropdown-heading{display:flex;align-items:center;justify-content:space-between;padding:5px 7px 7px;color:#7f96a9;font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+.dropdown-heading kbd{padding:3px 5px;border:1px solid #2c455b;border-radius:4px;background:#0a1724;color:#7f96a9;font:600 7.5px/1 Consolas,monospace;text-transform:none;letter-spacing:0}
+.rdvd-dropdown button{display:flex;width:100%;align-items:center;gap:9px;min-height:40px;padding:5px 8px;border:1px solid transparent;border-radius:8px;background:transparent;color:#c4d2df;font-size:10px;text-align:left;transition:background .14s ease,border-color .14s ease,color .14s ease}
+.rdvd-dropdown button:hover{background:#102b41;border-color:#214e6d;color:#eef7ff}
+.rdvd-dropdown button.active{background:linear-gradient(180deg,#133751,#102d43);border-color:#2a638d;color:#f2f8fc}
+.menu-icon{width:26px;height:26px;display:grid;place-items:center;border-radius:7px;background:#12283a;border:1px solid #25445a;font-size:13px}
+.menu-copy{flex:1;display:grid;gap:2px;min-width:0}
+.menu-copy strong{font-size:10px;font-weight:700;white-space:nowrap}
+.menu-copy small{font-size:8px;color:#7e96aa;white-space:nowrap}
+.check{width:18px;text-align:center;color:#59bcff;font-size:12px;font-weight:700}
+.theme-dropdown{min-width:238px}
+
+/* ---------- light theme ---------- */
+.rdvd-app[data-theme="light"]{
+  --bg:#eef3f8;--surface:#ffffff;--surface-2:#f6f8fb;--surface-3:#edf3f8;--line:#cfdae5;--line-soft:#dfe7ef;--text:#182534;--muted:#6b7d90;
+  background:linear-gradient(180deg,#f5f8fb 0%,#e9eff5 100%);color:var(--text)
+}
+.rdvd-app[data-theme="light"] .rdvd-topbar{background:#ffffff;border-bottom-color:#d6e0e9;box-shadow:0 8px 22px rgba(36,57,76,.08)}
+.rdvd-app[data-theme="light"] .rdvd-brand-sub{color:#6c7e90}
+.rdvd-app[data-theme="light"] .rdvd-icon-btn{color:#456076}
+.rdvd-app[data-theme="light"] .rdvd-command-group{background:rgba(232,240,246,.82);border-color:#d0dce6;box-shadow:inset 0 1px 0 rgba(255,255,255,.75),0 5px 16px rgba(44,66,88,.07)}
+.rdvd-app[data-theme="light"] .rdvd-command-btn{color:#385269}
+.rdvd-app[data-theme="light"] .rdvd-command-btn:hover{background:#edf5fa;border-color:#c9dce9}
+.rdvd-app[data-theme="light"] .rdvd-command-btn.active,.rdvd-app[data-theme="light"] .rdvd-command-btn.subtitle-command.active{background:#e6f2fa;border-color:#acd0e9;box-shadow:0 4px 12px rgba(56,110,148,.08)}
+.rdvd-app[data-theme="light"] .command-icon{background:#f5f8fb;border-color:#cbd9e5;color:#38617c}
+.rdvd-app[data-theme="light"] .command-copy strong{color:#2f465b}
+.rdvd-app[data-theme="light"] .command-copy em{color:#71869a}
+.rdvd-app[data-theme="light"] .rdvd-command-btn kbd{background:#fff;border-color:#cedae4;color:#71869a}
+.rdvd-app[data-theme="light"] .rdvd-window-divider{background:#d5e0e8}
+.rdvd-app[data-theme="light"] .dropdown-heading{color:#72869a}
+.rdvd-app[data-theme="light"] .dropdown-heading kbd{background:#f3f6f9;border-color:#d1dde6;color:#718699}
+.rdvd-app[data-theme="light"] .rdvd-dropdown button:hover{background:#edf5fa;border-color:#d0e1ec;color:#1d5b85}
+.rdvd-app[data-theme="light"] .rdvd-dropdown button.active{background:#e6f2fa;border-color:#bad7e8;color:#1f5f8f}
+.rdvd-app[data-theme="light"] .menu-icon{background:#f4f8fb;border-color:#ccd9e4}
+.rdvd-app[data-theme="light"] .menu-copy small{color:#74899b}
+.rdvd-app[data-theme="light"] .check{color:#197fbd}
+.rdvd-app[data-theme="light"] .rdvd-sidebar{background:#eaf0f5;border-right-color:#d5e0e9}
+.rdvd-app[data-theme="light"] .rdvd-card{background:#ffffff;border-color:#d4dee8;box-shadow:0 7px 18px rgba(38,62,83,.06)}
+.rdvd-app[data-theme="light"] .rdvd-step h2{color:#1c2d3e}
+.rdvd-app[data-theme="light"] .rdvd-step span,.rdvd-app[data-theme="light"] .rdvd-path-label,.rdvd-app[data-theme="light"] .rdvd-panel-row>label,.rdvd-app[data-theme="light"] .rdvd-tabs button{color:#718396}
+.rdvd-app[data-theme="light"] .rdvd-input-row input,.rdvd-app[data-theme="light"] .rdvd-output-row input,.rdvd-app[data-theme="light"] .rdvd-upload-row input,.rdvd-app[data-theme="light"] select,.rdvd-app[data-theme="light"] input[type="number"]{background:#f7f9fb;color:#203346;border-color:#cbd7e2;color-scheme:light}
+.rdvd-app[data-theme="light"] .rdvd-input-row button,.rdvd-app[data-theme="light"] .rdvd-output-row button{background:#eef3f7;color:#496276;border-color:#cbd7e2}
+.rdvd-app[data-theme="light"] .rdvd-file-info{background:#f4f7fa;border-color:#d5dfe8}
+.rdvd-app[data-theme="light"] .rdvd-mini-btn,.rdvd-app[data-theme="light"] .rdvd-secondary{background:#edf3f8;color:#456076;border-color:#c8d6e2}
+.rdvd-app[data-theme="light"] .rdvd-primary{box-shadow:0 6px 14px rgba(37,132,230,.15)}
+.rdvd-app[data-theme="light"] .rdvd-workspace{background:#dde6ee}
+.rdvd-app[data-theme="light"] .rdvd-player-shell,.rdvd-app[data-theme="light"] .rdvd-timeline{background:#f7f9fb;border-color:#d0dbe5}
+.rdvd-app[data-theme="light"] .rdvd-player-head{color:#31475c;border-bottom-color:#dae3eb}
+.rdvd-app[data-theme="light"] .rdvd-player-head button:hover,.rdvd-app[data-theme="light"] .rdvd-player-head .subtitle-head-btn.active{background:#e7f1fa;border-color:#b9d7ef;color:#1e5f91}
+.rdvd-app[data-theme="light"] .rdvd-scene{background:#dce5ec}
+.rdvd-app[data-theme="light"] .rdvd-controls{background:#f1f5f8;border-top-color:#d4dee7}
+.rdvd-app[data-theme="light"] .rdvd-controls span{color:#4f6579}
+.rdvd-app[data-theme="light"] .rdvd-tabs{border-bottom-color:#dbe4ec}
+.rdvd-app[data-theme="light"] .rdvd-tabs button.active{color:#1f5f8e}
+.rdvd-app[data-theme="light"] .rdvd-ruler{border-bottom-color:#dfe6ed;color:#73869a}
+.rdvd-app[data-theme="light"] .timeline-label{border-right-color:#dde5ed;color:#50677b}
+.rdvd-app[data-theme="light"] .rdvd-subtitle-panel{background:rgba(255,255,255,.985);border-color:#cedae5;box-shadow:0 18px 42px rgba(41,61,81,.18)}
+.rdvd-app[data-theme="light"] .rdvd-panel-head{border-bottom-color:#e1e8ee;color:#1f3142}
+.rdvd-app[data-theme="light"] .color-value{background:#f3f6f9;border-color:#cbd8e3;color:#41596d}
+.rdvd-app[data-theme="light"] .rdvd-reset-subtitle{background:#eef4f8;border-color:#c7d5e1;color:#35536c}
+.rdvd-app[data-theme="light"] .rdvd-log{background:#f4f7fa;border-color:#d5dfe8;color:#617589}
+.rdvd-app[data-theme="light"] .rdvd-log .active{color:#1775b6}
+.rdvd-app[data-theme="light"] .rdvd-dropdown{background:#ffffff;border-color:#cfdbe6;box-shadow:0 16px 30px rgba(36,58,79,.18)}
+.rdvd-app[data-theme="light"] .rdvd-dropdown button{color:#466074}
+.rdvd-app[data-theme="light"] .rdvd-dropdown button:hover,.rdvd-app[data-theme="light"] .rdvd-dropdown button.active{background:#e8f2f9;color:#1f5e8d}
+.rdvd-app[data-theme="light"] .rdvd-subtitle-box{border-color:#2f93e6;background:rgba(63,146,219,.045);box-shadow:0 0 0 1px rgba(33,125,196,.07),0 8px 18px rgba(33,61,86,.12)}
+.rdvd-app[data-theme="light"] .rdvd-subtitle-drag.dragging .rdvd-subtitle-box{border-color:#1478c2}
+.rdvd-app[data-theme="light"] .subtitle-handle::before{border-color:#3288bd;background:#ffffff;box-shadow:0 0 0 1px rgba(34,103,149,.18),0 1px 2px rgba(0,0,0,.18)}
+.rdvd-app[data-theme="light"] .rdvd-subtitle-drag::after{background:rgba(25,45,61,.94);border-color:#cad8e4;color:#dbe8f3}
+
+.timeline-empty{
+  height:100%;
+  display:flex;
+  align-items:center;
+  padding:0 10px;
+  color:#6f879a;
+  font-size:9px;
+  font-style:italic;
+  opacity:.8;
+}
+.rdvd-app[data-theme="light"] .timeline-empty{color:#7d8f9f;}

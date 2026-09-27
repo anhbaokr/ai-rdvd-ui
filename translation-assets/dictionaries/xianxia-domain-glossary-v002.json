@@ -1,0 +1,65 @@
+[
+  {
+    "source": "飞剑",
+    "target": "phi kiếm",
+    "category": "soft_domain",
+    "authority": "lexical",
+    "confidence": 1.0
+  },
+  {
+    "source": "阵石",
+    "target": "trận thạch",
+    "category": "soft_domain",
+    "authority": "lexical",
+    "confidence": 1.0
+  },
+  {
+    "source": "阵纹",
+    "target": "trận văn",
+    "category": "soft_domain",
+    "authority": "lexical",
+    "confidence": 1.0
+  },
+  {
+    "source": "血阵",
+    "target": "huyết trận",
+    "category": "soft_domain",
+    "authority": "lexical",
+    "confidence": 1.0
+  },
+  {
+    "source": "聚灵阵",
+    "target": "Tụ Linh Trận",
+    "category": "soft_domain",
+    "authority": "lexical",
+    "confidence": 1.0
+  },
+  {
+    "source": "剑谱",
+    "target": "kiếm phổ",
+    "category": "soft_domain",
+    "authority": "lexical",
+    "confidence": 1.0
+  },
+  {
+    "source": "剑阁",
+    "target": "Kiếm Các",
+    "category": "soft_domain",
+    "authority": "lexical",
+    "confidence": 1.0
+  },
+  {
+    "source": "雷角犀",
+    "target": "Lôi Giác Tê",
+    "category": "soft_domain",
+    "authority": "lexical",
+    "confidence": 1.0
+  },
+  {
+    "source": "雷角",
+    "target": "Lôi Giác",
+    "category": "ordinary",
+    "authority": "lexical",
+    "confidence": 0.85
+  }
+]

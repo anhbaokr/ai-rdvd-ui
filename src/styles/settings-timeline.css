@@ -1,0 +1,107 @@
+/* ---------- timeline viewport contract ---------- */
+/* The timeline frame/viewport never shrinks with zoom. Only the time-media extent changes. */
+.rdvd-timeline-scroll{width:100%;}
+.rdvd-timeline-canvas{width:max(100%, calc(100% * var(--timeline-zoom-factor, 1)));min-width:100%;}
+.rdvd-ruler{width:100%;min-width:0;box-sizing:border-box;}
+.timeline-ruler-scale{flex:1 1 auto;}
+.timeline-row{width:100%;min-width:0;}
+.timeline-label{flex:0 0 86px;min-width:86px;}
+.timeline-track{min-width:0;width:auto;}
+.timeline-ruler-tools-fixed{position:absolute;right:8px;top:2px;width:auto;min-width:154px;justify-content:center;}
+@media (max-width:700px){.timeline-ruler-tools-fixed{right:4px;min-width:118px}.timeline-label{flex-basis:72px;min-width:72px}}
+
+/* ---------- application settings ---------- */
+.rdvd-settings-overlay{position:fixed;inset:0;z-index:120;background:rgba(2,9,16,.62);backdrop-filter:blur(5px);display:flex;align-items:center;justify-content:center;padding:18px}
+.rdvd-settings-dialog{width:min(860px,calc(100vw - 36px));max-height:min(760px,calc(100vh - 36px));display:grid;grid-template-rows:auto minmax(0,1fr) auto;overflow:hidden;background:linear-gradient(180deg,#0e2133,#091725);border:1px solid #31506a;border-radius:12px;box-shadow:0 28px 80px rgba(0,0,0,.48),0 0 0 1px rgba(72,163,255,.05)}
+.rdvd-settings-head{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:15px 18px;border-bottom:1px solid #1e374d;background:linear-gradient(180deg,rgba(20,43,62,.95),rgba(13,30,45,.95))}
+.rdvd-settings-head h2{margin:3px 0 0;font-size:17px;color:#edf6fd}.settings-eyebrow{font:700 8px/1 Consolas,monospace;color:#6d95b1;letter-spacing:.12em;text-transform:uppercase}
+.rdvd-settings-close{width:32px;height:32px;border:1px solid #2c475d;border-radius:7px;background:#10283a;color:#c9d9e6;font-size:19px;cursor:pointer}.rdvd-settings-close:hover{background:#183750;border-color:#47718e;color:#fff}
+.rdvd-settings-body{display:grid;grid-template-columns:185px minmax(0,1fr);min-height:0}.rdvd-settings-nav{padding:12px;border-right:1px solid #1c3448;background:#0a1926;display:flex;flex-direction:column;gap:5px}.rdvd-settings-nav button{display:flex;align-items:center;gap:9px;width:100%;padding:10px 11px;border:1px solid transparent;border-radius:7px;background:transparent;color:#91a7ba;text-align:left;font-size:11px;cursor:pointer}.rdvd-settings-nav button:hover{background:#102536;color:#dbe9f3;border-color:#29465f}.rdvd-settings-nav button.active{background:linear-gradient(180deg,#163b59,#112d44);border-color:#2e6b97;color:#eaf6ff;box-shadow:inset 2px 0 0 #3da7ff}.rdvd-settings-content{min-width:0;min-height:0;overflow:auto;padding:20px 22px}.rdvd-settings-section{max-width:630px}.rdvd-settings-section h3{margin:0 0 15px;color:#eff7fd;font-size:15px}.rdvd-setting-card-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.rdvd-setting-card{display:flex;flex-direction:column;gap:7px;padding:12px;border:1px solid #23425a;border-radius:8px;background:#0b1d2b}.rdvd-setting-card>span{font-size:10px;color:#94aabd}.rdvd-setting-card select{height:34px;width:100%;padding:0 10px;border:1px solid #2a4961;border-radius:6px;background:#102638;color:#edf5fb;outline:none}.rdvd-setting-card select:focus{border-color:#46a7ff;box-shadow:0 0 0 3px rgba(64,164,255,.13)}.rdvd-setting-switch{display:flex;align-items:flex-start;gap:10px;margin-top:12px;padding:12px;border:1px solid #1e3a50;border-radius:8px;background:#0b1a27;cursor:pointer}.rdvd-setting-switch:hover{border-color:#355b76;background:#0d2131}.rdvd-setting-switch input{margin-top:3px;accent-color:#2e96f5}.rdvd-setting-switch span{min-width:0}.rdvd-setting-switch strong{display:block;color:#dceaf5;font-size:11px}.rdvd-setting-switch small{display:block;margin-top:3px;color:#7890a5;font-size:9px;line-height:1.45}.rdvd-setting-range{display:block;padding:13px;border:1px solid #23425a;border-radius:8px;background:#0b1d2b}.rdvd-setting-range>span{display:flex;justify-content:space-between;gap:12px;color:#dceaf5;font-size:11px}.rdvd-setting-range output{color:#72c1ff;font:700 10px/1 Consolas,monospace}.rdvd-setting-range input[type=range]{width:100%;margin:12px 0 6px}.rdvd-setting-range small{color:#7890a5;font-size:9px}.rdvd-settings-note{margin:0 0 12px;color:#889eb2;font-size:10px;line-height:1.55}.rdvd-shortcut-list{display:flex;flex-direction:column;border:1px solid #203c52;border-radius:8px;overflow:hidden}.rdvd-shortcut-list div{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:11px 13px;background:#0b1b29;border-bottom:1px solid #1a3348;color:#cad8e4;font-size:10px}.rdvd-shortcut-list div:last-child{border-bottom:0}.rdvd-shortcut-list kbd{min-width:120px;padding:5px 8px;border:1px solid #31536d;border-radius:5px;background:#0f2435;color:#9ccaf0;text-align:center;font:700 9px/1 Consolas,monospace}.rdvd-settings-foot{display:flex;align-items:center;justify-content:flex-end;gap:7px;padding:11px 15px;border-top:1px solid #1e374c;background:#0a1926}.settings-saved{margin-right:auto;color:#5fbd8c;font-size:9px}.rdvd-settings-foot .settings-done{width:auto;min-width:80px;height:31px}.rdvd-app.reduced-motion *, .rdvd-app.reduced-motion *::before, .rdvd-app.reduced-motion *::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+.rdvd-app[data-theme="light"] .rdvd-settings-dialog{background:linear-gradient(180deg,#f7fafc,#eef3f7);border-color:#c1d0db}.rdvd-app[data-theme="light"] .rdvd-settings-head{background:linear-gradient(180deg,#ffffff,#f1f5f8);border-bottom-color:#d4e0e8}.rdvd-app[data-theme="light"] .rdvd-settings-head h2,.rdvd-app[data-theme="light"] .rdvd-settings-section h3{color:#17344b}.rdvd-app[data-theme="light"] .rdvd-settings-nav{background:#edf3f7;border-right-color:#d2dee7}.rdvd-app[data-theme="light"] .rdvd-settings-nav button{color:#5d7384}.rdvd-app[data-theme="light"] .rdvd-settings-nav button:hover{background:#e5edf3;color:#21455f;border-color:#c9d8e3}.rdvd-app[data-theme="light"] .rdvd-settings-nav button.active{background:#dcecf8;border-color:#9cc5e2;color:#174564}.rdvd-app[data-theme="light"] .rdvd-setting-card,.rdvd-app[data-theme="light"] .rdvd-setting-range,.rdvd-app[data-theme="light"] .rdvd-setting-switch,.rdvd-app[data-theme="light"] .rdvd-shortcut-list div{background:#f7fafc;border-color:#cedce5}.rdvd-app[data-theme="light"] .rdvd-setting-card>span,.rdvd-app[data-theme="light"] .rdvd-setting-switch small,.rdvd-app[data-theme="light"] .rdvd-setting-range small,.rdvd-app[data-theme="light"] .rdvd-settings-note{color:#6f8291}.rdvd-app[data-theme="light"] .rdvd-setting-card select{background:#fff;border-color:#c5d5e0;color:#17344b}.rdvd-app[data-theme="light"] .rdvd-settings-foot{background:#edf3f7;border-top-color:#d2dee7}
+@media (max-width:720px){.rdvd-settings-dialog{width:100%;max-height:calc(100vh - 20px)}.rdvd-settings-body{grid-template-columns:1fr}.rdvd-settings-nav{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border-right:0;border-bottom:1px solid #1c3448;padding:8px}.rdvd-settings-nav button{justify-content:center;padding:8px 4px;font-size:0}.rdvd-settings-nav button span{display:block;font-size:9px}.rdvd-settings-nav button:first-letter{font-size:12px}.rdvd-setting-card-grid{grid-template-columns:1fr}.rdvd-settings-content{padding:15px}}
+
+/* ---------- canonical timeline time-space ---------- */
+/*
+   The timeline ruler and media now share one coordinate model:
+   clip width = zoomed media width inside the track body;
+   overlay width = the same media width measured from the full canvas.
+   At 50% a 60s clip ends halfway across the visible ruler (ruler spans 0..120s).
+*/
+.rdvd-timeline-canvas{--timeline-clip-width:100%;--timeline-overlay-width:calc(100% - 86px);}
+.timeline-clip{width:var(--timeline-clip-width)!important;max-width:none;flex:0 0 auto;}
+
+/* ---------- timeline ruler and exact playhead origin ---------- */
+/* Keep the TIME label in its own header cell. Time ticks live only in the media-time row. */
+.rdvd-ruler{
+  grid-template-columns:86px minmax(0,1fr)!important;
+  grid-template-rows:12px 12px!important;
+  height:24px!important;
+  padding:0!important;
+  align-items:stretch!important;
+  overflow:hidden!important;
+}
+.timeline-ruler-head{
+  grid-column:1;
+  grid-row:1;
+  min-width:0;
+  height:12px;
+  border-right:1px solid #153047;
+}
+.timeline-ruler-head .timeline-ruler-label{
+  width:100%;
+  height:12px;
+  min-height:12px;
+  padding-left:9px;
+  border-right:0;
+  display:flex;
+  align-items:center;
+  box-sizing:border-box;
+}
+.timeline-ruler-scale{
+  grid-column:2;
+  grid-row:2;
+  position:relative!important;
+  width:100%!important;
+  min-width:0!important;
+  height:12px!important;
+  overflow:hidden!important;
+  display:block!important;
+  box-sizing:border-box;
+  border-top:1px solid rgba(104,133,155,.10);
+}
+.timeline-ruler-scale span{
+  position:absolute!important;
+  top:0;
+  height:12px!important;
+  min-width:0!important;
+  width:max-content;
+  padding:0 0 0 5px!important;
+  border-left:1px solid rgba(104,133,155,.18);
+  display:flex!important;
+  align-items:center;
+  color:#71889b;
+  font:8px Consolas,monospace;
+  white-space:nowrap;
+  box-sizing:border-box;
+  transform:none!important;
+}
+/* The playhead line begins exactly at the left edge of the media-time scale, never inside the TIME cell. */
+.timeline-media-overlay{
+  left:86px!important;
+  top:24px!important;
+  width:var(--timeline-overlay-width)!important;
+}
+.timeline-media-overlay .playhead{
+  left:0;
+  top:0;
+  bottom:0;
+}
+
+.rdvd-app[data-theme="light"] .timeline-ruler-head{border-right-color:#d7e2ea}
+.rdvd-app[data-theme="light"] .timeline-ruler-scale{border-top-color:rgba(90,115,136,.14)}
+
+@media (max-width:700px){
+  .rdvd-ruler{grid-template-columns:72px minmax(0,1fr)!important;grid-template-rows:12px 12px!important;height:24px!important}
+  .timeline-ruler-head .timeline-ruler-label{font-size:7px}
+  .timeline-media-overlay{left:72px!important}
+}

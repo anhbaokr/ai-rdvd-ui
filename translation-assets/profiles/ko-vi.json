@@ -1,0 +1,10 @@
+{
+  "id": "ko-vi",
+  "name": "Hàn Quốc → Việt Nam",
+  "sourceLanguage": "ko",
+  "targetLanguage": "vi",
+  "engine": null,
+  "enabled": true,
+  "status": "waiting_model",
+  "message": "Korean translation model is not installed. Waiting for integration."
+}

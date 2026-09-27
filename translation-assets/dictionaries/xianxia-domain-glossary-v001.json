@@ -1,0 +1,77 @@
+{
+  "schema": "vocalize.translation.xianxia-domain-glossary/v1",
+  "entries": [
+    {
+      "source": "飞剑",
+      "target": "phi kiếm",
+      "category": "soft_domain",
+      "authority": "lexical",
+      "confidence": 1.0,
+      "note": "xianxia domain glossary; candidate-only unless authority/context selects it"
+    },
+    {
+      "source": "阵石",
+      "target": "trận thạch",
+      "category": "soft_domain",
+      "authority": "lexical",
+      "confidence": 1.0,
+      "note": "xianxia formation component"
+    },
+    {
+      "source": "阵纹",
+      "target": "trận văn",
+      "category": "soft_domain",
+      "authority": "lexical",
+      "confidence": 1.0,
+      "note": "xianxia formation terminology"
+    },
+    {
+      "source": "血阵",
+      "target": "huyết trận",
+      "category": "soft_domain",
+      "authority": "lexical",
+      "confidence": 1.0,
+      "note": "xianxia formation terminology"
+    },
+    {
+      "source": "聚灵阵",
+      "target": "Tụ Linh Trận",
+      "category": "soft_domain",
+      "authority": "lexical",
+      "confidence": 1.0,
+      "note": "xianxia formation name; candidate-only unless locked by project evidence"
+    },
+    {
+      "source": "剑谱",
+      "target": "kiếm phổ",
+      "category": "soft_domain",
+      "authority": "lexical",
+      "confidence": 1.0,
+      "note": "xianxia sword manual/book terminology"
+    },
+    {
+      "source": "剑阁",
+      "target": "Kiếm Các",
+      "category": "soft_domain",
+      "authority": "lexical",
+      "confidence": 1.0,
+      "note": "xianxia sect/location sense; must remain context-sensitive against CVDICT geographic sense"
+    },
+    {
+      "source": "雷角犀",
+      "target": "Lôi Giác Tê",
+      "category": "soft_domain",
+      "authority": "lexical",
+      "confidence": 1.0,
+      "note": "xianxia creature name candidate"
+    },
+    {
+      "source": "雷角",
+      "target": "Lôi Giác",
+      "category": "ordinary",
+      "authority": "lexical",
+      "confidence": 0.85,
+      "note": "descriptive feature candidate; never hard-lock as a proper name"
+    }
+  ]
+}

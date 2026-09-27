@@ -1,0 +1,34 @@
+{
+  "terms": [
+    {
+      "source": "少侠",
+      "target": "thiếu hiệp",
+      "category": "soft_domain",
+      "authority": "domain"
+    },
+    {
+      "source": "青云宗",
+      "target": "Thanh Vân Tông",
+      "category": "proper_name",
+      "authority": "series"
+    },
+    {
+      "source": "筑基境",
+      "target": "Trúc Cơ cảnh",
+      "category": "soft_domain",
+      "authority": "domain"
+    },
+    {
+      "source": "金丹境",
+      "target": "Kim Đan cảnh",
+      "category": "soft_domain",
+      "authority": "domain"
+    },
+    {
+      "source": "诛仙剑",
+      "target": "Tru Tiên kiếm",
+      "category": "named_artifact",
+      "authority": "series"
+    }
+  ]
+}

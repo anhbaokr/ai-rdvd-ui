@@ -1,0 +1,59 @@
+# Python environment
+.venv/
+.translation-venv/
+__pycache__/
+*.pyc
+
+# Node
+node_modules/
+
+# Build
+dist/
+src-tauri/target/
+
+# Runtime data
+output/
+audio/
+*.log
+
+# Cache
+**/.cache/
+
+# Large AI models
+translation-models/
+
+# Backup
+_patch-backups/
+
+# Temporary
+*.tmp
+
+# Archives
+*.zip
+
+# IDE
+.vscode/
+.idea/
+
+# Python
+.venv/
+.translation-venv/
+__pycache__/
+
+# Node
+node_modules/
+
+# Build
+dist/
+output/
+src-tauri/target/
+
+# Logs
+*.log
+
+# Translation models
+translation-models/
+translation-assets/models/
+
+# External dictionary sources
+translation-assets/sources/

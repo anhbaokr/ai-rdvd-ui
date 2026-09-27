@@ -1,0 +1,28 @@
+/* ---------- responsive balancing ---------- */
+@media (max-height:820px){
+  .rdvd-topbar{height:54px}
+  .rdvd-main{height:calc(100dvh - 54px);padding:7px;gap:8px}
+  .rdvd-sidebar{gap:6px;padding-right:5px}
+  .rdvd-card{padding:8px 10px}
+  .rdvd-card:nth-child(1){min-height:140px}.rdvd-card:nth-child(2){min-height:126px}.rdvd-card:nth-child(3){min-height:140px}.rdvd-card:nth-child(4){min-height:232px}.rdvd-card:nth-child(5){min-height:120px}
+  .rdvd-workspace{gap:7px}
+  .rdvd-player-shell{grid-template-rows:32px minmax(0,1fr)}
+  .rdvd-ruler{padding-left:82px}.timeline-row{grid-template-columns:82px minmax(0,1fr)}
+  .rdvd-tabs button{font-size:9.5px}.rdvd-subtitle-panel{top:39px;max-height:calc(100% - 44px)}
+  .rdvd-panel-row{margin:6px 0}
+}
+
+@media (max-width:1180px){
+  .rdvd-brand-sub{display:none}
+  .rdvd-subtitle-panel{width:312px}
+}
+
+@media (max-width:900px){
+  .rdvd-command-group{gap:2px}.command-copy{min-width:0}.subtitle-command .command-copy{display:none}.rdvd-command-btn kbd{display:none}.rdvd-command-btn{padding:5px 7px}.command-icon{width:22px;height:22px}
+  body{overflow:auto}.rdvd-app{min-height:100vh;height:auto}.rdvd-main{height:auto;min-height:calc(100vh - 54px);grid-template-columns:1fr}.rdvd-sidebar{max-height:none}.rdvd-subtitle-panel{width:300px}
+}
+
+@media (max-width:640px){
+  .rdvd-command-group{padding:2px}.rdvd-window-divider{display:none}.rdvd-command-btn{padding:4px 5px;gap:5px}.command-copy{display:none}.rdvd-window-tools{gap:2px}
+  .rdvd-topbar{padding:0 10px}.rdvd-brand{font-size:19px}.rdvd-window-tools .rdvd-window{display:none}.rdvd-main{padding:6px}.rdvd-two-col,.rdvd-setting-grid,.rdvd-range-grid{grid-template-columns:1fr}.rdvd-radio-row{grid-template-columns:1fr}.rdvd-upload-row{grid-template-columns:1fr auto}.upload-label{grid-column:1/-1}.rdvd-subtitle-panel{top:40px;right:6px;width:calc(100% - 12px)}
+}

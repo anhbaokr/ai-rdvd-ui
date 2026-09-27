@@ -1,0 +1,301 @@
+  const [subtitleSegments, setSubtitleSegments] = useState<SubtitleSegment[]>([]);
+  const [timelineScrubbing, setTimelineScrubbing] = useState(false);
+  const [timelineContextMenu, setTimelineContextMenu] = useState<{ x: number; y: number; time: number } | null>(null);
+  const timelineScrollRef = useRef<HTMLDivElement>(null);
+  const [isPointerOverPlayer, setIsPointerOverPlayer] = useState(false);
+  const [dialogueFile, setDialogueFile] = useState<File | null>(null);
+  const [translatedFile, setTranslatedFile] = useState<File | null>(null);
+  const [pipelineRunning, setPipelineRunning] = useState(false);
+  const [pipelineDone, setPipelineDone] = useState(false);
+  const [autoStage, setAutoStage] = useState<AutoStage>('idle');
+  const [editTab, setEditTab] = useState<EditTab>('edit');
+  const [exportQueued, setExportQueued] = useState(false);
+  const [renderLogs, setRenderLogs] = useState<string[]>([]);
+  const videoInputRef = useRef<HTMLInputElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const dialogueInputRef = useRef<HTMLInputElement>(null);
+  const translatedInputRef = useRef<HTMLInputElement>(null);
+  const [voice, setVoice] = useState<Voice>('vieneu-tts-nam1');
+  const [speed, setSpeed] = useState(1);
+  const [pitch, setPitch] = useState(0);
+  const [volume, setVolume] = useState(0.8);
+  const [isMuted, setIsMuted] = useState(false);
+  const [showSubtitlePanel, setShowSubtitlePanel] = useState(true);
+  const [subtitleSize, setSubtitleSize] = useState(48);
+  const [subtitleColor, setSubtitleColor] = useState('#FFFF00');
+  const [subtitleBg, setSubtitleBg] = useState('#000000');
+  const [subtitleOpacity, setSubtitleOpacity] = useState(70);
+  const [subtitleFont, setSubtitleFont] = useState('Noto Sans');
+  const [subtitleOutline, setSubtitleOutline] = useState(true);
+  const [subtitleOutlineWidth, setSubtitleOutlineWidth] = useState(2);
+  const [logoFile, setLogoFile] = useState<File | null>(null);
+  const [logoUrl, setLogoUrl] = useState<string | null>(null);
+  const [logoBox, setLogoBox] = useState<BoxState>({ x: 1680, y: 150, w: 190, h: 110 });
+  const [logoDragging, setLogoDragging] = useState(false);
+  const logoInputRef = useRef<HTMLInputElement>(null);
+  const logoDragRef = useRef<{ mode: 'move' | 'resize'; handle?: SelectionHandle; pointerId: number; startClientX: number; startClientY: number; startBox: BoxState; scaleX: number; scaleY: number } | null>(null);
+  const logoElementRef = useRef<HTMLDivElement>(null);
+  const logoBoxRef = useRef<BoxState>({ x: 1680, y: 150, w: 190, h: 110 });
+  const [box, setBox] = useState<BoxState>({ x: 960, y: 900, w: 860, h: 120 });
+  const hasDialogue = Boolean(dialogueFile || translatedFile);
+  const [dragging, setDragging] = useState(false);
+  const [dragPreview, setDragPreview] = useState<BoxState | null>(null);
+  const sceneRef = useRef<HTMLDivElement>(null);
+  const sessionRef = useRef<DragSession | null>(null);
+
+  const pipeline = useMemo(() => {
+    const blocked = !videoFile;
+    const asrNeeded = !dialogueFile && !translatedFile;
+    const translationNeeded = !translatedFile;
+    const stageIs = (stage: AutoStage) => autoStage === stage;
+    const complete = pipelineDone;
+    return [
+      { key: 'video', label: t.sourceVideo, state: videoFile ? 'ready' : 'blocked', detail: videoFile ? videoFile.name : t.noVideo },
+      { key: 'asr', label: t.asr, state: blocked ? 'blocked' : !asrNeeded ? 'skip' : stageIs('recognizing') ? 'run' : complete ? 'ready' : 'run', detail: !asrNeeded ? t.skip : blocked ? t.blocked : stageIs('recognizing') ? t.pipelineRunning : complete ? t.ready : t.run },
+      { key: 'translation', label: t.translationReady, state: blocked ? 'blocked' : !translationNeeded ? 'skip' : stageIs('translating') ? 'run' : complete ? 'ready' : 'run', detail: !translationNeeded ? t.skip : blocked ? t.blocked : stageIs('translating') ? t.pipelineRunning : complete ? t.ready : t.run },
+      { key: 'tts', label: t.tts, state: blocked ? 'blocked' : stageIs('dubbing') ? 'run' : complete ? 'ready' : 'run', detail: blocked ? t.blocked : stageIs('dubbing') ? t.pipelineRunning : complete ? t.ready : t.run },
+      { key: 'subtitle', label: t.subtitleStep, state: blocked ? 'blocked' : stageIs('dubbing') ? 'run' : complete ? 'ready' : 'run', detail: blocked ? t.blocked : stageIs('dubbing') ? t.pipelineRunning : complete ? t.ready : t.run },
+      { key: 'timeline', label: t.timeline, state: blocked ? 'blocked' : stageIs('committing') ? 'run' : complete ? 'ready' : 'run', detail: blocked ? t.blocked : stageIs('committing') ? t.pipelineRunning : complete ? t.ready : t.run },
+    ] as const;
+  }, [videoFile, dialogueFile, translatedFile, autoStage, pipelineDone, t]);
+
+  const autoActionLabel = useMemo(() => {
+    if (autoStage === 'recognizing') return t.autoRecognizing;
+    if (autoStage === 'translating') return t.autoTranslating;
+    if (autoStage === 'dubbing') return t.autoDubbing;
+    if (autoStage === 'committing') return t.autoCommitting;
+    return t.autoRender;
+  }, [autoStage, t]);
+
+
+  const addLog = useCallback((message: string) => {
+    const stamp = new Date().toLocaleTimeString('vi-VN', { hour12: false });
+    setRenderLogs((items) => [...items.slice(-9), `[${stamp}] ${message}`]);
+  }, []);
+
+  const handleVideoFile = useCallback((file: File | null) => {
+    if (!file) return;
+    if (!file.type.startsWith('video/')) {
+      window.alert(t.invalidVideo);
+      return;
+    }
+    setVideoFile(file);
+    setPipelineDone(false);
+    setAutoStage('idle');
+    setExportQueued(false);
+    setIsVideoPlaying(false);
+    setSubtitleSegments([]);
+    setVideoCurrentTime(0);
+    setVideoDuration(0);
+    setSubtitleVisible(true);
+    setSubtitleFrameVisible(autoSubtitleFrame);
+    setIsMuted(startMuted);
+    if (videoUrl) URL.revokeObjectURL(videoUrl);
+    const objectUrl = URL.createObjectURL(file);
+    setVideoUrl(objectUrl);
+    setSubtitleFrameVisible(true);
+  }, [t.invalidVideo, videoUrl, autoSubtitleFrame, startMuted]);
+
+  const handleLogoFile = useCallback((file: File | null) => {
+    if (!file) return;
+    if (!file.type.startsWith('image/')) {
+      window.alert(language === 'vi' ? 'Vui lòng chọn file hình ảnh.' : 'Please choose an image file.');
+      return;
+    }
+    if (logoUrl) URL.revokeObjectURL(logoUrl);
+    const url = URL.createObjectURL(file);
+    setLogoFile(file);
+    setLogoUrl(url);
+    const image = new Image();
+    image.onload = () => {
+      const ratio = image.naturalWidth > 0 && image.naturalHeight > 0 ? image.naturalWidth / image.naturalHeight : 16 / 9;
+      const w = 210;
+      const h = Math.max(70, Math.min(180, w / ratio));
+      const next = { x: STAGE_W - w / 2 - 55, y: h / 2 + 45, w, h };
+      logoBoxRef.current = next;
+      setLogoBox(next);
+      URL.revokeObjectURL(image.src);
+    };
+    image.src = URL.createObjectURL(file);
+  }, [language, logoUrl]);
+
+  const removeLogo = useCallback(() => {
+    setLogoFile(null);
+    setLogoUrl((current) => {
+      if (current) URL.revokeObjectURL(current);
+      return null;
+    });
+    if (logoInputRef.current) logoInputRef.current.value = '';
+  }, []);
+
+  const handleDialogueFile = useCallback((file: File | null) => {
+    if (!file) return;
+    setDialogueFile(file); setPipelineDone(false); setAutoStage('idle'); setExportQueued(false); addLog(`${language === 'vi' ? 'Đã nạp lời thoại' : 'Dialogue loaded'}: ${file.name}`);
+  }, [addLog, language]);
+
+  const handleTranslatedFile = useCallback((file: File | null) => {
+    if (!file) return;
+    setTranslatedFile(file); setPipelineDone(false); setAutoStage('idle'); setExportQueued(false);
+    addLog(`${language === 'vi' ? 'Đã nạp phụ đề dịch' : 'Translated subtitles loaded'}: ${file.name}`);
+  }, [addLog, language]);
+
+  useEffect(() => {
+    if (!translatedFile) {
+      setSubtitleSegments([]);
+      return;
+    }
+    let cancelled = false;
+    translatedFile.text().then((content) => {
+      if (cancelled) return;
+      setSubtitleSegments(parseSubtitleFile(content, videoDuration));
+    }).catch(() => {
+      if (!cancelled) setSubtitleSegments([]);
+    });
+    return () => { cancelled = true; };
+  }, [translatedFile, videoDuration]);
+
+  useEffect(() => {
+    if (!videoUrl) {
+      setVideoThumbnails([]);
+      setAudioWaveform([]);
+      return;
+    }
+
+    let cancelled = false;
+    const tempVideo = document.createElement('video');
+    tempVideo.preload = 'auto';
+    tempVideo.muted = true;
+    tempVideo.playsInline = true;
+    tempVideo.src = videoUrl;
+
+    const buildMediaTimeline = async () => {
+      try {
+        await new Promise<void>((resolve, reject) => {
+          tempVideo.onloadedmetadata = () => resolve();
+          tempVideo.onerror = () => reject(new Error('Không đọc được metadata video'));
+          tempVideo.load();
+        });
+        if (cancelled) return;
+
+        const duration = Number.isFinite(tempVideo.duration) ? tempVideo.duration : 0;
+        const count = Math.min(12, Math.max(6, Math.ceil(duration / 8) || 6));
+        const canvas = document.createElement('canvas');
+        canvas.width = 320;
+        canvas.height = 180;
+        const ctx = canvas.getContext('2d');
+        const thumbs: string[] = [];
+        if (ctx && duration > 0) {
+          for (let i = 0; i < count; i += 1) {
+            const time = Math.min(duration - 0.05, (duration * i) / Math.max(1, count - 1));
+            await new Promise<void>((resolve) => {
+              const done = () => { tempVideo.removeEventListener('seeked', done); resolve(); };
+              tempVideo.addEventListener('seeked', done, { once: true });
+              tempVideo.currentTime = Math.max(0, time);
+            });
+            if (cancelled) return;
+            ctx.drawImage(tempVideo, 0, 0, canvas.width, canvas.height);
+            thumbs.push(canvas.toDataURL('image/jpeg', 0.72));
+          }
+        }
+        if (!cancelled) setVideoThumbnails(thumbs);
+
+        try {
+          const AudioContextCtor = window.AudioContext || (window as typeof window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
+          if (!AudioContextCtor) return;
+          const response = await fetch(videoUrl);
+          const buffer = await response.arrayBuffer();
+          const audioContext = new AudioContextCtor();
+          const audioBuffer = await audioContext.decodeAudioData(buffer.slice(0));
+          const channel = audioBuffer.getChannelData(0);
+          const points = 180;
+          const step = Math.max(1, Math.floor(channel.length / points));
+          const waveform: number[] = [];
+          for (let i = 0; i < points; i += 1) {
+            const start = i * step;
+            const end = Math.min(channel.length, start + step);
+            let peak = 0;
+            for (let j = start; j < end; j += Math.max(1, Math.floor(step / 24))) peak = Math.max(peak, Math.abs(channel[j]));
+            waveform.push(Math.min(1, peak));
+          }
+          if (!cancelled) setAudioWaveform(waveform);
+          await audioContext.close();
+        } catch {
+          if (!cancelled) setAudioWaveform([]);
+        }
+      } catch {
+        if (!cancelled) {
+          setVideoThumbnails([]);
+          setAudioWaveform([]);
+        }
+      }
+    };
+
+    void buildMediaTimeline();
+    return () => {
+      cancelled = true;
+      tempVideo.removeAttribute('src');
+      tempVideo.load();
+    };
+  }, [videoUrl]);
+
+  const seekVideo = useCallback((time: number) => {
+    const next = Math.max(0, Math.min(videoDuration || 0, time));
+    if (videoRef.current && videoDuration) videoRef.current.currentTime = next;
+    setVideoCurrentTime(next);
+  }, [videoDuration]);
+
+  const requestSceneFullscreen = useCallback(() => {
+    const scene = sceneRef.current;
+    if (!scene) return;
+    if (document.fullscreenElement) {
+      void document.exitFullscreen();
+      return;
+    }
+    if (scene.requestFullscreen) void scene.requestFullscreen();
+  }, []);
+
+  const seekFromTimelinePointer = useCallback((event: React.PointerEvent<HTMLElement>) => {
+    if (!videoFile || !videoDuration) return;
+    const target = event.currentTarget as HTMLElement;
+    const rect = target.getBoundingClientRect();
+    const ratio = Math.max(0, Math.min(1, (event.clientX - rect.left) / Math.max(1, rect.width)));
+    seekVideo(ratio * videoDuration);
+  }, [seekVideo, videoFile, videoDuration]);
+
+  // One canonical timeline time-space: the ruler and media use the same pixels-per-second.
+  // Zoom changes visible timeline density; it must never change the underlying video time.
+  const timelineRulerDuration = useMemo(() => {
+    if (!videoDuration) return 120;
+    // Keep one technical time-space across the ruler, media, playhead and scrub.
+    // Zoom-out (< 100%) shows additional empty time to the right so the real clip
+    // still occupies exactly its zoomed proportion of the viewport. Zoom-in (>= 100%)
+    // enlarges the canvas itself, so the ruler remains the video's real duration.
+    return timelineZoom < 1 ? videoDuration / Math.max(0.05, timelineZoom) : videoDuration;
+  }, [timelineZoom, videoDuration]);
+
+  const seekFromTimelineRulerPointer = useCallback((event: React.PointerEvent<HTMLElement>) => {
+    if (!videoFile || !videoDuration) return;
+    const target = event.currentTarget as HTMLElement;
+    const rect = target.getBoundingClientRect();
+    const ratio = Math.max(0, Math.min(1, (event.clientX - rect.left) / Math.max(1, rect.width)));
+    seekVideo(Math.min(videoDuration, ratio * timelineRulerDuration));
+  }, [seekVideo, videoFile, videoDuration, timelineRulerDuration]);
+
+  const startTimelineScrub = useCallback((event: React.PointerEvent<HTMLElement>) => {
+    if (event.pointerType === 'mouse' && event.button !== 0) return;
+    if (!videoFile || !videoDuration) return;
+    event.preventDefault();
+    seekFromTimelinePointer(event);
+    setTimelineScrubbing(true);
+    try { event.currentTarget.setPointerCapture(event.pointerId); } catch { /* best effort */ }
+  }, [seekFromTimelinePointer, videoFile, videoDuration]);
+
+  const moveTimelineScrub = useCallback((event: React.PointerEvent<HTMLElement>) => {
+    if (!timelineScrubbing) return;
+    seekFromTimelinePointer(event);
+  }, [seekFromTimelinePointer, timelineScrubbing]);
+
+  const endTimelineScrub = useCallback((event: React.PointerEvent<HTMLElement>) => {
+    if (!timelineScrubbing) return;
+    try { event.currentTarget.releasePointerCapture(event.pointerId); } catch { /* best effort */ }
+    setTimelineScrubbing(false);

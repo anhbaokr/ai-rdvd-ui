@@ -1,0 +1,21 @@
+{
+  "schema": "ai-rdvd.translation-template.v1",
+  "engine": "Vocalize Translation Lab v010.4",
+  "model": "ngocdang83/HachimiMT-60-QT",
+  "sourceLanguage": "zh",
+  "targetLanguage": "vi",
+  "requiredResources": [
+    "models/HachimiMT-60-QT/ct2-int8_float32/model.bin",
+    "sources/CVDICT/CVDICT.u8",
+    "sources/hanviet-pinyin-wordlist/hanviet.csv",
+    "dictionaries/domain-glossary.json",
+    "dictionaries/semantic-evidence-v010.json",
+    "data/xianxia-domain-lexicon.json"
+  ],
+  "licenseReview": {
+    "hanviet-pinyin-wordlist": "MIT",
+    "CVDICT": "CC BY-SA 4.0; attribution and distribution review required",
+    "HachimiMT-60-QT": "verify upstream model license before redistribution",
+    "hanlp_mt": "reference implementation only; verify upstream license before bundling"
+  }
+}

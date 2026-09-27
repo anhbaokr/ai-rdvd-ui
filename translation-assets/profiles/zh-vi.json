@@ -1,0 +1,8 @@
+{
+  "id": "zh-vi",
+  "name": "Trung Quốc → Việt Nam",
+  "sourceLanguage": "zh",
+  "targetLanguage": "vi",
+  "engine": "HachimiMT-60-QT",
+  "enabled": true
+}

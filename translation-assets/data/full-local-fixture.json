@@ -1,0 +1,610 @@
+[
+  {
+    "id": "xianxia-001",
+    "source": "他已经突破了筑基境，随后进入了青云宗。",
+    "cws": [
+      "他",
+      "已经",
+      "突破",
+      "了",
+      "筑基境",
+      "，",
+      "随后",
+      "进入",
+      "了",
+      "青云宗",
+      "。"
+    ],
+    "pos": [
+      "PN",
+      "AD",
+      "VV",
+      "AS",
+      "NN",
+      "PU",
+      "AD",
+      "VV",
+      "AS",
+      "NN",
+      "PU"
+    ],
+    "ner": [
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "ORG",
+      "O"
+    ],
+    "con": "(IP (NP (PN 他)) (VP (ADVP (AD 已经)) (VP (VV 突破) (NP (NN 筑基境))) (VP (VV 进入) (NP (ORG 青云宗)))))",
+    "dep": [
+      {
+        "head": 3,
+        "dependent": 1,
+        "relation": "nsubj"
+      },
+      {
+        "head": 3,
+        "dependent": 5,
+        "relation": "dobj"
+      },
+      {
+        "head": 7,
+        "dependent": 3,
+        "relation": "advmod"
+      },
+      {
+        "head": 8,
+        "dependent": 10,
+        "relation": "dobj"
+      }
+    ],
+    "con_spans": [
+      "筑基境",
+      "青云宗"
+    ],
+    "focus": [
+      "筑基境",
+      "青云宗"
+    ]
+  },
+  {
+    "id": "xianxia-002",
+    "source": "他中了毒以后一直强行运功，差点走火入魔。",
+    "cws": [
+      "他",
+      "中",
+      "了",
+      "毒",
+      "以后",
+      "一直",
+      "强行",
+      "运功",
+      "，",
+      "差点",
+      "走火入魔",
+      "。"
+    ],
+    "pos": [
+      "PN",
+      "VV",
+      "AS",
+      "NN",
+      "CS",
+      "AD",
+      "AD",
+      "VV",
+      "PU",
+      "AD",
+      "VV",
+      "PU"
+    ],
+    "ner": [
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O"
+    ],
+    "con": "(IP (NP (PN 他)) (VP (VV 中) (AS 了) (NP (NN 毒)) (VP (CS 以后) (VP (AD 一直) (VP (AD 强行) (VV 运功))) (VP (AD 差点) (VV 走火入魔)))))",
+    "dep": [
+      {
+        "head": 2,
+        "dependent": 1,
+        "relation": "nsubj"
+      },
+      {
+        "head": 2,
+        "dependent": 4,
+        "relation": "dobj"
+      },
+      {
+        "head": 8,
+        "dependent": 6,
+        "relation": "advmod"
+      },
+      {
+        "head": 8,
+        "dependent": 7,
+        "relation": "advmod"
+      },
+      {
+        "head": 11,
+        "dependent": 10,
+        "relation": "advmod"
+      }
+    ],
+    "con_spans": [
+      "中毒",
+      "走火入魔"
+    ],
+    "focus": [
+      "中毒",
+      "走火入魔"
+    ]
+  },
+  {
+    "id": "xianxia-003",
+    "source": "若天道降下雷劫，他必须以自身神通抵挡，否则数百年苦修将毁于一旦。",
+    "cws": [
+      "若",
+      "天道",
+      "降下",
+      "雷劫",
+      "，",
+      "他",
+      "必须",
+      "以",
+      "自身",
+      "神通",
+      "抵挡",
+      "，",
+      "否则",
+      "数百年",
+      "苦修",
+      "将",
+      "毁于一旦",
+      "。"
+    ],
+    "pos": [
+      "CS",
+      "NN",
+      "VV",
+      "NN",
+      "PU",
+      "PN",
+      "MD",
+      "P",
+      "NN",
+      "NN",
+      "VV",
+      "PU",
+      "AD",
+      "CD",
+      "VV",
+      "MD",
+      "VV",
+      "PU"
+    ],
+    "ner": [
+      "O",
+      "ORG",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O"
+    ],
+    "con": "(IP (CP (CS 若) (IP (NP (NN 天道)) (VP (VV 降下) (NP (NN 雷劫))))) (IP (NP (PN 他)) (VP (MD 必须) (PP (P 以) (NP (NN 自身神通))) (VV 抵挡))) )",
+    "dep": [
+      {
+        "head": 3,
+        "dependent": 2,
+        "relation": "nsubj"
+      },
+      {
+        "head": 3,
+        "dependent": 4,
+        "relation": "dobj"
+      },
+      {
+        "head": 11,
+        "dependent": 6,
+        "relation": "nsubj"
+      },
+      {
+        "head": 11,
+        "dependent": 10,
+        "relation": "dobj"
+      },
+      {
+        "head": 17,
+        "dependent": 16,
+        "relation": "nsubj"
+      }
+    ],
+    "con_spans": [
+      "雷劫"
+    ],
+    "focus": [
+      "雷劫",
+      "降下"
+    ]
+  },
+  {
+    "id": "xianxia-004",
+    "source": "那件本命法宝已经认主，除非主人身死，否则外人无法强行夺取。",
+    "cws": [
+      "那件",
+      "本命法宝",
+      "已经",
+      "认主",
+      "，",
+      "除非",
+      "主人",
+      "身死",
+      "，",
+      "否则",
+      "外人",
+      "无法",
+      "强行",
+      "夺取",
+      "。"
+    ],
+    "pos": [
+      "DT",
+      "NN",
+      "AD",
+      "VV",
+      "PU",
+      "CS",
+      "NN",
+      "VV",
+      "PU",
+      "CS",
+      "NN",
+      "MD",
+      "AD",
+      "VV",
+      "PU"
+    ],
+    "ner": [
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O"
+    ],
+    "con": "(IP (NP (DT 那件) (NN 本命法宝)) (VP (AD 已经) (VV 认主)))",
+    "dep": [
+      {
+        "head": 4,
+        "dependent": 2,
+        "relation": "nsubj"
+      },
+      {
+        "head": 4,
+        "dependent": 3,
+        "relation": "advmod"
+      },
+      {
+        "head": 8,
+        "dependent": 7,
+        "relation": "nsubj"
+      },
+      {
+        "head": 14,
+        "dependent": 11,
+        "relation": "nsubj"
+      }
+    ],
+    "con_spans": [
+      "本命法宝"
+    ],
+    "focus": [
+      "本命法宝",
+      "认主",
+      "夺取"
+    ]
+  },
+  {
+    "id": "poly-001",
+    "source": "他终于投降了，宗门长老也没有继续追杀。",
+    "cws": [
+      "他",
+      "终于",
+      "投降",
+      "了",
+      "，",
+      "宗门",
+      "长老",
+      "也",
+      "没有",
+      "继续",
+      "追杀",
+      "。"
+    ],
+    "pos": [
+      "PN",
+      "AD",
+      "VV",
+      "AS",
+      "PU",
+      "NN",
+      "NN",
+      "AD",
+      "AD",
+      "AD",
+      "VV",
+      "PU"
+    ],
+    "ner": [
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "ORG",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O"
+    ],
+    "con": "(IP (NP (PN 他)) (VP (AD 终于) (VP (VV 投降) (AS 了))) )",
+    "dep": [
+      {
+        "head": 3,
+        "dependent": 1,
+        "relation": "nsubj"
+      },
+      {
+        "head": 3,
+        "dependent": 2,
+        "relation": "advmod"
+      },
+      {
+        "head": 11,
+        "dependent": 6,
+        "relation": "nsubj"
+      }
+    ],
+    "con_spans": [
+      "投降"
+    ],
+    "focus": [
+      "投降",
+      "长老",
+      "追杀"
+    ]
+  },
+  {
+    "id": "poly-002",
+    "source": "中文功法与宗门礼法不同，修士不可轻易混用。",
+    "cws": [
+      "中文",
+      "功法",
+      "与",
+      "宗门",
+      "礼法",
+      "不同",
+      "，",
+      "修士",
+      "不可",
+      "轻易",
+      "混用",
+      "。"
+    ],
+    "pos": [
+      "NN",
+      "NN",
+      "CC",
+      "NN",
+      "NN",
+      "JJ",
+      "PU",
+      "NN",
+      "MD",
+      "AD",
+      "VV",
+      "PU"
+    ],
+    "ner": [
+      "O",
+      "O",
+      "O",
+      "ORG",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O"
+    ],
+    "con": "(IP (NP (NN 中文) (NN 功法)) (VP (JJ 不同)) )",
+    "dep": [
+      {
+        "head": 6,
+        "dependent": 1,
+        "relation": "nmod"
+      },
+      {
+        "head": 6,
+        "dependent": 2,
+        "relation": "nmod"
+      },
+      {
+        "head": 6,
+        "dependent": 4,
+        "relation": "nmod"
+      },
+      {
+        "head": 6,
+        "dependent": 5,
+        "relation": "nmod"
+      }
+    ],
+    "con_spans": [
+      "中文",
+      "功法"
+    ],
+    "focus": [
+      "中文",
+      "功法",
+      "不同"
+    ]
+  },
+  {
+    "id": "sensitive-001",
+    "source": "他若继续强行运转功法，心魔一旦爆发，便可能吞噬神智，甚至导致元神受损。",
+    "cws": [
+      "他",
+      "若",
+      "继续",
+      "强行",
+      "运转",
+      "功法",
+      "，",
+      "心魔",
+      "一旦",
+      "爆发",
+      "，",
+      "便",
+      "可能",
+      "吞噬",
+      "神智",
+      "，",
+      "甚至",
+      "导致",
+      "元神",
+      "受损",
+      "。"
+    ],
+    "pos": [
+      "PN",
+      "CS",
+      "AD",
+      "AD",
+      "VV",
+      "NN",
+      "PU",
+      "NN",
+      "CS",
+      "VV",
+      "PU",
+      "AD",
+      "MD",
+      "VV",
+      "NN",
+      "PU",
+      "AD",
+      "VV",
+      "NN",
+      "VV",
+      "PU"
+    ],
+    "ner": [
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O",
+      "O"
+    ],
+    "con": "(IP (CP (CS 若) (IP (NP (PN 他)) (VP (AD 继续) (VP (AD 强行) (VP (VV 运转) (NP (NN 功法))))))) (IP (NP (NN 心魔)) (VP (CS 一旦) (VV 爆发))))",
+    "dep": [
+      {
+        "head": 5,
+        "dependent": 1,
+        "relation": "nsubj"
+      },
+      {
+        "head": 5,
+        "dependent": 6,
+        "relation": "dobj"
+      },
+      {
+        "head": 10,
+        "dependent": 8,
+        "relation": "nsubj"
+      },
+      {
+        "head": 10,
+        "dependent": 9,
+        "relation": "advmod"
+      },
+      {
+        "head": 14,
+        "dependent": 15,
+        "relation": "dobj"
+      },
+      {
+        "head": 18,
+        "dependent": 19,
+        "relation": "dobj"
+      }
+    ],
+    "con_spans": [
+      "心魔",
+      "元神"
+    ],
+    "focus": [
+      "功法",
+      "心魔",
+      "神智",
+      "元神",
+      "受损"
+    ]
+  }
+]

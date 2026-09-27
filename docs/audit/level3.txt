@@ -1,0 +1,2239 @@
+﻿
+
+    Directory: E:\ai-rdvd-ui
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/20/2026   8:31 PM                .translation-venv                                                    
+d-----         9/25/2026  10:46 PM                .venv                                                                
+d-----         9/20/2026   2:32 PM                audio                                                                
+d-----         9/22/2026   1:09 AM                backend                                                              
+d-----         9/21/2026   7:05 PM                dist                                                                 
+d-----         9/20/2026   4:08 PM                node_modules                                                         
+d-----         9/20/2026   4:51 PM                output                                                               
+d-----         9/21/2026  12:34 AM                payload                                                              
+d-----         9/19/2026  10:53 PM                public                                                               
+d-----         9/20/2026   2:22 PM                runtime                                                              
+d-----         9/20/2026   8:28 PM                scripts                                                              
+d-----         9/20/2026   2:22 PM                src                                                                  
+d-----         9/19/2026  11:49 PM                src-tauri                                                            
+d-----         9/22/2026   1:09 AM                tests                                                                
+d-----         9/23/2026   1:42 PM                translation-assets                                                   
+d-----         9/25/2026   9:53 PM                translation-models                                                   
+d-----         9/20/2026   8:28 PM                translation-template                                                 
+d-----         9/25/2026  12:11 PM                _AUDIT_CLEAN                                                         
+d-----         9/25/2026  11:57 AM                _AUDIT_FULL                                                          
+d-----         9/21/2026  12:34 AM                _patch-backups                                                       
+-a----         9/24/2026   5:16 PM          23394 a1.txt                                                               
+-a----         9/24/2026   5:16 PM          14530 a2.txt                                                               
+-a----         9/24/2026   5:16 PM          15559 a3.txt                                                               
+-a----         9/25/2026   8:07 AM     1436070897 ai-rdvd-ui.zip                                                       
+-a----         9/20/2026   5:30 PM           1600 APPLY-V48.1-R2.cmd                                                   
+-a----         9/20/2026   5:30 PM           1739 apply-v48.1-r2.ps1                                                   
+-a----         9/26/2026   8:12 AM        3848374 code_structure.txt                                                   
+-a----         9/24/2026   5:16 PM            294 index.html                                                           
+-a----         9/26/2026   8:25 AM              0 level3.txt                                                           
+-a----         9/24/2026   5:16 PM          46731 package-lock.json                                                    
+-a----         9/24/2026   5:16 PM           1091 package.json                                                         
+-a----         9/20/2026   5:30 PM           1146 PATCH-README-V48.1-R2.txt                                            
+-a----         9/24/2026   5:16 PM            763 README.md                                                            
+-a----         9/24/2026   6:00 PM           1571 README_KOREAN_SOURCE_INTEGRATION.md                                  
+-a----         9/24/2026   5:16 PM            547 README_V11.txt                                                       
+-a----         9/24/2026   5:16 PM            643 README_V12.txt                                                       
+-a----         9/24/2026   5:16 PM            504 README_V13.txt                                                       
+-a----         9/24/2026   5:16 PM            981 README_V15.md                                                        
+-a----         9/24/2026   5:16 PM            458 README_V16.md                                                        
+-a----         9/24/2026   5:16 PM            885 README_V19.md                                                        
+-a----         9/24/2026   5:16 PM           1012 README_V20.md                                                        
+-a----         9/24/2026   5:16 PM           1417 README_V21.md                                                        
+-a----         9/24/2026   5:16 PM            637 README_V22.md                                                        
+-a----         9/24/2026   5:16 PM           1090 README_V23.md                                                        
+-a----         9/24/2026   5:16 PM           1154 README_V24.md                                                        
+-a----         9/24/2026   5:16 PM            904 README_V25.md                                                        
+-a----         9/24/2026   5:16 PM           1189 README_V26.md                                                        
+-a----         9/24/2026   5:16 PM            577 README_V27.md                                                        
+-a----         9/24/2026   5:16 PM            584 README_V28.md                                                        
+-a----         9/24/2026   5:16 PM            817 README_V29.md                                                        
+-a----         9/24/2026   5:16 PM            390 README_V30.md                                                        
+-a----         9/24/2026   5:16 PM            749 README_V31.md                                                        
+-a----         9/24/2026   5:16 PM            649 README_V32.md                                                        
+-a----         9/24/2026   5:16 PM            834 README_V33.md                                                        
+-a----         9/24/2026   5:16 PM            688 README_V34.md                                                        
+-a----         9/24/2026   5:16 PM            699 README_V36.md                                                        
+-a----         9/24/2026   5:16 PM            449 README_V37.md                                                        
+-a----         9/24/2026   5:16 PM            773 README_V38.md                                                        
+-a----         9/24/2026   5:16 PM            449 README_V39.md                                                        
+-a----         9/24/2026   5:16 PM           1291 README_V40.md                                                        
+-a----         9/24/2026   5:16 PM           1571 README_V41.md                                                        
+-a----         9/24/2026   5:16 PM           1179 README_V42.md                                                        
+-a----         9/24/2026   5:16 PM            973 README_V43.md                                                        
+-a----         9/24/2026   5:16 PM            853 README_V44.md                                                        
+-a----         9/24/2026   5:16 PM           1963 README_V45.md                                                        
+-a----         9/24/2026   5:16 PM           1317 README_V46.2.md                                                      
+-a----         9/24/2026   5:16 PM           1632 README_V46.3.md                                                      
+-a----         9/24/2026   5:16 PM           1207 README_V46.4.md                                                      
+-a----         9/24/2026   5:16 PM           3312 README_V46.md                                                        
+-a----         9/24/2026   5:16 PM           2918 README_V47.2.md                                                      
+-a----         9/24/2026   5:16 PM           4230 README_V47.3.md                                                      
+-a----         9/24/2026   5:16 PM           2551 README_V47.4.md                                                      
+-a----         9/24/2026   5:16 PM           2675 README_V47.5.md                                                      
+-a----         9/24/2026   5:16 PM           5407 README_V47.6.md                                                      
+-a----         9/24/2026   5:16 PM           3835 README_V47.md                                                        
+-a----         9/25/2026  11:52 PM            464 RUN-MBART-KO-VI-BENCHMARK-10.cmd                                     
+-a----         9/25/2026  11:51 PM           5921 RUN-MBART-KO-VI-BENCHMARK-10.py                                      
+-a----         9/25/2026  12:04 PM           9625 STRUCTURE-CLEAN.txt                                                  
+-a----         9/25/2026   6:00 PM        2250815 structure.txt                                                        
+-a----         9/24/2026   5:16 PM           1045 THIRD_PARTY_TRANSLATION.md                                           
+-a----         9/24/2026   5:16 PM            507 tsconfig.json                                                        
+-a----         9/25/2026  11:49 PM              0 VI                                                                   
+-a----         9/24/2026   5:16 PM            270 vite.config.ts                                                       
+-a----         9/25/2026  11:54 AM        4859535 _AUDIT_FULL.zip                                                      
+-a----         9/25/2026  11:48 PM             33 {translation}')                                                      
+
+
+    Directory: E:\ai-rdvd-ui\.translation-venv
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/12/2026   9:38 PM                Include                                                              
+d-----         9/12/2026   9:38 PM                Lib                                                                  
+d-----         9/12/2026   9:50 PM                Scripts                                                              
+-a----         9/12/2026   9:38 PM            327 pyvenv.cfg                                                           
+-a----         9/20/2026   8:31 PM            457 translation-runtime.lock.txt                                         
+
+
+    Directory: E:\ai-rdvd-ui\.translation-venv\Lib
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/12/2026   9:50 PM                site-packages                                                        
+
+
+    Directory: E:\ai-rdvd-ui\.translation-venv\Lib\site-packages
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/12/2026   9:49 PM                certifi                                                              
+d-----         9/12/2026   9:49 PM                certifi-2026.7.22.dist-info                                          
+d-----         9/12/2026   9:49 PM                charset_normalizer                                                   
+d-----         9/12/2026   9:49 PM                charset_normalizer-3.5.1.dist-info                                   
+d-----         9/12/2026   9:49 PM                colorama                                                             
+d-----         9/12/2026   9:49 PM                colorama-0.4.6.dist-info                                             
+d-----         9/12/2026   9:49 PM                ctranslate2                                                          
+d-----         9/12/2026   9:49 PM                ctranslate2-4.8.2.dist-info                                          
+d-----         9/12/2026   9:49 PM                dateutil                                                             
+d-----         9/12/2026   9:49 PM                filelock                                                             
+d-----         9/12/2026   9:49 PM                filelock-3.32.6.dist-info                                            
+d-----         9/12/2026   9:49 PM                fsspec                                                               
+d-----         9/12/2026   9:49 PM                fsspec-2026.7.0.dist-info                                            
+d-----         9/12/2026   9:50 PM                huggingface_hub                                                      
+d-----         9/12/2026   9:50 PM                huggingface_hub-0.36.2.dist-info                                     
+d-----         9/12/2026   9:49 PM                idna                                                                 
+d-----         9/12/2026   9:49 PM                idna-3.19.dist-info                                                  
+d-----         9/12/2026   9:49 PM                numpy                                                                
+d-----         9/12/2026   9:49 PM                numpy-2.5.3.dist-info                                                
+d-----         9/12/2026   9:49 PM                numpy.libs                                                           
+d-----         9/12/2026   9:49 PM                packaging                                                            
+d-----         9/12/2026   9:49 PM                packaging-26.3.dist-info                                             
+d-----         9/12/2026   9:49 PM                pandas                                                               
+d-----         9/12/2026   9:50 PM                pandas-3.0.5.dist-info                                               
+d-----         9/12/2026   9:49 PM                pandas.libs                                                          
+d-----         9/12/2026   9:39 PM                pip                                                                  
+d-----         9/12/2026   9:39 PM                pip-26.2.1.dist-info                                                 
+d-----         9/12/2026   9:49 PM                python_dateutil-2.9.0.post0.dist-info                                
+d-----         9/12/2026   9:49 PM                pyyaml-6.0.3.dist-info                                               
+d-----         9/12/2026   9:49 PM                regex                                                                
+d-----         9/12/2026   9:49 PM                regex-2026.9.10.dist-info                                            
+d-----         9/12/2026   9:49 PM                requests                                                             
+d-----         9/12/2026   9:49 PM                requests-2.34.2.dist-info                                            
+d-----         9/12/2026   9:49 PM                safetensors                                                          
+d-----         9/12/2026   9:49 PM                safetensors-0.8.0.dist-info                                          
+d-----         9/12/2026   9:49 PM                sentencepiece                                                        
+d-----         9/12/2026   9:49 PM                sentencepiece-0.2.2.dist-info                                        
+d-----         9/12/2026   9:49 PM                six-1.17.0.dist-info                                                 
+d-----         9/12/2026   9:50 PM                tokenizers                                                           
+d-----         9/12/2026   9:50 PM                tokenizers-0.22.2.dist-info                                          
+d-----         9/12/2026   9:49 PM                tqdm                                                                 
+d-----         9/12/2026   9:49 PM                tqdm-4.70.1.dist-info                                                
+d-----         9/12/2026   9:50 PM                transformers                                                         
+d-----         9/12/2026   9:50 PM                transformers-4.57.6.dist-info                                        
+d-----         9/12/2026   9:49 PM                typing_extensions-4.16.0.dist-info                                   
+d-----         9/12/2026   9:49 PM                tzdata                                                               
+d-----         9/12/2026   9:49 PM                tzdata-2026.4.dist-info                                              
+d-----         9/12/2026   9:49 PM                urllib3                                                              
+d-----         9/12/2026   9:49 PM                urllib3-2.7.0.dist-info                                              
+d-----         9/12/2026   9:49 PM                yaml                                                                 
+d-----         9/12/2026   9:49 PM                _yaml                                                                
+d-----         9/12/2026   9:49 PM                __pycache__                                                          
+-a----         9/12/2026   9:49 PM          34703 six.py                                                               
+-a----         9/12/2026   9:49 PM         165012 typing_extensions.py                                                 
+
+
+    Directory: E:\ai-rdvd-ui\.translation-venv\Scripts
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/12/2026   9:39 PM           2192 activate                                                             
+-a----         9/12/2026   9:39 PM           1007 activate.bat                                                         
+-a----         9/12/2026   9:39 PM          27975 Activate.ps1                                                         
+-a----         9/12/2026   9:49 PM         108364 ct2-fairseq-converter.exe                                            
+-a----         9/12/2026   9:49 PM         108363 ct2-marian-converter.exe                                             
+-a----         9/12/2026   9:49 PM         108368 ct2-openai-gpt2-converter.exe                                        
+-a----         9/12/2026   9:49 PM         108367 ct2-opennmt-py-converter.exe                                         
+-a----         9/12/2026   9:49 PM         108367 ct2-opennmt-tf-converter.exe                                         
+-a----         9/12/2026   9:49 PM         108364 ct2-opus-mt-converter.exe                                            
+-a----         9/12/2026   9:49 PM         108369 ct2-transformers-converter.exe                                       
+-a----         9/12/2026   9:39 PM            393 deactivate.bat                                                       
+-a----         9/12/2026   9:49 PM         108351 f2py.exe                                                             
+-a----         9/12/2026   9:50 PM         108356 hf.exe                                                               
+-a----         9/12/2026   9:50 PM         108374 huggingface-cli.exe                                                  
+-a----         9/12/2026   9:49 PM         108342 idna.exe                                                             
+-a----         9/12/2026   9:49 PM         108368 normalizer.exe                                                       
+-a----         9/12/2026   9:49 PM         108351 numpy-config.exe                                                     
+-a----         9/12/2026   9:39 PM         108408 pip.exe                                                              
+-a----         9/12/2026   9:39 PM         108408 pip3.12.exe                                                          
+-a----         9/12/2026   9:39 PM         108408 pip3.exe                                                             
+-a----         9/12/2026   9:38 PM         274424 python.exe                                                           
+-a----         9/12/2026   9:38 PM         263400 pythonw.exe                                                          
+-a----         9/12/2026   9:50 PM         108366 tiny-agents.exe                                                      
+-a----         9/12/2026   9:49 PM         108342 tqdm.exe                                                             
+-a----         9/12/2026   9:50 PM         108380 transformers-cli.exe                                                 
+-a----         9/12/2026   9:50 PM         108372 transformers.exe                                                     
+
+
+    Directory: E:\ai-rdvd-ui\.venv
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/20/2026   2:33 PM                Include                                                              
+d-----         9/13/2026   9:17 PM                Lib                                                                  
+d-----         9/25/2026  10:47 PM                Scripts                                                              
+d-----         9/25/2026  10:46 PM                share                                                                
+-a----         9/13/2026   9:17 PM              1 .gitignore                                                           
+-a----         9/13/2026   9:17 PM             43 CACHEDIR.TAG                                                         
+-a----         9/13/2026   9:17 PM            163 pyvenv.cfg                                                           
+
+
+    Directory: E:\ai-rdvd-ui\.venv\Lib
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/25/2026  10:47 PM                site-packages                                                        
+
+
+    Directory: E:\ai-rdvd-ui\.venv\Lib\site-packages
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/20/2026   2:37 PM                annotated_doc                                                        
+d-----         9/20/2026   2:37 PM                annotated_doc-0.0.5.dist-info                                        
+d-----         9/20/2026   2:37 PM                annotated_types                                                      
+d-----         9/20/2026   2:37 PM                annotated_types-0.8.0.dist-info                                      
+d-----         9/20/2026   2:39 PM                anyio                                                                
+d-----         9/13/2026   9:31 PM                anyio-4.15.1.dist-info                                               
+d-----         9/20/2026   2:39 PM                apps                                                                 
+d-----         9/20/2026   2:37 PM                audioread                                                            
+d-----         9/20/2026   2:37 PM                audioread-3.1.0.dist-info                                            
+d-----         9/13/2026  11:19 PM                av                                                                   
+d-----         9/13/2026  11:19 PM                av-18.1.0.dist-info                                                  
+d-----         9/13/2026  11:19 PM                av.libs                                                              
+d-----         9/20/2026   2:37 PM                brotli-1.2.0.dist-info                                               
+d-----         9/20/2026   2:39 PM                certifi                                                              
+d-----         9/13/2026   9:31 PM                certifi-2026.7.22.dist-info                                          
+d-----         9/21/2026   1:27 AM                cffi                                                                 
+d-----         9/13/2026  10:08 PM                cffi-2.1.1.dist-info                                                 
+d-----         9/20/2026   2:37 PM                charset_normalizer                                                   
+d-----         9/20/2026   2:37 PM                charset_normalizer-3.5.1.dist-info                                   
+d-----         9/20/2026   2:39 PM                click                                                                
+d-----         9/13/2026   9:31 PM                click-8.5.0.dist-info                                                
+d-----         9/20/2026   2:37 PM                cloudpickle                                                          
+d-----         9/20/2026   2:37 PM                cloudpickle-3.1.2.dist-info                                          
+d-----         9/20/2026   2:39 PM                colorama                                                             
+d-----         9/13/2026   9:31 PM                colorama-0.4.6.dist-info                                             
+d-----         9/13/2026  11:19 PM                ctranslate2                                                          
+d-----         9/13/2026  11:19 PM                ctranslate2-4.8.2.dist-info                                          
+d-----         9/20/2026   2:37 PM                dateutil                                                             
+d-----         9/20/2026   2:37 PM                decorator                                                            
+d-----         9/20/2026   2:37 PM                decorator-5.3.1.dist-info                                            
+d-----         9/20/2026   2:39 PM                examples                                                             
+d-----         9/20/2026   2:39 PM                fastapi                                                              
+d-----         9/20/2026   2:39 PM                fastapi-0.141.1.dist-info                                            
+d-----         9/13/2026  11:19 PM                faster_whisper                                                       
+d-----         9/13/2026  11:19 PM                faster_whisper-1.2.1.dist-info                                       
+d-----         9/20/2026   2:39 PM                filelock                                                             
+d-----         9/13/2026   9:31 PM                filelock-3.32.6.dist-info                                            
+d-----         9/13/2026  10:08 PM                flatbuffers                                                          
+d-----         9/13/2026  10:08 PM                flatbuffers-25.12.19.dist-info                                       
+d-----         9/13/2026   9:31 PM                fsspec                                                               
+d-----         9/13/2026   9:31 PM                fsspec-2026.7.0.dist-info                                            
+d-----         9/25/2026  10:47 PM                functorch                                                            
+d-----         9/13/2026  10:08 PM                google                                                               
+d-----         9/20/2026   2:39 PM                gradio                                                               
+d-----         9/20/2026   2:39 PM                gradio-6.28.0.dist-info                                              
+d-----         9/20/2026   2:39 PM                gradio_client                                                        
+d-----         9/20/2026   2:39 PM                gradio_client-2.7.1.dist-info                                        
+d-----         9/20/2026   2:37 PM                groovy                                                               
+d-----         9/20/2026   2:37 PM                groovy-0.1.2.dist-info                                               
+d-----         9/20/2026   2:39 PM                h11                                                                  
+d-----         9/13/2026   9:31 PM                h11-0.16.0.dist-info                                                 
+d-----         9/20/2026   2:39 PM                hf_gradio                                                            
+d-----         9/20/2026   2:39 PM                hf_gradio-0.4.1.dist-info                                            
+d-----         9/13/2026   9:31 PM                hf_xet                                                               
+d-----         9/13/2026   9:31 PM                hf_xet-1.6.0.dist-info                                               
+d-----         9/20/2026   2:39 PM                httpcore                                                             
+d-----         9/13/2026   9:31 PM                httpcore-1.0.9.dist-info                                             
+d-----         9/20/2026   2:39 PM                httpx                                                                
+d-----         9/13/2026   9:31 PM                httpx-0.28.1.dist-info                                               
+d-----         9/20/2026   2:39 PM                huggingface_hub                                                      
+d-----         9/13/2026   9:31 PM                huggingface_hub-1.31.0.dist-info                                     
+d-----         9/20/2026   2:39 PM                idna                                                                 
+d-----         9/13/2026   9:31 PM                idna-3.19.dist-info                                                  
+d-----         9/20/2026   2:38 PM                jinja2                                                               
+d-----         9/20/2026   2:38 PM                jinja2-3.1.6.dist-info                                               
+d-----         9/20/2026   2:38 PM                joblib                                                               
+d-----         9/20/2026   2:38 PM                joblib-1.6.0.dist-info                                               
+d-----         9/20/2026   2:37 PM                kaldi_native_fbank                                                   
+d-----         9/20/2026   2:37 PM                kaldi_native_fbank-1.22.3.dist-info                                  
+d-----         9/20/2026   2:37 PM                lazy_loader                                                          
+d-----         9/20/2026   2:37 PM                lazy_loader-0.5.dist-info                                            
+d-----         9/20/2026   2:39 PM                librosa                                                              
+d-----         9/20/2026   2:39 PM                librosa-0.11.0.dist-info                                             
+d-----         9/13/2026  10:08 PM                licensing                                                            
+d-----         9/20/2026   2:37 PM                llvmlite                                                             
+d-----         9/20/2026   2:37 PM                llvmlite-0.49.0.dist-info                                            
+d-----         9/20/2026   2:37 PM                llvmlite.libs                                                        
+d-----         9/20/2026   2:38 PM                markdown_it                                                          
+d-----         9/20/2026   2:38 PM                markdown_it_py-4.2.0.dist-info                                       
+d-----         9/20/2026   2:37 PM                markupsafe                                                           
+d-----         9/20/2026   2:37 PM                markupsafe-3.0.3.dist-info                                           
+d-----         9/20/2026   2:37 PM                mdurl                                                                
+d-----         9/20/2026   2:37 PM                mdurl-0.1.2.dist-info                                                
+d-----         9/25/2026  10:46 PM                mpmath                                                               
+d-----         9/25/2026  10:46 PM                mpmath-1.3.0.dist-info                                               
+d-----         9/20/2026   2:37 PM                msgpack                                                              
+d-----         9/20/2026   2:37 PM                msgpack-1.2.2.dist-info                                              
+d-----         9/20/2026   2:37 PM                multipart                                                            
+d-----         9/20/2026   2:37 PM                narwhals                                                             
+d-----         9/20/2026   2:37 PM                narwhals-2.26.0.dist-info                                            
+d-----         9/25/2026  10:46 PM                networkx                                                             
+d-----         9/25/2026  10:46 PM                networkx-3.6.1.dist-info                                             
+d-----         9/20/2026   2:38 PM                numba                                                                
+d-----         9/20/2026   2:38 PM                numba-0.67.0.dist-info                                               
+d-----         9/20/2026   2:39 PM                numpy                                                                
+d-----         9/13/2026   9:27 PM                numpy-2.5.3.dist-info                                                
+d-----         9/13/2026   9:27 PM                numpy.libs                                                           
+d-----         9/20/2026   2:39 PM                onnxruntime                                                          
+d-----         9/13/2026  10:08 PM                onnxruntime-1.30.0.dist-info                                         
+d-----         9/20/2026   2:37 PM                orjson                                                               
+d-----         9/20/2026   2:37 PM                orjson-3.12.0.dist-info                                              
+d-----         9/21/2026   1:26 AM                packaging                                                            
+d-----         9/13/2026   9:31 PM                packaging-26.3.dist-info                                             
+d-----         9/20/2026   2:38 PM                pandas                                                               
+d-----         9/20/2026   2:39 PM                pandas-3.0.6.dist-info                                               
+d-----         9/20/2026   2:38 PM                pandas.libs                                                          
+d-----         9/20/2026   2:37 PM                PIL                                                                  
+d-----         9/20/2026   2:37 PM                pillow-12.3.0.dist-info                                              
+d-----         9/20/2026   2:36 PM                pip                                                                  
+d-----         9/20/2026   2:36 PM                pip-26.2.1.dist-info                                                 
+d-----         9/20/2026   2:37 PM                platformdirs                                                         
+d-----         9/20/2026   2:37 PM                platformdirs-4.11.11.dist-info                                       
+d-----         9/20/2026   2:38 PM                pooch                                                                
+d-----         9/20/2026   2:38 PM                pooch-1.9.0.dist-info                                                
+d-----         9/13/2026  10:08 PM                protobuf-7.36.1.dist-info                                            
+d-----         9/21/2026   1:27 AM                pycparser                                                            
+d-----         9/13/2026  10:08 PM                pycparser-3.0.dist-info                                              
+d-----         9/20/2026   2:37 PM                pydantic                                                             
+d-----         9/20/2026   2:37 PM                pydantic-2.13.5.dist-info                                            
+d-----         9/20/2026   2:37 PM                pydantic_core                                                        
+d-----         9/20/2026   2:37 PM                pydantic_core-2.46.5.dist-info                                       
+d-----         9/20/2026   2:37 PM                pydub                                                                
+d-----         9/20/2026   2:37 PM                pydub-0.25.1.dist-info                                               
+d-----         9/20/2026   2:37 PM                pygments                                                             
+d-----         9/20/2026   2:37 PM                pygments-2.21.0.dist-info                                            
+d-----         9/20/2026   2:37 PM                python_dateutil-2.9.0.post0.dist-info                                
+d-----         9/20/2026   2:37 PM                python_multipart                                                     
+d-----         9/20/2026   2:37 PM                python_multipart-0.0.32.dist-info                                    
+d-----         9/20/2026   2:37 PM                pytz                                                                 
+d-----         9/20/2026   2:37 PM                pytz-2026.3.post1.dist-info                                          
+d-----         9/13/2026   9:31 PM                pyyaml-6.0.3.dist-info                                               
+d-----         9/25/2026  10:39 PM                regex                                                                
+d-----         9/25/2026  10:39 PM                regex-2026.9.10.dist-info                                            
+d-----         9/20/2026   2:37 PM                requests                                                             
+d-----         9/20/2026   2:37 PM                requests-2.34.2.dist-info                                            
+d-----         9/20/2026   2:38 PM                rich                                                                 
+d-----         9/20/2026   2:38 PM                rich-15.0.0.dist-info                                                
+d-----         9/20/2026   2:38 PM                safehttpx                                                            
+d-----         9/20/2026   2:38 PM                safehttpx-0.1.7.dist-info                                            
+d-----         9/25/2026  10:39 PM                safetensors                                                          
+d-----         9/25/2026  10:39 PM                safetensors-0.8.0.dist-info                                          
+d-----         9/20/2026   2:38 PM                scikit_learn-1.9.1.dist-info                                         
+d-----         9/20/2026   2:37 PM                scipy                                                                
+d-----         9/20/2026   2:37 PM                scipy-1.18.1.dist-info                                               
+d-----         9/20/2026   2:37 PM                scipy.libs                                                           
+d-----         9/20/2026   2:39 PM                sea_g2p                                                              
+d-----         9/13/2026   9:56 PM                sea_g2p-0.9.1.dist-info                                              
+d-----         9/20/2026   2:37 PM                semantic_version                                                     
+d-----         9/20/2026   2:37 PM                semantic_version-2.10.0.dist-info                                    
+d-----         9/25/2026  10:39 PM                sentencepiece                                                        
+d-----         9/25/2026  10:39 PM                sentencepiece-0.2.2.dist-info                                        
+d-----         9/20/2026   2:36 PM                setuptools                                                           
+d-----         9/20/2026   2:36 PM                setuptools-84.0.0.dist-info                                          
+d-----         9/20/2026   2:37 PM                shellingham                                                          
+d-----         9/20/2026   2:37 PM                shellingham-1.5.4.dist-info                                          
+d-----         9/20/2026   2:37 PM                six-1.17.0.dist-info                                                 
+d-----         9/20/2026   2:38 PM                sklearn                                                              
+d-----         9/13/2026  10:08 PM                soundfile-0.14.0.dist-info                                           
+d-----         9/21/2026   1:27 AM                soxr                                                                 
+d-----         9/13/2026  10:08 PM                soxr-1.1.0.dist-info                                                 
+d-----         9/20/2026   2:37 PM                starlette                                                            
+d-----         9/20/2026   2:37 PM                starlette-1.6.0.dist-info                                            
+d-----         9/25/2026  10:46 PM                sympy                                                                
+d-----         9/25/2026  10:46 PM                sympy-1.14.0.dist-info                                               
+d-----         9/20/2026   2:37 PM                threadpoolctl-3.7.0.dist-info                                        
+d-----         9/20/2026   2:39 PM                tokenizers                                                           
+d-----         9/13/2026  10:08 PM                tokenizers-0.23.2.dist-info                                          
+d-----         9/20/2026   2:37 PM                tomlkit                                                              
+d-----         9/20/2026   2:37 PM                tomlkit-0.14.0.dist-info                                             
+d-----         9/25/2026  10:47 PM                torch                                                                
+d-----         9/25/2026  10:47 PM                torch-2.14.0+cpu.dist-info                                           
+d-----         9/25/2026  10:47 PM                torchgen                                                             
+d-----         9/20/2026   2:39 PM                tqdm                                                                 
+d-----         9/13/2026   9:31 PM                tqdm-4.70.1.dist-info                                                
+d-----         9/25/2026  10:39 PM                transformers                                                         
+d-----         9/25/2026  10:40 PM                transformers-5.17.0.dist-info                                        
+d-----         9/20/2026   2:39 PM                typer                                                                
+d-----         9/20/2026   2:39 PM                typer-0.27.2.dist-info                                               
+d-----         9/13/2026   9:31 PM                typing_extensions-4.16.0.dist-info                                   
+d-----         9/20/2026   2:37 PM                typing_inspection                                                    
+d-----         9/20/2026   2:37 PM                typing_inspection-0.4.4.dist-info                                    
+d-----         9/20/2026   2:37 PM                tzdata                                                               
+d-----         9/20/2026   2:37 PM                tzdata-2026.4.dist-info                                              
+d-----         9/20/2026   2:37 PM                urllib3                                                              
+d-----         9/20/2026   2:37 PM                urllib3-2.8.0.dist-info                                              
+d-----         9/20/2026   2:37 PM                uvicorn                                                              
+d-----         9/20/2026   2:37 PM                uvicorn-0.53.0.dist-info                                             
+d-----         9/20/2026   2:39 PM                vieneu                                                               
+d-----         9/20/2026   2:39 PM                vieneu-3.8.1.dist-info                                               
+d-----         9/20/2026   2:39 PM                vieneu_utils                                                         
+d-----         9/20/2026   2:36 PM                wheel                                                                
+d-----         9/20/2026   2:36 PM                wheel-0.48.0.dist-info                                               
+d-----         9/20/2026   2:39 PM                yaml                                                                 
+d-----         9/20/2026   2:36 PM                _distutils_hack                                                      
+d-----         9/20/2026   4:07 PM                _soundfile_data                                                      
+d-----         9/13/2026   9:31 PM                _yaml                                                                
+d-----         9/25/2026  10:46 PM                __pycache__                                                          
+-a----         9/20/2026   2:37 PM           2027 brotli.py                                                            
+-a----         9/20/2026   2:36 PM            151 distutils-precedence.pth                                             
+-a----         9/25/2026  10:46 PM          11220 isympy.py                                                            
+-a----         9/20/2026   2:37 PM         109568 kaldi-native-fbank-core.dll                                          
+-a----         9/20/2026   2:37 PM         123780 kaldi-native-fbank-core.lib                                          
+-a----         9/20/2026   2:37 PM              0 scipy-1.18.1-cp312-cp312-win_amd64.whl                               
+-a----         9/20/2026   2:37 PM          34703 six.py                                                               
+-a----         9/13/2026  10:08 PM          67278 soundfile.py                                                         
+-a----         9/20/2026   2:37 PM          67710 threadpoolctl.py                                                     
+-a----         9/13/2026   9:31 PM         165012 typing_extensions.py                                                 
+-a----         9/20/2026   2:37 PM         856576 _brotli.cp312-win_amd64.pyd                                          
+-a----         9/13/2026  10:08 PM         181248 _cffi_backend.cp312-win_amd64.pyd                                    
+-a----         9/20/2026   2:37 PM         392704 _kaldi_native_fbank.cp312-win_amd64.pyd                              
+-a----         9/13/2026  10:08 PM           5914 _soundfile.py                                                        
+-a----         9/13/2026   9:17 PM             18 _virtualenv.pth                                                      
+-a----         9/13/2026   9:17 PM           5246 _virtualenv.py                                                       
+
+
+    Directory: E:\ai-rdvd-ui\.venv\Scripts
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/13/2026   9:17 PM           4081 activate                                                             
+-a----         9/13/2026   9:17 PM           2661 activate.bat                                                         
+-a----         9/13/2026   9:17 PM           2611 activate.csh                                                         
+-a----         9/13/2026   9:17 PM           4322 activate.fish                                                        
+-a----         9/13/2026   9:17 PM           3937 activate.nu                                                          
+-a----         9/13/2026   9:17 PM           2769 Activate.ps1                                                         
+-a----         9/13/2026   9:17 PM           3843 activate.xsh                                                         
+-a----         9/13/2026   9:17 PM           2378 activate_this.py                                                     
+-a----         9/13/2026  10:08 PM         108394 cffi-gen-src.exe                                                     
+-a----         9/13/2026  11:19 PM         108408 ct2-fairseq-converter.exe                                            
+-a----         9/13/2026  11:19 PM         108407 ct2-marian-converter.exe                                             
+-a----         9/13/2026  11:19 PM         108412 ct2-openai-gpt2-converter.exe                                        
+-a----         9/13/2026  11:19 PM         108411 ct2-opennmt-py-converter.exe                                         
+-a----         9/13/2026  11:19 PM         108411 ct2-opennmt-tf-converter.exe                                         
+-a----         9/13/2026  11:19 PM         108408 ct2-opus-mt-converter.exe                                            
+-a----         9/13/2026  11:19 PM         108413 ct2-transformers-converter.exe                                       
+-a----         9/13/2026   9:17 PM           1730 deactivate.bat                                                       
+-a----         9/13/2026   9:27 PM         108395 f2py.exe                                                             
+-a----         9/20/2026   2:39 PM         108332 fastapi.exe                                                          
+-a----         9/20/2026   2:39 PM         108329 gradio.exe                                                           
+-a----         9/20/2026   2:39 PM         108332 hf-gradio.exe                                                        
+-a----         9/13/2026   9:31 PM         108400 hf.exe                                                               
+-a----         9/13/2026   9:31 PM         108383 httpx.exe                                                            
+-a----         9/13/2026   9:31 PM         108412 huggingface-cli.exe                                                  
+-a----         9/13/2026   9:31 PM         108386 idna.exe                                                             
+-a----         9/25/2026  10:46 PM         108327 isympy.exe                                                           
+-a----         9/20/2026   2:38 PM         108342 markdown-it.exe                                                      
+-a----         9/20/2026   2:37 PM         108355 normalizer.exe                                                       
+-a----         9/20/2026   2:38 PM            218 numba                                                                
+-a----         9/13/2026   9:27 PM         108395 numpy-config.exe                                                     
+-a----         9/13/2026  10:08 PM         108412 onnxruntime_test.exe                                                 
+-a----         9/20/2026   2:36 PM         108395 pip.exe                                                              
+-a----         9/20/2026   2:36 PM         108395 pip3.12.exe                                                          
+-a----         9/20/2026   2:36 PM         108395 pip3.exe                                                             
+-a----         9/13/2026  11:19 PM         108389 pyav.exe                                                             
+-a----         9/13/2026   9:17 PM           1219 pydoc.bat                                                            
+-a----         9/20/2026   2:37 PM         108337 pygmentize.exe                                                       
+-a----          4/8/2025  12:57 PM         274424 python.exe                                                           
+-a----          4/8/2025  12:57 PM         263400 pythonw.exe                                                          
+-a----         9/13/2026   9:31 PM         108410 tiny-agents.exe                                                      
+-a----         9/25/2026  10:47 PM         108363 torchfrtrace.exe                                                     
+-a----         9/25/2026  10:47 PM         108342 torchrun.exe                                                         
+-a----         9/13/2026   9:31 PM         108386 tqdm.exe                                                             
+-a----         9/25/2026  10:40 PM         108350 transformers.exe                                                     
+-a----         9/20/2026   2:39 PM         108330 typer.exe                                                            
+-a----         9/20/2026   2:39 PM         108347 upload_theme.exe                                                     
+-a----         9/20/2026   2:37 PM         108333 uvicorn.exe                                                          
+-a----         9/20/2026   2:39 PM         108336 vieneu-stream.exe                                                    
+-a----         9/20/2026   2:39 PM         108337 vieneu-web.exe                                                       
+-a----         9/20/2026   2:36 PM         108388 wheel.exe                                                            
+
+
+    Directory: E:\ai-rdvd-ui\.venv\share
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/25/2026  10:46 PM                man                                                                  
+
+
+    Directory: E:\ai-rdvd-ui\.venv\share\man
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/25/2026  10:46 PM                man1                                                                 
+
+
+    Directory: E:\ai-rdvd-ui\audio
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/20/2026   2:25 AM         110325 01-Minh-Đức.mp3                                                      
+-a----         9/20/2026   2:32 AM         103677 02-Phạm-Tuyên.mp3                                                    
+-a----         9/20/2026   2:35 AM         123189 03-Thái-Sơn.mp3                                                      
+-a----         9/20/2026   2:35 AM         122781 04-Xuân-Vĩnh.mp3                                                     
+-a----         9/20/2026   2:36 AM         104661 05-Thanh-Bình.mp3                                                    
+-a----         9/20/2026   2:36 AM         106005 06-Trúc-Ly.mp3                                                       
+-a----         9/20/2026   2:36 AM          98757 07-Ngọc-Linh.mp3                                                     
+-a----         9/20/2026   2:37 AM         102741 08-Đoan-Trang.mp3                                                    
+-a----         9/20/2026   2:37 AM         105285 09-Mai-Anh.mp3                                                       
+-a----         9/20/2026   2:37 AM         104037 10-Thục-Đoan.mp3                                                     
+-a----         9/20/2026   2:37 AM          88173 11-Minh-Triết.mp3                                                    
+-a----         9/20/2026   2:37 AM          81525 12-Thùy-Dung.mp3                                                     
+-a----         9/20/2026   2:39 AM         101973 13-Quang-Sơn.mp3                                                     
+-a----         9/20/2026   2:43 AM         112941 14-Ngọc-Trân.mp3                                                     
+-a----         9/20/2026   2:43 AM         127581 15-Mỹ-Duyên.mp3                                                      
+-a----         9/20/2026   2:44 AM         103053 16-Quỳnh-Anh.mp3                                                     
+-a----         9/20/2026   2:46 AM         148749 17-Đức-Trí.mp3                                                       
+-a----         9/20/2026   2:46 AM         141861 18-Kim-Thanh.mp3                                                     
+-a----         9/20/2026   2:47 AM          91269 19-Ngọc-Huyền.mp3                                                    
+-a----         9/20/2026   2:48 AM         124461 20-Adam.mp3                                                          
+-a----         9/20/2026   2:48 AM         101517 21-Mạnh-Dũng.mp3                                                     
+-a----         9/20/2026   2:48 AM         101709 22-Minh-Quân.mp3                                                     
+-a----         9/20/2026   2:49 AM         113781 23-Anh-Khôi.mp3                                                      
+-a----         9/24/2026   5:16 PM            401 README.txt                                                           
+
+
+    Directory: E:\ai-rdvd-ui\backend
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/20/2026   8:31 PM                translation_core                                                     
+d-----         9/24/2026   6:04 PM                __pycache__                                                          
+-a----         9/24/2026   5:16 PM           5001 download_translation_assets.py                                       
+-a----         9/24/2026   5:16 PM             92 requirements-translation.txt                                         
+-a----         9/20/2026   2:36 PM            606 requirements-tts.lock.txt                                            
+-a----         9/24/2026   5:16 PM             51 requirements-tts.txt                                                 
+-a----         9/24/2026   5:58 PM          22384 translation_worker.py                                                
+-a----         9/24/2026   5:16 PM          13941 tts_worker.py                                                        
+-a----         9/24/2026   5:16 PM             50 __init__.py                                                          
+
+
+    Directory: E:\ai-rdvd-ui\backend\translation_core
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/24/2026   6:14 PM                __pycache__                                                          
+-a----         9/24/2026   5:16 PM           9970 contextual_disambiguator.py                                          
+-a----         9/24/2026   5:16 PM          10820 dictionary_resolver.py                                               
+-a----         9/24/2026   5:16 PM           3786 hachimi_local.py                                                     
+-a----         9/24/2026   5:16 PM           5872 learning_memory.py                                                   
+-a----         9/24/2026   5:16 PM           9106 linguistic_selection.py                                              
+-a----         9/24/2026   5:16 PM           9711 meaning_frame.py                                                     
+-a----         9/24/2026   5:16 PM          14306 meaning_guard.py                                                     
+-a----         9/24/2026   5:16 PM           5563 semantic_evidence.py                                                 
+-a----         9/24/2026   5:16 PM           4926 terminology_authority.py                                             
+-a----         9/24/2026   5:16 PM           5147 terminology_planner.py                                               
+-a----         9/24/2026   5:16 PM           5701 terminology_registry_v2.py                                           
+-a----         9/24/2026   5:16 PM             72 __init__.py                                                          
+
+
+    Directory: E:\ai-rdvd-ui\backend\translation_core\__pycache__
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/24/2026   6:14 PM          13342 contextual_disambiguator.cpython-312.pyc                             
+-a----         9/24/2026   5:58 PM          13191 contextual_disambiguator.cpython-313.pyc                             
+-a----         9/24/2026   6:14 PM          16862 dictionary_resolver.cpython-312.pyc                                  
+-a----         9/24/2026   5:58 PM          17479 dictionary_resolver.cpython-313.pyc                                  
+-a----         9/24/2026   6:14 PM           5508 hachimi_local.cpython-312.pyc                                        
+-a----         9/24/2026   5:58 PM           5590 hachimi_local.cpython-313.pyc                                        
+-a----         9/24/2026   6:14 PM           8346 learning_memory.cpython-312.pyc                                      
+-a----         9/24/2026   5:58 PM           8602 learning_memory.cpython-313.pyc                                      
+-a----         9/24/2026   6:14 PM          14226 meaning_frame.cpython-312.pyc                                        
+-a----         9/24/2026   5:58 PM          14408 meaning_frame.cpython-313.pyc                                        
+-a----         9/24/2026   6:14 PM          17570 meaning_guard.cpython-312.pyc                                        
+-a----         9/24/2026   5:58 PM          17828 meaning_guard.cpython-313.pyc                                        
+-a----         9/24/2026   6:14 PM           8217 semantic_evidence.cpython-312.pyc                                    
+-a----         9/24/2026   5:58 PM           8553 semantic_evidence.cpython-313.pyc                                    
+-a----         9/24/2026   6:14 PM           6345 terminology_authority.cpython-312.pyc                                
+-a----         9/24/2026   5:58 PM           6254 terminology_authority.cpython-313.pyc                                
+-a----         9/24/2026   6:14 PM           7955 terminology_planner.cpython-312.pyc                                  
+-a----         9/24/2026   5:58 PM           8032 terminology_planner.cpython-313.pyc                                  
+-a----         9/24/2026   6:14 PM           8223 terminology_registry_v2.cpython-312.pyc                              
+-a----         9/24/2026   5:58 PM           8365 terminology_registry_v2.cpython-313.pyc                              
+
+
+    Directory: E:\ai-rdvd-ui\backend\__pycache__
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/24/2026   5:58 PM          30136 translation_worker.cpython-313.pyc                                   
+-a----         9/24/2026   5:58 PM            196 __init__.cpython-313.pyc                                             
+
+
+    Directory: E:\ai-rdvd-ui\dist
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/22/2026   5:24 PM                assets                                                               
+-a----         9/24/2026   5:16 PM            392 index.html                                                           
+-a----         9/24/2026   5:16 PM        1829064 preview.png                                                          
+
+
+    Directory: E:\ai-rdvd-ui\dist\assets
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/24/2026   5:16 PM          71571 index-AQeq0SnN.css                                                   
+-a----         9/21/2026  10:44 PM         340401 index-B0ncMAkH.js                                                    
+-a----         9/21/2026   9:50 PM          70977 index-BG3GUFuy.css                                                   
+-a----         9/21/2026   8:12 PM         336560 index-BlTg8ZWk.js                                                    
+-a----         9/21/2026   1:42 AM          68675 index-BvwHklnS.css                                                   
+-a----         9/21/2026   1:42 AM         334573 index-ByODj0pT.js                                                    
+-a----         9/22/2026   1:02 AM         341313 index-CaQHoKWX.js                                                    
+-a----         9/21/2026  10:30 PM          71098 index-CFxF4ZF5.css                                                   
+-a----         9/21/2026  11:39 PM         341315 index-CGf9wCh6.js                                                    
+-a----         9/21/2026  10:30 PM         341303 index-CKWDo6ja.js                                                    
+-a----         9/21/2026  10:44 PM          71424 index-CoJNfeoa.css                                                   
+-a----         9/21/2026  10:17 PM         340953 index-CtMFjev9.js                                                    
+-a----         9/21/2026  11:39 PM          71589 index-CWWACKSa.css                                                   
+-a----         9/24/2026   5:16 PM         341355 index-D4EwQOqL.js                                                    
+-a----         9/21/2026  11:08 PM         340496 index-DB8aPle7.js                                                    
+-a----         9/21/2026   8:36 PM         336690 index-DzCWKrod.js                                                    
+-a----         9/21/2026  11:25 PM          71563 index-f5Z9LqIn.css                                                   
+-a----         9/21/2026  10:17 PM          71012 index-gbPX9dWh.css                                                   
+-a----         9/21/2026   9:50 PM         340078 index-kzqjveD3.js                                                    
+-a----         9/21/2026   8:36 PM          69428 index-LyvOgH1D.css                                                   
+-a----         9/21/2026  11:25 PM         341264 index-O2LRO_Z_.js                                                    
+-a----         9/24/2026   5:16 PM          12931 window-BGdY82Vn.js                                                   
+-a----         9/21/2026   8:12 PM          12931 window-BoMXELQx.js                                                   
+-a----         9/21/2026  10:44 PM          12931 window-Bya3ebzl.js                                                   
+-a----         9/21/2026   1:42 AM          12931 window-ChdKCgXs.js                                                   
+-a----         9/21/2026  11:25 PM          12931 window-DcoOoYBk.js                                                   
+-a----         9/21/2026   8:36 PM          12931 window-DEk31Q2u.js                                                   
+-a----         9/21/2026  11:39 PM          12931 window-DJz5c3an.js                                                   
+-a----         9/21/2026  10:17 PM          12931 window-Dqnmjbgg.js                                                   
+-a----         9/22/2026   1:02 AM          12931 window-DtUhhKws.js                                                   
+-a----         9/21/2026  11:08 PM          12931 window-OS6oun08.js                                                   
+-a----         9/21/2026   9:50 PM          12931 window-PRDe8b_d.js                                                   
+-a----         9/21/2026  10:30 PM          12931 window-zJ_P_YDX.js                                                   
+
+
+    Directory: E:\ai-rdvd-ui\node_modules
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/19/2026  11:17 PM                .bin                                                                 
+d-----         9/20/2026   8:29 PM                .vite                                                                
+d-----         9/24/2026   6:05 PM                .vite-temp                                                           
+d-----         9/19/2026   8:58 AM                @oxc-project                                                         
+d-----         9/19/2026   8:58 AM                @rolldown                                                            
+d-----         9/19/2026  11:16 PM                @tauri-apps                                                          
+d-----         9/20/2026   4:08 PM                @types                                                               
+d-----         9/19/2026   8:58 AM                @typescript                                                          
+d-----         9/19/2026   8:58 AM                @vitejs                                                              
+d-----         9/20/2026   4:08 PM                csstype                                                              
+d-----         9/19/2026   8:58 AM                detect-libc                                                          
+d-----         9/19/2026   8:58 AM                fdir                                                                 
+d-----         9/19/2026   8:58 AM                lightningcss                                                         
+d-----         9/19/2026   8:58 AM                lightningcss-win32-x64-msvc                                          
+d-----         9/19/2026   8:58 AM                nanoid                                                               
+d-----         9/19/2026   8:58 AM                picocolors                                                           
+d-----         9/19/2026   8:58 AM                picomatch                                                            
+d-----         9/19/2026   8:58 AM                postcss                                                              
+d-----         9/19/2026   8:58 AM                react                                                                
+d-----         9/19/2026   8:58 AM                react-dom                                                            
+d-----         9/19/2026   8:58 AM                rolldown                                                             
+d-----         9/19/2026   8:58 AM                scheduler                                                            
+d-----         9/19/2026   8:58 AM                source-map-js                                                        
+d-----         9/19/2026   8:58 AM                tinyglobby                                                           
+d-----         9/19/2026   8:58 AM                typescript                                                           
+d-----         9/19/2026   8:58 AM                vite                                                                 
+-a----         9/20/2026   6:10 PM          17332 .package-lock.json                                                   
+
+
+    Directory: E:\ai-rdvd-ui\node_modules\.bin
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/19/2026   8:58 AM            391 nanoid                                                               
+-a----         9/19/2026   8:58 AM            326 nanoid.cmd                                                           
+-a----         9/19/2026   8:58 AM            809 nanoid.ps1                                                           
+-a----         9/19/2026   8:58 AM            389 rolldown                                                             
+-a----         9/19/2026   8:58 AM            325 rolldown.cmd                                                         
+-a----         9/19/2026   8:58 AM            805 rolldown.ps1                                                         
+-a----         9/19/2026  11:17 PM            397 tauri                                                                
+-a----         9/19/2026  11:17 PM            329 tauri.cmd                                                            
+-a----         9/19/2026  11:17 PM            821 tauri.ps1                                                            
+-a----         9/19/2026   8:58 AM            385 tsc                                                                  
+-a----         9/19/2026   8:58 AM            323 tsc.cmd                                                              
+-a----         9/19/2026   8:58 AM            797 tsc.ps1                                                              
+-a----         9/19/2026   8:58 AM            381 vite                                                                 
+-a----         9/19/2026   8:58 AM            321 vite.cmd                                                             
+-a----         9/19/2026   8:58 AM            789 vite.ps1                                                             
+
+
+    Directory: E:\ai-rdvd-ui\node_modules\.vite
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/20/2026   8:29 PM                deps                                                                 
+
+
+    Directory: E:\ai-rdvd-ui\node_modules\.vite\deps
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/20/2026   8:29 PM            433 @tauri-apps_api_core.js                                              
+-a----         9/20/2026   8:29 PM           5308 @tauri-apps_api_event.js                                             
+-a----         9/20/2026   8:29 PM           7291 @tauri-apps_api_event.js.map                                         
+-a----         9/20/2026   8:29 PM          68090 @tauri-apps_api_window.js                                            
+-a----         9/20/2026   8:29 PM         100635 @tauri-apps_api_window.js.map                                        
+-a----         9/20/2026   8:29 PM          10898 core-CP6vdcl6.js                                                     
+-a----         9/20/2026   8:29 PM          16906 core-CP6vdcl6.js.map                                                 
+-a----         9/20/2026   8:28 PM             23 package.json                                                         
+-a----         9/20/2026   8:29 PM          15147 react-dom.js                                                         
+-a----         9/20/2026   8:29 PM          26762 react-dom.js.map                                                     
+-a----         9/20/2026   8:29 PM         911941 react-dom_client.js                                                  
+-a----         9/20/2026   8:29 PM        1665074 react-dom_client.js.map                                              
+-a----         9/20/2026   8:29 PM          39785 react.js                                                             
+-a----         9/20/2026   8:29 PM          71572 react.js.map                                                         
+-a----         9/20/2026   8:29 PM          10808 react_jsx-dev-runtime.js                                             
+-a----         9/20/2026   8:29 PM          18594 react_jsx-dev-runtime.js.map                                         
+-a----         9/20/2026   8:29 PM          11299 react_jsx-runtime.js                                                 
+-a----         9/20/2026   8:29 PM          19482 react_jsx-runtime.js.map                                             
+-a----         9/20/2026   8:29 PM            192 rolldown-runtime-BvCyGRYZ.js                                         
+-a----         9/20/2026   8:29 PM           1738 _metadata.json                                                       
+
+
+    Directory: E:\ai-rdvd-ui\node_modules\@oxc-project
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/19/2026   8:58 AM                types                                                                
+
+
+    Directory: E:\ai-rdvd-ui\node_modules\@oxc-project\types
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/19/2026   8:58 AM           1119 LICENSE                                                              
+-a----         9/19/2026   8:58 AM            582 package.json                                                         
+-a----         9/19/2026   8:58 AM             55 README.md                                                            
+-a----         9/19/2026   8:58 AM          42840 types.d.ts                                                           
+
+
+    Directory: E:\ai-rdvd-ui\node_modules\@rolldown
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/19/2026   8:58 AM                binding-win32-x64-msvc                                               
+d-----         9/19/2026   8:58 AM                pluginutils                                                          
+
+
+    Directory: E:\ai-rdvd-ui\node_modules\@rolldown\binding-win32-x64-msvc
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/19/2026   8:58 AM            857 package.json                                                         
+-a----         9/19/2026   8:58 AM            108 README.md                                                            
+-a----         9/19/2026   8:58 AM       20796928 rolldown-binding.win32-x64-msvc.node                                 
+
+
+    Directory: E:\ai-rdvd-ui\node_modules\@rolldown\pluginutils
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/19/2026   8:58 AM                dist                                                                 
+-a----         9/19/2026   8:58 AM           1106 LICENSE                                                              
+-a----         9/19/2026   8:58 AM            975 package.json                                                         
+-a----         9/19/2026   8:58 AM           6177 README.md                                                            
+
+
+    Directory: E:\ai-rdvd-ui\node_modules\@tauri-apps
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/19/2026  11:17 PM                api                                                                  
+d-----         9/19/2026  11:16 PM                cli                                                                  
+d-----         9/19/2026  11:16 PM                cli-win32-x64-msvc                                                   
+
+
+    Directory: E:\ai-rdvd-ui\node_modules\@tauri-apps\api
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/19/2026  11:16 PM                external                                                             
+d-----         9/19/2026  11:17 PM                menu                                                                 
+-a----         9/19/2026  11:16 PM           5898 app.cjs                                                              
+-a----         9/19/2026  11:17 PM           5366 app.d.ts                                                             
+-a----         9/19/2026  11:16 PM           5480 app.js                                                               
+-a----         9/19/2026  11:17 PM          99294 CHANGELOG.md                                                         
+-a----         9/19/2026  11:16 PM          11170 core.cjs                                                             
+-a----         9/19/2026  11:17 PM           6461 core.d.ts                                                            
+-a----         9/19/2026  11:16 PM          10709 core.js                                                              
+-a----         9/19/2026  11:16 PM          10984 dpi.cjs                                                              
+-a----         9/19/2026  11:17 PM           8799 dpi.d.ts                                                             
+-a----         9/19/2026  11:16 PM          10803 dpi.js                                                               
+-a----         9/19/2026  11:16 PM           5763 event.cjs                                                            
+-a----         9/19/2026  11:17 PM           4865 event.d.ts                                                           
+-a----         9/19/2026  11:16 PM           5674 event.js                                                             
+-a----         9/19/2026  11:16 PM           2990 image.cjs                                                            
+-a----         9/19/2026  11:17 PM           2435 image.d.ts                                                           
+-a----         9/19/2026  11:17 PM           2927 image.js                                                             
+-a----         9/19/2026  11:16 PM            738 index.cjs                                                            
+-a----         9/19/2026  11:17 PM           1175 index.d.ts                                                           
+-a----         9/19/2026  11:17 PM            669 index.js                                                             
+-a----         9/19/2026  11:16 PM          10174 LICENSE_APACHE-2.0                                                   
+-a----         9/19/2026  11:16 PM           1090 LICENSE_MIT                                                          
+-a----         9/19/2026  11:16 PM           1146 menu.cjs                                                             
+-a----         9/19/2026  11:17 PM            451 menu.d.ts                                                            
+-a----         9/19/2026  11:17 PM            717 menu.js                                                              
+-a----         9/19/2026  11:16 PM           9840 mocks.cjs                                                            
+-a----         9/19/2026  11:17 PM           4968 mocks.d.ts                                                           
+-a----         9/19/2026  11:17 PM           9746 mocks.js                                                             
+-a----         9/19/2026  11:17 PM           1784 package.json                                                         
+-a----         9/19/2026  11:16 PM          22694 path.cjs                                                             
+-a----         9/19/2026  11:17 PM          17662 path.d.ts                                                            
+-a----         9/19/2026  11:17 PM          21663 path.js                                                              
+-a----         9/19/2026  11:17 PM           3462 README.md                                                            
+-a----         9/19/2026  11:16 PM           7115 tray.cjs                                                             
+-a----         9/19/2026  11:17 PM           8469 tray.d.ts                                                            
+-a----         9/19/2026  11:17 PM           7044 tray.js                                                              
+-a----         9/19/2026  11:16 PM          20680 webview.cjs                                                          
+-a----         9/19/2026  11:17 PM          23771 webview.d.ts                                                         
+-a----         9/19/2026  11:17 PM          20472 webview.js                                                           
+-a----         9/19/2026  11:16 PM           8410 webviewWindow.cjs                                                    
+-a----         9/19/2026  11:17 PM           4928 webviewWindow.d.ts                                                   
+-a----         9/19/2026  11:17 PM           8270 webviewWindow.js                                                     
+-a----         9/19/2026  11:16 PM          68132 window.cjs                                                           
+-a----         9/19/2026  11:17 PM          64886 window.d.ts                                                          
+-a----         9/19/2026  11:17 PM          67197 window.js                                                            
+
+
+    Directory: E:\ai-rdvd-ui\node_modules\@tauri-apps\cli
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/19/2026  11:16 PM            520 append-headers.js                                                    
+-a----         9/19/2026  11:16 PM         181797 CHANGELOG.md                                                         
+-a----         9/19/2026  11:16 PM         154933 config.schema.json                                                   
+-a----         9/19/2026  11:16 PM            395 index.d.ts                                                           
+-a----         9/19/2026  11:16 PM          24199 index.js                                                             
+-a----         9/19/2026  11:16 PM          10174 LICENSE_APACHE-2.0                                                   
+-a----         9/19/2026  11:16 PM           1090 LICENSE_MIT                                                          
+-a----         9/19/2026  11:16 PM            284 main.d.ts                                                            
+-a----         9/19/2026  11:16 PM            450 main.js                                                              
+-a----         9/19/2026  11:16 PM           2455 package.json                                                         
+-a----         9/19/2026  11:16 PM           3479 README.md                                                            
+-a----         9/19/2026  11:16 PM           1864 tauri.js                                                             
+
+
+    Directory: E:\ai-rdvd-ui\node_modules\@tauri-apps\cli-win32-x64-msvc
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/19/2026  11:17 PM       15235584 cli.win32-x64-msvc.node                                              
+-a----         9/19/2026  11:16 PM            707 package.json                                                         
+-a----         9/19/2026  11:16 PM            104 README.md                                                            
+
+
+    Directory: E:\ai-rdvd-ui\node_modules\@types
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/20/2026   4:08 PM                react                                                                
+d-----         9/20/2026   4:08 PM                react-dom                                                            
+
+
+    Directory: E:\ai-rdvd-ui\node_modules\@types\react
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/20/2026   4:08 PM                ts5.0                                                                
+-a----         9/20/2026   4:08 PM           1143 canary.d.ts                                                          
+-a----         9/20/2026   4:08 PM            116 compiler-runtime.d.ts                                                
+-a----         9/20/2026   4:08 PM           7255 experimental.d.ts                                                    
+-a----         9/20/2026   4:08 PM           7520 global.d.ts                                                          
+-a----         9/20/2026   4:08 PM         182820 index.d.ts                                                           
+-a----         9/20/2026   4:08 PM            740 jsx-dev-runtime.d.ts                                                 
+-a----         9/20/2026   4:08 PM            532 jsx-runtime.d.ts                                                     
+-a----         9/20/2026   4:08 PM           1141 LICENSE                                                              
+-a----         9/20/2026   4:08 PM           6108 package.json                                                         
+-a----         9/20/2026   4:08 PM           1750 README.md                                                            
+
+
+    Directory: E:\ai-rdvd-ui\node_modules\@types\react-dom
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/20/2026   4:08 PM                test-utils                                                           
+-a----         9/20/2026   4:08 PM           1232 canary.d.ts                                                          
+-a----         9/20/2026   4:08 PM           3106 client.d.ts                                                          
+-a----         9/20/2026   4:08 PM           1940 experimental.d.ts                                                    
+-a----         9/20/2026   4:08 PM           6526 index.d.ts                                                           
+-a----         9/20/2026   4:08 PM           1141 LICENSE                                                              
+-a----         9/20/2026   4:08 PM           3383 package.json                                                         
+-a----         9/20/2026   4:08 PM            807 README.md                                                            
+-a----         9/20/2026   4:08 PM            106 server.browser.d.ts                                                  
+-a----         9/20/2026   4:08 PM            183 server.bun.d.ts                                                      
+-a----         9/20/2026   4:08 PM           8065 server.d.ts                                                          
+-a----         9/20/2026   4:08 PM            106 server.edge.d.ts                                                     
+-a----         9/20/2026   4:08 PM            183 server.node.d.ts                                                     
+-a----         9/20/2026   4:08 PM             67 static.browser.d.ts                                                  
+-a----         9/20/2026   4:08 PM           5695 static.d.ts                                                          
+-a----         9/20/2026   4:08 PM             67 static.edge.d.ts                                                     
+-a----         9/20/2026   4:08 PM            143 static.node.d.ts                                                     
+
+
+    Directory: E:\ai-rdvd-ui\node_modules\@typescript
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/19/2026   8:58 AM                typescript-win32-x64                                                 
+
+
+    Directory: E:\ai-rdvd-ui\node_modules\@typescript\typescript-win32-x64
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/19/2026   8:58 AM                lib                                                                  
+-a----         9/19/2026   8:58 AM           9197 LICENSE                                                              
+-a----         9/19/2026   8:58 AM          48860 NOTICE.txt                                                           
+-a----         9/19/2026   8:58 AM           1042 package.json                                                         
+-a----         9/19/2026   8:58 AM            138 README.md                                                            
+
+
+    Directory: E:\ai-rdvd-ui\node_modules\@vitejs
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/19/2026   8:58 AM                plugin-react                                                         
+
+
+    Directory: E:\ai-rdvd-ui\node_modules\@vitejs\plugin-react
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/19/2026   8:58 AM                dist                                                                 
+d-----         9/19/2026   8:58 AM                types                                                                
+-a----         9/19/2026   8:58 AM           1103 LICENSE                                                              
+-a----         9/19/2026   8:58 AM           2246 package.json                                                         
+-a----         9/19/2026   8:58 AM           7330 README.md                                                            
+
+
+    Directory: E:\ai-rdvd-ui\node_modules\csstype
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/20/2026   4:08 PM         894969 index.d.ts                                                           
+-a----         9/20/2026   4:08 PM         344546 index.js.flow                                                        
+-a----         9/20/2026   4:08 PM           1062 LICENSE                                                              
+-a----         9/20/2026   4:08 PM           1985 package.json                                                         
+-a----         9/20/2026   4:08 PM          10887 README.md                                                            
+
+
+    Directory: E:\ai-rdvd-ui\node_modules\detect-libc
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/19/2026   8:58 AM                lib                                                                  
+-a----         9/19/2026   8:58 AM            436 index.d.ts                                                           
+-a----         9/19/2026   8:58 AM          11357 LICENSE                                                              
+-a----         9/19/2026   8:58 AM           1278 package.json                                                         
+-a----         9/19/2026   8:58 AM           3215 README.md                                                            
+
+
+    Directory: E:\ai-rdvd-ui\node_modules\detect-libc\lib
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/19/2026   8:58 AM           7503 detect-libc.js                                                       
+-a----         9/19/2026   8:58 AM            982 elf.js                                                               
+-a----         9/19/2026   8:58 AM           1097 filesystem.js                                                        
+-a----         9/19/2026   8:58 AM            569 process.js                                                           
+
+
+    Directory: E:\ai-rdvd-ui\node_modules\fdir
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/19/2026   8:58 AM                dist                                                                 
+-a----         9/19/2026   8:58 AM           1053 LICENSE                                                              
+-a----         9/19/2026   8:58 AM           2694 package.json                                                         
+-a----         9/19/2026   8:58 AM           3851 README.md                                                            
+
+
+    Directory: E:\ai-rdvd-ui\node_modules\fdir\dist
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/19/2026   8:58 AM          18210 index.cjs                                                            
+-a----         9/19/2026   8:58 AM           5129 index.d.cts                                                          
+-a----         9/19/2026   8:58 AM           5129 index.d.mts                                                          
+-a----         9/19/2026   8:58 AM          17225 index.mjs                                                            
+
+
+    Directory: E:\ai-rdvd-ui\node_modules\lightningcss
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/19/2026   8:58 AM                node                                                                 
+-a----         9/19/2026   8:58 AM          15648 LICENSE                                                              
+-a----         9/19/2026   8:58 AM           3834 package.json                                                         
+-a----         9/19/2026   8:58 AM           6058 README.md                                                            
+
+
+    Directory: E:\ai-rdvd-ui\node_modules\lightningcss\node
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/19/2026   8:58 AM         213707 ast.d.ts                                                             
+-a----         9/19/2026   8:58 AM         218067 ast.js.flow                                                          
+-a----         9/19/2026   8:58 AM            929 browserslistToTargets.js                                             
+-a----         9/19/2026   8:58 AM          11393 composeVisitors.js                                                   
+-a----         9/19/2026   8:58 AM            666 flags.js                                                             
+-a----         9/19/2026   8:58 AM          18831 index.d.ts                                                           
+-a----         9/19/2026   8:58 AM           1665 index.js                                                             
+-a----         9/19/2026   8:58 AM          21054 index.js.flow                                                        
+-a----         9/19/2026   8:58 AM            276 index.mjs                                                            
+-a----         9/19/2026   8:58 AM            867 targets.d.ts                                                         
+-a----         9/19/2026   8:58 AM            819 targets.js.flow                                                      
+
+
+    Directory: E:\ai-rdvd-ui\node_modules\lightningcss-win32-x64-msvc
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/19/2026   8:58 AM          15648 LICENSE                                                              
+-a----         9/19/2026   8:58 AM        9484800 lightningcss.win32-x64-msvc.node                                     
+-a----         9/19/2026   8:58 AM            719 package.json                                                         
+-a----         9/19/2026   8:58 AM            121 README.md                                                            
+
+
+    Directory: E:\ai-rdvd-ui\node_modules\nanoid
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/19/2026   8:58 AM                async                                                                
+d-----         9/19/2026   8:58 AM                bin                                                                  
+d-----         9/19/2026   8:58 AM                non-secure                                                           
+d-----         9/19/2026   8:58 AM                url-alphabet                                                         
+-a----         9/19/2026   8:58 AM           1117 index.browser.cjs                                                    
+-a----         9/19/2026   8:58 AM           1103 index.browser.js                                                     
+-a----         9/19/2026   8:58 AM           1531 index.cjs                                                            
+-a----         9/19/2026   8:58 AM           2252 index.d.cts                                                          
+-a----         9/19/2026   8:58 AM           2252 index.d.ts                                                           
+-a----         9/19/2026   8:58 AM           1514 index.js                                                             
+-a----         9/19/2026   8:58 AM           1095 LICENSE                                                              
+-a----         9/19/2026   8:58 AM            169 nanoid.js                                                            
+-a----         9/19/2026   8:58 AM           2283 package.json                                                         
+-a----         9/19/2026   8:58 AM           1552 README.md                                                            
+
+
+    Directory: E:\ai-rdvd-ui\node_modules\nanoid\async
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/19/2026   8:58 AM           1031 index.browser.cjs                                                    
+-a----         9/19/2026   8:58 AM           1021 index.browser.js                                                     
+-a----         9/19/2026   8:58 AM           1087 index.cjs                                                            
+-a----         9/19/2026   8:58 AM           1505 index.d.ts                                                           
+-a----         9/19/2026   8:58 AM           1070 index.js                                                             
+-a----         9/19/2026   8:58 AM            908 index.native.js                                                      
+-a----         9/19/2026   8:58 AM            233 package.json                                                         
+
+
+    Directory: E:\ai-rdvd-ui\node_modules\nanoid\bin
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/19/2026   8:58 AM           1129 nanoid.cjs                                                           
+
+
+    Directory: E:\ai-rdvd-ui\node_modules\nanoid\non-secure
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/19/2026   8:58 AM            518 index.cjs                                                            
+-a----         9/19/2026   8:58 AM            983 index.d.ts                                                           
+-a----         9/19/2026   8:58 AM            508 index.js                                                             
+-a----         9/19/2026   8:58 AM             99 package.json                                                         
+
+
+    Directory: E:\ai-rdvd-ui\node_modules\nanoid\url-alphabet
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/19/2026   8:58 AM            121 index.cjs                                                            
+-a----         9/19/2026   8:58 AM            111 index.js                                                             
+-a----         9/19/2026   8:58 AM             99 package.json                                                         
+
+
+    Directory: E:\ai-rdvd-ui\node_modules\picocolors
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/19/2026   8:58 AM            787 LICENSE                                                              
+-a----         9/19/2026   8:58 AM            552 package.json                                                         
+-a----         9/19/2026   8:58 AM            598 picocolors.browser.js                                                
+-a----         9/19/2026   8:58 AM            138 picocolors.d.ts                                                      
+-a----         9/19/2026   8:58 AM           2663 picocolors.js                                                        
+-a----         9/19/2026   8:58 AM            622 README.md                                                            
+-a----         9/19/2026   8:58 AM           1013 types.d.ts                                                           
+
+
+    Directory: E:\ai-rdvd-ui\node_modules\picomatch
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/19/2026   8:58 AM                lib                                                                  
+-a----         9/19/2026   8:58 AM            479 index.js                                                             
+-a----         9/19/2026   8:58 AM           1091 LICENSE                                                              
+-a----         9/19/2026   8:58 AM           1915 package.json                                                         
+-a----         9/19/2026   8:58 AM             60 posix.js                                                             
+-a----         9/19/2026   8:58 AM          28319 README.md                                                            
+
+
+    Directory: E:\ai-rdvd-ui\node_modules\picomatch\lib
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/19/2026   8:58 AM           4552 constants.js                                                         
+-a----         9/19/2026   8:58 AM          35144 parse.js                                                             
+-a----         9/19/2026   8:58 AM          10722 picomatch.js                                                         
+-a----         9/19/2026   8:58 AM           9483 scan.js                                                              
+-a----         9/19/2026   8:58 AM           1994 utils.js                                                             
+
+
+    Directory: E:\ai-rdvd-ui\node_modules\postcss
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/19/2026   8:58 AM                lib                                                                  
+-a----         9/19/2026   8:58 AM           1095 LICENSE                                                              
+-a----         9/19/2026   8:58 AM           2497 package.json                                                         
+-a----         9/19/2026   8:58 AM           1159 README.md                                                            
+
+
+    Directory: E:\ai-rdvd-ui\node_modules\postcss\lib
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/19/2026   8:58 AM           3356 at-rule.d.ts                                                         
+-a----         9/19/2026   8:58 AM            471 at-rule.js                                                           
+-a----         9/19/2026   8:58 AM           1680 comment.d.ts                                                         
+-a----         9/19/2026   8:58 AM            203 comment.js                                                           
+-a----         9/19/2026   8:58 AM          13919 container.d.ts                                                       
+-a----         9/19/2026   8:58 AM          12350 container.js                                                         
+-a----         9/19/2026   8:58 AM           6447 css-syntax-error.d.ts                                                
+-a----         9/19/2026   8:58 AM           3402 css-syntax-error.js                                                  
+-a----         9/19/2026   8:58 AM           3866 declaration.d.ts                                                     
+-a----         9/19/2026   8:58 AM            495 declaration.js                                                       
+-a----         9/19/2026   8:58 AM           1884 document.d.ts                                                        
+-a----         9/19/2026   8:58 AM            654 document.js                                                          
+-a----         9/19/2026   8:58 AM            160 fromJSON.d.ts                                                        
+-a----         9/19/2026   8:58 AM           2810 fromJSON.js                                                          
+-a----         9/19/2026   8:58 AM           5126 input.d.ts                                                           
+-a----         9/19/2026   8:58 AM           7274 input.js                                                             
+-a----         9/19/2026   8:58 AM           4939 lazy-result.d.ts                                                     
+-a----         9/19/2026   8:58 AM          16273 lazy-result.js                                                       
+-a----         9/19/2026   8:58 AM           1424 list.d.ts                                                            
+-a----         9/19/2026   8:58 AM           1325 list.js                                                              
+-a----         9/19/2026   8:58 AM          10099 map-generator.js                                                     
+-a----         9/19/2026   8:58 AM           1503 no-work-result.d.ts                                                  
+-a----         9/19/2026   8:58 AM           2619 no-work-result.js                                                    
+-a----         9/19/2026   8:58 AM          14688 node.d.ts                                                            
+-a----         9/19/2026   8:58 AM          12643 node.js                                                              
+-a----         9/19/2026   8:58 AM            133 parse.d.ts                                                           
+-a----         9/19/2026   8:58 AM           1147 parse.js                                                             
+-a----         9/19/2026   8:58 AM          15310 parser.js                                                            
+-a----         9/19/2026   8:58 AM           1046 postcss.d.mts                                                        
+-a----         9/19/2026   8:58 AM          11654 postcss.d.ts                                                         
+-a----         9/19/2026   8:58 AM           2898 postcss.js                                                           
+-a----         9/19/2026   8:58 AM            980 postcss.mjs                                                          
+-a----         9/19/2026   8:58 AM           1757 previous-map.d.ts                                                    
+-a----         9/19/2026   8:58 AM           5130 previous-map.js                                                      
+-a----         9/19/2026   8:58 AM           3345 processor.d.ts                                                       
+-a----         9/19/2026   8:58 AM           1739 processor.js                                                         
+-a----         9/19/2026   8:58 AM           4346 result.d.ts                                                          
+-a----         9/19/2026   8:58 AM            738 result.js                                                            
+-a----         9/19/2026   8:58 AM           2253 root.d.ts                                                            
+-a----         9/19/2026   8:58 AM           1606 root.js                                                              
+-a----         9/19/2026   8:58 AM           2879 rule.d.ts                                                            
+-a----         9/19/2026   8:58 AM            569 rule.js                                                              
+-a----         9/19/2026   8:58 AM           1360 stringifier.d.ts                                                     
+-a----         9/19/2026   8:58 AM          12142 stringifier.js                                                       
+-a----         9/19/2026   8:58 AM            163 stringify.d.ts                                                       
+-a----         9/19/2026   8:58 AM            213 stringify.js                                                         
+-a----         9/19/2026   8:58 AM             91 symbols.js                                                           
+-a----         9/19/2026   8:58 AM           1399 terminal-highlight.js                                                
+-a----         9/19/2026   8:58 AM           6700 tokenize.js                                                          
+-a----         9/19/2026   8:58 AM            256 warn-once.js                                                         
+-a----         9/19/2026   8:58 AM           2924 warning.d.ts                                                         
+-a----         9/19/2026   8:58 AM           1151 warning.js                                                           
+
+
+    Directory: E:\ai-rdvd-ui\node_modules\react
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/19/2026   8:58 AM                cjs                                                                  
+-a----         9/19/2026   8:58 AM            412 compiler-runtime.js                                                  
+-a----         9/19/2026   8:58 AM            186 index.js                                                             
+-a----         9/19/2026   8:58 AM            218 jsx-dev-runtime.js                                                   
+-a----         9/19/2026   8:58 AM            244 jsx-dev-runtime.react-server.js                                      
+-a----         9/19/2026   8:58 AM            210 jsx-runtime.js                                                       
+-a----         9/19/2026   8:58 AM            236 jsx-runtime.react-server.js                                          
+-a----         9/19/2026   8:58 AM           1088 LICENSE                                                              
+-a----         9/19/2026   8:58 AM           1242 package.json                                                         
+-a----         9/19/2026   8:58 AM            212 react.react-server.js                                                
+-a----         9/19/2026   8:58 AM           1158 README.md                                                            
+
+
+    Directory: E:\ai-rdvd-ui\node_modules\react\cjs
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/19/2026   8:58 AM           1090 react-compiler-runtime.development.js                                
+-a----         9/19/2026   8:58 AM            463 react-compiler-runtime.production.js                                 
+-a----         9/19/2026   8:58 AM            462 react-compiler-runtime.profiling.js                                  
+-a----         9/19/2026   8:58 AM          12420 react-jsx-dev-runtime.development.js                                 
+-a----         9/19/2026   8:58 AM            387 react-jsx-dev-runtime.production.js                                  
+-a----         9/19/2026   8:58 AM            386 react-jsx-dev-runtime.profiling.js                                   
+-a----         9/19/2026   8:58 AM          14009 react-jsx-dev-runtime.react-server.development.js                    
+-a----         9/19/2026   8:58 AM           1316 react-jsx-dev-runtime.react-server.production.js                     
+-a----         9/19/2026   8:58 AM          13032 react-jsx-runtime.development.js                                     
+-a----         9/19/2026   8:58 AM            976 react-jsx-runtime.production.js                                      
+-a----         9/19/2026   8:58 AM            975 react-jsx-runtime.profiling.js                                       
+-a----         9/19/2026   8:58 AM          14005 react-jsx-runtime.react-server.development.js                        
+-a----         9/19/2026   8:58 AM           1312 react-jsx-runtime.react-server.production.js                         
+-a----         9/19/2026   8:58 AM          49165 react.development.js                                                 
+-a----         9/19/2026   8:58 AM          18040 react.production.js                                                  
+-a----         9/19/2026   8:58 AM          31610 react.react-server.development.js                                    
+-a----         9/19/2026   8:58 AM          13809 react.react-server.production.js                                     
+
+
+    Directory: E:\ai-rdvd-ui\node_modules\react-dom
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/19/2026   8:58 AM                cjs                                                                  
+-a----         9/19/2026   8:58 AM           1373 client.js                                                            
+-a----         9/19/2026   8:58 AM            101 client.react-server.js                                               
+-a----         9/19/2026   8:58 AM           1359 index.js                                                             
+-a----         9/19/2026   8:58 AM           1088 LICENSE                                                              
+-a----         9/19/2026   8:58 AM           3054 package.json                                                         
+-a----         9/19/2026   8:58 AM           1378 profiling.js                                                         
+-a----         9/19/2026   8:58 AM            104 profiling.react-server.js                                            
+-a----         9/19/2026   8:58 AM            220 react-dom.react-server.js                                            
+-a----         9/19/2026   8:58 AM           1096 README.md                                                            
+-a----         9/19/2026   8:58 AM            563 server.browser.js                                                    
+-a----         9/19/2026   8:58 AM            677 server.bun.js                                                        
+-a----         9/19/2026   8:58 AM            561 server.edge.js                                                       
+-a----         9/19/2026   8:58 AM             58 server.js                                                            
+-a----         9/19/2026   8:58 AM            669 server.node.js                                                       
+-a----         9/19/2026   8:58 AM            101 server.react-server.js                                               
+-a----         9/19/2026   8:58 AM            319 static.browser.js                                                    
+-a----         9/19/2026   8:58 AM            313 static.edge.js                                                       
+-a----         9/19/2026   8:58 AM             58 static.js                                                            
+-a----         9/19/2026   8:58 AM            445 static.node.js                                                       
+-a----         9/19/2026   8:58 AM            101 static.react-server.js                                               
+-a----         9/19/2026   8:58 AM            216 test-utils.js                                                        
+
+
+    Directory: E:\ai-rdvd-ui\node_modules\react-dom\cjs
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/19/2026   8:58 AM        1182785 react-dom-client.development.js                                      
+-a----         9/19/2026   8:58 AM         625168 react-dom-client.production.js                                       
+-a----         9/19/2026   8:58 AM        1199917 react-dom-profiling.development.js                                   
+-a----         9/19/2026   8:58 AM         699916 react-dom-profiling.profiling.js                                     
+-a----         9/19/2026   8:58 AM         421786 react-dom-server-legacy.browser.development.js                       
+-a----         9/19/2026   8:58 AM         258822 react-dom-server-legacy.browser.production.js                        
+-a----         9/19/2026   8:58 AM         421783 react-dom-server-legacy.node.development.js                          
+-a----         9/19/2026   8:58 AM         264184 react-dom-server-legacy.node.production.js                           
+-a----         9/19/2026   8:58 AM         451470 react-dom-server.browser.development.js                              
+-a----         9/19/2026   8:58 AM         286554 react-dom-server.browser.production.js                               
+-a----         9/19/2026   8:58 AM         399427 react-dom-server.bun.development.js                                  
+-a----         9/19/2026   8:58 AM         287481 react-dom-server.bun.production.js                                   
+-a----         9/19/2026   8:58 AM         452252 react-dom-server.edge.development.js                                 
+-a----         9/19/2026   8:58 AM         292617 react-dom-server.edge.production.js                                  
+-a----         9/19/2026   8:58 AM         458095 react-dom-server.node.development.js                                 
+-a----         9/19/2026   8:58 AM         300544 react-dom-server.node.production.js                                  
+-a----         9/19/2026   8:58 AM            793 react-dom-test-utils.development.js                                  
+-a----         9/19/2026   8:58 AM            686 react-dom-test-utils.production.js                                   
+-a----         9/19/2026   8:58 AM          18481 react-dom.development.js                                             
+-a----         9/19/2026   8:58 AM           7326 react-dom.production.js                                              
+-a----         9/19/2026   8:58 AM          14614 react-dom.react-server.development.js                                
+-a----         9/19/2026   8:58 AM           5227 react-dom.react-server.production.js                                 
+
+
+    Directory: E:\ai-rdvd-ui\node_modules\rolldown
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/19/2026   8:58 AM                bin                                                                  
+d-----         9/19/2026   8:58 AM                dist                                                                 
+-a----         9/19/2026   8:58 AM           1302 LICENSE                                                              
+-a----         9/19/2026   8:58 AM           6202 package.json                                                         
+-a----         9/19/2026   8:58 AM            665 README.md                                                            
+-a----         9/19/2026   8:58 AM           2209 THIRD-PARTY-LICENSE                                                  
+
+
+    Directory: E:\ai-rdvd-ui\node_modules\rolldown\bin
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/19/2026   8:58 AM            244 cli.mjs                                                              
+
+
+    Directory: E:\ai-rdvd-ui\node_modules\rolldown\dist
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/19/2026   8:58 AM                shared                                                               
+-a----         9/19/2026   8:58 AM              9 cli.d.mts                                                            
+-a----         9/19/2026   8:58 AM          39744 cli.mjs                                                              
+-a----         9/19/2026   8:58 AM           1075 config.d.mts                                                         
+-a----         9/19/2026   8:58 AM            267 config.mjs                                                           
+-a----         9/19/2026   8:58 AM           3177 experimental-default-runtime.mjs                                     
+-a----         9/19/2026   8:58 AM          14396 experimental-index.d.mts                                             
+-a----         9/19/2026   8:58 AM          14844 experimental-index.mjs                                               
+-a----         9/19/2026   8:58 AM           3445 experimental-runtime-base.mjs                                        
+-a----         9/19/2026   8:58 AM           6776 experimental-runtime-types.d.ts                                      
+-a----         9/19/2026   8:58 AM           6776 experimental-runtime.d.ts                                            
+-a----         9/19/2026   8:58 AM           9351 experimental-runtime.mjs                                             
+-a----         9/19/2026   8:58 AM           6817 filter-index.d.mts                                                   
+-a----         9/19/2026   8:58 AM          11176 filter-index.mjs                                                     
+-a----         9/19/2026   8:58 AM            257 get-log-filter.d.mts                                                 
+-a----         9/19/2026   8:58 AM           2037 get-log-filter.mjs                                                   
+-a----         9/19/2026   8:58 AM           5301 index.d.mts                                                          
+-a----         9/19/2026   8:58 AM           1642 index.mjs                                                            
+-a----         9/19/2026   8:58 AM              9 parallel-plugin-worker.d.mts                                         
+-a----         9/19/2026   8:58 AM           1113 parallel-plugin-worker.mjs                                           
+-a----         9/19/2026   8:58 AM            575 parallel-plugin.d.mts                                                
+-a----         9/19/2026   8:58 AM            187 parallel-plugin.mjs                                                  
+-a----         9/19/2026   8:58 AM           1070 parse-ast-index.d.mts                                                
+-a----         9/19/2026   8:58 AM           2148 parse-ast-index.mjs                                                  
+-a----         9/19/2026   8:58 AM            992 plugins-index.d.mts                                                  
+-a----         9/19/2026   8:58 AM           1082 plugins-index.mjs                                                    
+-a----         9/19/2026   8:58 AM          24322 utils-index.d.mts                                                    
+-a----         9/19/2026   8:58 AM          70392 utils-index.mjs                                                      
+
+
+    Directory: E:\ai-rdvd-ui\node_modules\scheduler
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/19/2026   8:58 AM                cjs                                                                  
+-a----         9/19/2026   8:58 AM            194 index.js                                                             
+-a----         9/19/2026   8:58 AM            208 index.native.js                                                      
+-a----         9/19/2026   8:58 AM           1088 LICENSE                                                              
+-a----         9/19/2026   8:58 AM            558 package.json                                                         
+-a----         9/19/2026   8:58 AM            346 README.md                                                            
+-a----         9/19/2026   8:58 AM            222 unstable_mock.js                                                     
+-a----         9/19/2026   8:58 AM            232 unstable_post_task.js                                                
+
+
+    Directory: E:\ai-rdvd-ui\node_modules\scheduler\cjs
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/19/2026   8:58 AM          13687 scheduler-unstable_mock.development.js                               
+-a----         9/19/2026   8:58 AM          11990 scheduler-unstable_mock.production.js                                
+-a----         9/19/2026   8:58 AM           4639 scheduler-unstable_post_task.development.js                          
+-a----         9/19/2026   8:58 AM           3974 scheduler-unstable_post_task.production.js                           
+-a----         9/19/2026   8:58 AM          12144 scheduler.development.js                                             
+-a----         9/19/2026   8:58 AM          12327 scheduler.native.development.js                                      
+-a----         9/19/2026   8:58 AM          10869 scheduler.native.production.js                                       
+-a----         9/19/2026   8:58 AM          10181 scheduler.production.js                                              
+
+
+    Directory: E:\ai-rdvd-ui\node_modules\source-map-js
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/19/2026   8:58 AM                lib                                                                  
+-a----         9/19/2026   8:58 AM           1526 LICENSE                                                              
+-a----         9/19/2026   8:58 AM           2548 package.json                                                         
+-a----         9/19/2026   8:58 AM          26040 README.md                                                            
+-a----         9/19/2026   8:58 AM           3408 source-map.d.ts                                                      
+-a----         9/19/2026   8:58 AM            405 source-map.js                                                        
+
+
+    Directory: E:\ai-rdvd-ui\node_modules\source-map-js\lib
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/19/2026   8:58 AM           3197 array-set.js                                                         
+-a----         9/19/2026   8:58 AM           4714 base64-vlq.js                                                        
+-a----         9/19/2026   8:58 AM           1540 base64.js                                                            
+-a----         9/19/2026   8:58 AM           4249 binary-search.js                                                     
+-a----         9/19/2026   8:58 AM           2339 mapping-list.js                                                      
+-a----         9/19/2026   8:58 AM           4068 quick-sort.js                                                        
+-a----         9/19/2026   8:58 AM             40 source-map-consumer.d.ts                                             
+-a----         9/19/2026   8:58 AM          41580 source-map-consumer.js                                               
+-a----         9/19/2026   8:58 AM             41 source-map-generator.d.ts                                            
+-a----         9/19/2026   8:58 AM          14933 source-map-generator.js                                              
+-a----         9/19/2026   8:58 AM             33 source-node.d.ts                                                     
+-a----         9/19/2026   8:58 AM          13808 source-node.js                                                       
+-a----         9/19/2026   8:58 AM          15403 util.js                                                              
+
+
+    Directory: E:\ai-rdvd-ui\node_modules\tinyglobby
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/19/2026   8:58 AM                dist                                                                 
+-a----         9/19/2026   8:58 AM           1076 LICENSE                                                              
+-a----         9/19/2026   8:58 AM           1761 package.json                                                         
+-a----         9/19/2026   8:58 AM            931 README.md                                                            
+
+
+    Directory: E:\ai-rdvd-ui\node_modules\tinyglobby\dist
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/19/2026   8:58 AM          13706 index.cjs                                                            
+-a----         9/19/2026   8:58 AM           4688 index.d.cts                                                          
+-a----         9/19/2026   8:58 AM           4688 index.d.mts                                                          
+-a----         9/19/2026   8:58 AM          12438 index.mjs                                                            
+
+
+    Directory: E:\ai-rdvd-ui\node_modules\typescript
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/19/2026   8:58 AM                bin                                                                  
+d-----         9/19/2026   8:58 AM                dist                                                                 
+d-----         9/19/2026   8:58 AM                lib                                                                  
+d-----         9/19/2026   8:58 AM                vendor                                                               
+-a----         9/19/2026   8:58 AM           9197 LICENSE                                                              
+-a----         9/19/2026   8:58 AM          48860 NOTICE.txt                                                           
+-a----         9/19/2026   8:58 AM           3087 package.json                                                         
+-a----         9/19/2026   8:58 AM           2790 README.md                                                            
+
+
+    Directory: E:\ai-rdvd-ui\node_modules\typescript\bin
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/19/2026   8:58 AM             44 tsc                                                                  
+
+
+    Directory: E:\ai-rdvd-ui\node_modules\typescript\dist
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/19/2026   8:58 AM                api                                                                  
+d-----         9/19/2026   8:58 AM                ast                                                                  
+d-----         9/19/2026   8:58 AM                enums                                                                
+d-----         9/19/2026   8:58 AM                internal                                                             
+
+
+    Directory: E:\ai-rdvd-ui\node_modules\typescript\lib
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/19/2026   8:58 AM             68 getExePath.d.ts                                                      
+-a----         9/19/2026   8:58 AM           3051 getExePath.js                                                        
+-a----         9/19/2026   8:58 AM            609 tsc.js                                                               
+-a----         9/19/2026   8:58 AM            113 version.cjs                                                          
+-a----         9/19/2026   8:58 AM             88 version.d.cts                                                        
+
+
+    Directory: E:\ai-rdvd-ui\node_modules\typescript\vendor
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/19/2026   8:58 AM                vscode-jsonrpc                                                       
+
+
+    Directory: E:\ai-rdvd-ui\node_modules\vite
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/19/2026   8:58 AM                bin                                                                  
+d-----         9/19/2026   8:58 AM                dist                                                                 
+d-----         9/19/2026   8:58 AM                misc                                                                 
+d-----         9/19/2026   8:58 AM                types                                                                
+-a----         9/19/2026   8:58 AM           5231 client.d.ts                                                          
+-a----         9/19/2026   8:58 AM         112425 LICENSE.md                                                           
+-a----         9/19/2026   8:58 AM           5082 package.json                                                         
+-a----         9/19/2026   8:58 AM           1179 README.md                                                            
+
+
+    Directory: E:\ai-rdvd-ui\node_modules\vite\bin
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/19/2026   8:58 AM           1839 openChrome.js                                                        
+-a----         9/19/2026   8:58 AM           2995 vite.js                                                              
+
+
+    Directory: E:\ai-rdvd-ui\node_modules\vite\dist
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/19/2026   8:58 AM                client                                                               
+d-----         9/19/2026   8:58 AM                node                                                                 
+
+
+    Directory: E:\ai-rdvd-ui\node_modules\vite\misc
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/19/2026   8:58 AM             21 false.js                                                             
+-a----         9/19/2026   8:58 AM             20 true.js                                                              
+
+
+    Directory: E:\ai-rdvd-ui\node_modules\vite\types
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/19/2026   8:58 AM                internal                                                             
+-a----         9/19/2026   8:58 AM           2142 customEvent.d.ts                                                     
+-a----         9/19/2026   8:58 AM           1873 hmrPayload.d.ts                                                      
+-a----         9/19/2026   8:58 AM           1063 hot.d.ts                                                             
+-a----         9/19/2026   8:58 AM            249 import-meta.d.ts                                                     
+-a----         9/19/2026   8:58 AM           3477 importGlob.d.ts                                                      
+-a----         9/19/2026   8:58 AM            884 importMeta.d.ts                                                      
+-a----         9/19/2026   8:58 AM           1133 metadata.d.ts                                                        
+
+
+    Directory: E:\ai-rdvd-ui\output
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/20/2026   5:47 PM                logs                                                                 
+d-----         9/23/2026   6:53 PM                tts                                                                  
+
+
+    Directory: E:\ai-rdvd-ui\output\tts
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/21/2026   1:03 AM        2442284 doan-trang-1789927157916.wav                                         
+-a----         9/20/2026  11:14 PM        2649644 minh-duc-1789920719371.wav                                           
+-a----         9/21/2026  12:42 AM        3275564 minh-duc-1789925971213.wav                                           
+-a----         9/21/2026   7:48 PM        3237164 minh-duc-1789994699087.wav                                           
+-a----         9/21/2026   8:28 PM        3237164 minh-duc-1789997095536.wav                                           
+-a----         9/21/2026   9:00 PM       28800044 minh-duc-1789998442039.wav                                           
+-a----         9/21/2026   9:24 PM        3237164 minh-duc-1790000321243.wav                                           
+-a----         9/21/2026   9:34 PM        3237164 minh-duc-1790001123782.wav                                           
+-a----         9/21/2026  10:15 PM        3237164 minh-duc-1790003349009.wav                                           
+-a----         9/21/2026  10:26 PM        3237164 minh-duc-1790004172911.wav                                           
+-a----         9/21/2026  10:39 PM        3237164 minh-duc-1790004948223.wav                                           
+-a----         9/21/2026  10:59 PM        3237164 minh-duc-1790005919571.wav                                           
+-a----         9/21/2026  11:17 PM        3237164 minh-duc-1790007306097.wav                                           
+-a----         9/21/2026  11:32 PM        3237164 minh-duc-1790008143463.wav                                           
+-a----         9/21/2026  11:49 PM        3237164 minh-duc-1790009168867.wav                                           
+-a----         9/22/2026   6:49 PM        5760908 minh-duc-1790077532414.wav                                           
+-a----         9/22/2026   7:04 PM        3237164 minh-duc-1790078307545.wav                                           
+-a----         9/23/2026   6:53 PM        3237164 minh-duc-1790164103255.wav                                           
+-a----         9/21/2026  12:08 AM        3260204 ngoc-huyen-1789924039317.wav                                         
+-a----         9/21/2026   6:45 AM        2242604 ngoc-huyen-1789947816618.wav                                         
+-a----         9/21/2026   1:28 AM        2035244 truc-ly-1789928652510.wav                                            
+
+
+    Directory: E:\ai-rdvd-ui\payload
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/21/2026  12:34 AM                src                                                                  
+
+
+    Directory: E:\ai-rdvd-ui\payload\src
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/21/2026  12:34 AM                components                                                           
+d-----         9/21/2026  12:34 AM                styles                                                               
+
+
+    Directory: E:\ai-rdvd-ui\payload\src\components
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/21/2026  12:34 AM                editor                                                               
+d-----         9/21/2026  12:34 AM                preview                                                              
+
+
+    Directory: E:\ai-rdvd-ui\payload\src\styles
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/20/2026   5:30 PM           9478 preview.css                                                          
+
+
+    Directory: E:\ai-rdvd-ui\public
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/24/2026   5:16 PM        1829064 preview.png                                                          
+
+
+    Directory: E:\ai-rdvd-ui\runtime
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/24/2026   5:16 PM            295 README.txt                                                           
+
+
+    Directory: E:\ai-rdvd-ui\scripts
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/24/2026   5:16 PM           3095 import-translation-environment.ps1                                   
+-a----         9/24/2026   5:16 PM           3619 import-tts-environment.ps1                                           
+-a----         9/24/2026   5:16 PM           2713 setup-translation-windows.ps1                                        
+-a----         9/24/2026   5:16 PM           1422 setup-tts-windows.ps1                                                
+
+
+    Directory: E:\ai-rdvd-ui\src
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/20/2026   2:22 AM                components                                                           
+d-----         9/20/2026   2:22 PM                constants                                                            
+d-----         9/20/2026   8:28 PM                hooks                                                                
+d-----         9/20/2026   8:28 PM                services                                                             
+d-----         9/20/2026   2:22 AM                styles                                                               
+d-----         9/21/2026  11:27 PM                utils                                                                
+-a----         9/20/2026   1:46 AM          77277 ai-rdvd.css                                                          
+-a----         9/24/2026   5:59 PM          53297 AIRDvD.tsx                                                           
+-a----         9/24/2026   5:16 PM            224 main.tsx                                                             
+-a----         9/24/2026   5:16 PM            714 tauriWindow.ts                                                       
+-a----         9/24/2026   5:58 PM           4613 types.ts                                                             
+-a----         9/24/2026   5:16 PM             38 vite-env.d.ts                                                        
+
+
+    Directory: E:\ai-rdvd-ui\src\components
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/20/2026   2:22 AM                editor                                                               
+d-----         9/20/2026   2:22 AM                preview                                                              
+d-----         9/20/2026   2:22 AM                settings                                                             
+d-----         9/20/2026   2:22 AM                timeline                                                             
+d-----         9/20/2026   2:22 AM                topbar                                                               
+d-----         9/20/2026   2:22 AM                workflow                                                             
+
+
+    Directory: E:\ai-rdvd-ui\src\components\editor
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/24/2026   5:16 PM           4616 EditPanel.tsx                                                        
+
+
+    Directory: E:\ai-rdvd-ui\src\components\preview
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/24/2026   5:16 PM           1754 LogoOverlay.tsx                                                      
+-a----         9/24/2026   5:16 PM           3685 SubtitleOverlay.tsx                                                  
+-a----         9/24/2026   5:16 PM          15418 VideoPreview.tsx                                                     
+
+
+    Directory: E:\ai-rdvd-ui\src\components\settings
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/24/2026   5:16 PM           7939 SettingsDialog.tsx                                                   
+
+
+    Directory: E:\ai-rdvd-ui\src\components\timeline
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/24/2026   5:16 PM          18837 Timeline.tsx                                                         
+
+
+    Directory: E:\ai-rdvd-ui\src\components\topbar
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/24/2026   5:16 PM           5788 Topbar.tsx                                                           
+
+
+    Directory: E:\ai-rdvd-ui\src\components\workflow
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/24/2026   5:58 PM          14807 WorkflowSidebar.tsx                                                  
+
+
+    Directory: E:\ai-rdvd-ui\src\constants
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/24/2026   5:16 PM            474 editor.ts                                                            
+-a----         9/24/2026   5:16 PM          16266 uiText.ts                                                            
+-a----         9/24/2026   5:16 PM           3767 voices.ts                                                            
+
+
+    Directory: E:\ai-rdvd-ui\src\hooks
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/24/2026   5:16 PM           2270 useAppLog.ts                                                         
+-a----         9/24/2026   5:16 PM           5167 useMediaProject.ts                                                   
+-a----         9/24/2026   5:16 PM           7763 usePipeline.ts                                                       
+-a----         9/24/2026   5:16 PM           2045 useTimeline.ts                                                       
+-a----         9/24/2026   5:58 PM           9663 useTranslationEngine.ts                                              
+-a----         9/24/2026   5:16 PM           7712 useVoiceEngine.ts                                                    
+
+
+    Directory: E:\ai-rdvd-ui\src\services
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/24/2026   5:58 PM           2738 translation.ts                                                       
+-a----         9/24/2026   5:16 PM           2490 tts.ts                                                               
+
+
+    Directory: E:\ai-rdvd-ui\src\styles
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/24/2026   5:16 PM           8731 foundation.css                                                       
+-a----         9/24/2026   5:16 PM            275 index.css                                                            
+-a----         9/24/2026   5:16 PM          10307 interactions-theme.css                                               
+-a----         9/24/2026   5:16 PM           3928 media-timeline.css                                                   
+-a----         9/24/2026   5:16 PM           9441 preview.css                                                          
+-a----         9/24/2026   5:16 PM           1871 responsive.css                                                       
+-a----         9/24/2026   5:16 PM          10032 settings-timeline.css                                                
+-a----         9/24/2026   5:16 PM          10180 timeline.css                                                         
+-a----         9/24/2026   5:16 PM          13514 workflow.css                                                         
+-a----         9/24/2026   5:16 PM          10748 workspace-responsive.css                                             
+
+
+    Directory: E:\ai-rdvd-ui\src\utils
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/24/2026   5:16 PM            479 color.ts                                                             
+-a----         9/24/2026   5:16 PM           1805 subtitle.ts                                                          
+-a----         9/24/2026   5:16 PM           2252 subtitleDisplay.ts                                                   
+-a----         9/24/2026   5:16 PM            657 timecode.ts                                                          
+-a----         9/24/2026   5:16 PM           6041 translationSegments.ts                                               
+-a----         9/24/2026   5:16 PM            580 ttsText.ts                                                           
+
+
+    Directory: E:\ai-rdvd-ui\src-tauri
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/19/2026  11:14 PM                capabilities                                                         
+d-----         9/19/2026  11:49 PM                gen                                                                  
+d-----         9/19/2026  11:14 PM                icons                                                                
+d-----         9/19/2026  11:14 PM                src                                                                  
+d-----         9/19/2026  11:25 PM                target                                                               
+-a----         9/24/2026   5:16 PM             40 build.rs                                                             
+-a----         9/21/2026   1:09 AM         110086 Cargo.lock                                                           
+-a----         9/24/2026   6:05 PM            465 Cargo.toml                                                           
+-a----         9/24/2026   5:16 PM           1322 tauri.conf.json                                                      
+
+
+    Directory: E:\ai-rdvd-ui\src-tauri\capabilities
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/24/2026   5:16 PM            416 default.json                                                         
+
+
+    Directory: E:\ai-rdvd-ui\src-tauri\gen
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/19/2026  11:49 PM                schemas                                                              
+
+
+    Directory: E:\ai-rdvd-ui\src-tauri\gen\schemas
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/19/2026  11:49 PM          65934 acl-manifests.json                                                   
+-a----         9/19/2026  11:49 PM            346 capabilities.json                                                    
+-a----         9/19/2026  11:49 PM         116049 desktop-schema.json                                                  
+-a----         9/19/2026  11:49 PM         116049 windows-schema.json                                                  
+
+
+    Directory: E:\ai-rdvd-ui\src-tauri\icons
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/24/2026   5:16 PM          22801 icon.ico                                                             
+-a----         9/24/2026   5:16 PM          10691 icon.png                                                             
+
+
+    Directory: E:\ai-rdvd-ui\src-tauri\src
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/24/2026   5:59 PM          55849 lib.rs                                                               
+-a----         9/24/2026   5:16 PM            106 main.rs                                                              
+
+
+    Directory: E:\ai-rdvd-ui\src-tauri\target
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/24/2026   6:13 PM                debug                                                                
+-a----         9/19/2026  11:25 PM           1392 .rustc_info.json                                                     
+-a----         9/19/2026  11:25 PM            177 CACHEDIR.TAG                                                         
+
+
+    Directory: E:\ai-rdvd-ui\src-tauri\target\debug
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/21/2026   1:12 AM                .fingerprint                                                         
+d-----         9/21/2026   1:12 AM                build                                                                
+d-----         9/24/2026   6:13 PM                deps                                                                 
+d-----         9/19/2026  11:25 PM                examples                                                             
+d-----         9/21/2026   1:19 AM                incremental                                                          
+d-----         9/20/2026   8:35 PM                _up_                                                                 
+-a----         9/19/2026  11:25 PM              0 .cargo-artifact-lock                                                 
+-a----         9/19/2026  11:25 PM              0 .cargo-build-lock                                                    
+-a----         9/19/2026  11:25 PM              0 .cargo-lock                                                          
+-a----         9/24/2026   6:13 PM           5572 ai-rdvd.d                                                            
+-a----         9/24/2026   6:13 PM       13358592 ai-rdvd.exe                                                          
+-a----         9/24/2026   6:13 PM      114176000 ai_rdvd.pdb                                                          
+-a----         9/24/2026   6:13 PM           5540 ai_rdvd_lib.d                                                        
+-a----         9/24/2026   6:11 PM         143872 ai_rdvd_lib.dll                                                      
+-a----         9/24/2026   6:10 PM            659 ai_rdvd_lib.dll.exp                                                  
+-a----         9/24/2026   6:10 PM           1580 ai_rdvd_lib.dll.lib                                                  
+-a----         9/24/2026   6:09 PM      723658136 ai_rdvd_lib.lib                                                      
+-a----         9/24/2026   6:11 PM       69906432 ai_rdvd_lib.pdb                                                      
+-a----         9/24/2026   6:13 PM           5544 libai_rdvd_lib.d                                                     
+-a----         9/24/2026   6:11 PM      299837970 libai_rdvd_lib.rlib                                                  
+
+
+    Directory: E:\ai-rdvd-ui\tests
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/24/2026   6:05 PM                samples                                                              
+d-----         9/24/2026   6:05 PM                __pycache__                                                          
+-a----         9/24/2026   5:16 PM           5086 test_meaning_guard.py                                                
+-a----         9/24/2026   5:58 PM          11673 test_translation_worker_contract.py                                  
+
+
+    Directory: E:\ai-rdvd-ui\tests\samples
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/20/2026   9:42 PM           7750 AI-RDvD-Translation-Stress-Test-10-Genres-ZH.txt                     
+-a----         9/21/2026   6:21 PM           2078 korea-test.txt                                                       
+-a----         9/24/2026   6:00 PM            779 translation-ko-airdvd.txt                                            
+-a----         9/24/2026   5:16 PM            928 translation-zh-airdvd-timed.txt                                      
+-a----         9/24/2026   5:16 PM            269 translation-zh.txt                                                   
+
+
+    Directory: E:\ai-rdvd-ui\tests\__pycache__
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/24/2026   5:58 PM          14162 test_translation_worker_contract.cpython-313.pyc                     
+
+
+    Directory: E:\ai-rdvd-ui\translation-assets
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/20/2026   8:31 PM                data                                                                 
+d-----         9/20/2026   8:31 PM                dictionaries                                                         
+d-----         9/20/2026   8:31 PM                models                                                               
+d-----         9/24/2026   7:47 AM                profiles                                                             
+d-----         9/20/2026   8:31 PM                sources                                                              
+-a----         9/20/2026   8:31 PM          20940 installed.json                                                       
+
+
+    Directory: E:\ai-rdvd-ui\translation-assets\data
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/12/2026   4:23 PM           2366 corpus-metadata.json                                                 
+-a----         9/12/2026   4:08 PM           2052 dep-dict.jsonl                                                       
+-a----         9/12/2026   4:17 PM           9742 full-local-fixture.json                                              
+-a----         9/12/2026   5:36 PM          84323 raw-hachimi-results.json                                             
+-a----         9/12/2026   4:13 PM           2741 stress-dialogues.jsonl                                               
+-a----         9/12/2026   4:26 PM           1757 xianxia-domain-lexicon.json                                          
+
+
+    Directory: E:\ai-rdvd-ui\translation-assets\dictionaries
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/12/2026   3:17 PM            711 domain-glossary.before-xianxia-v001.json                             
+-a----         9/13/2026  12:49 AM           2882 domain-glossary.before-xianxia-v002.json                             
+-a----         9/13/2026  12:54 AM           1976 domain-glossary.before-xianxia-v003.json                             
+-a----         9/13/2026   1:37 AM           2195 domain-glossary.json                                                 
+-a----         9/12/2026   7:47 PM            932 semantic-evidence-v010.json                                          
+-a----         9/12/2026   5:46 PM           2129 xianxia-domain-glossary-v001.json                                    
+-a----         9/12/2026   5:52 PM           1307 xianxia-domain-glossary-v002.json                                    
+-a----         9/12/2026   5:55 PM           1449 xianxia-domain-glossary-v003.json                                    
+
+
+    Directory: E:\ai-rdvd-ui\translation-assets\models
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/20/2026   8:31 PM                HachimiMT-60-QT                                                      
+
+
+    Directory: E:\ai-rdvd-ui\translation-assets\models\HachimiMT-60-QT
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/12/2026   9:50 PM                .cache                                                               
+d-----         9/12/2026   9:50 PM                ct2-int8_float32                                                     
+-a----         9/12/2026   9:50 PM            885 config.json                                                          
+-a----         9/12/2026   9:50 PM            274 generation_config.json                                               
+-a----         9/12/2026   9:50 PM         606686 source.spm                                                           
+-a----         9/12/2026   9:50 PM            100 special_tokens_map.json                                              
+-a----         9/12/2026   9:50 PM         606202 target.spm                                                           
+-a----         9/12/2026   9:50 PM           1072 tokenizer_config.json                                                
+-a----         9/12/2026   9:50 PM         589711 vocab.json                                                           
+
+
+    Directory: E:\ai-rdvd-ui\translation-assets\profiles
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/24/2026   5:58 PM            198 ko-vi.json                                                           
+-a----         9/24/2026   5:58 PM            199 zh-vi.json                                                           
+
+
+    Directory: E:\ai-rdvd-ui\translation-assets\sources
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/20/2026   8:31 PM                CVDICT                                                               
+d-----         9/20/2026   8:31 PM                hanviet-pinyin-wordlist                                              
+
+
+    Directory: E:\ai-rdvd-ui\translation-assets\sources\CVDICT
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/12/2026   9:50 PM           2860 a.py                                                                 
+-a----         9/12/2026   9:50 PM       10925941 CVDICT.u8                                                            
+-a----         9/12/2026   9:50 PM           2851 README.md                                                            
+
+
+    Directory: E:\ai-rdvd-ui\translation-assets\sources\hanviet-pinyin-wordlist
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/12/2026   9:50 PM         206585 hanviet.csv                                                          
+-a----         9/12/2026   9:50 PM           1067 LICENSE                                                              
+-a----         9/12/2026   9:50 PM           4094 main.py                                                              
+-a----         9/12/2026   9:50 PM           2942 README.md                                                            
+
+
+    Directory: E:\ai-rdvd-ui\translation-models
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/25/2026  11:58 PM                mbart-large-50-mmt-ko-vi                                             
+
+
+    Directory: E:\ai-rdvd-ui\translation-models\mbart-large-50-mmt-ko-vi
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/25/2026   9:53 PM                .cache                                                               
+d-----         9/26/2026  12:21 AM                benchmark-10                                                         
+-a----         9/25/2026   9:53 PM           1570 .gitattributes                                                       
+-a----         9/25/2026   9:53 PM           1488 config.json                                                          
+-a----         9/25/2026   9:53 PM            268 generation_config.json                                               
+-a----         9/25/2026  10:34 PM     2444578688 model.safetensors                                                    
+-a----         9/25/2026   9:53 PM           4787 README.md                                                            
+-a----         9/25/2026   9:53 PM        5069051 sentencepiece.bpe.model                                              
+-a----         9/25/2026   9:53 PM           1781 special_tokens_map.json                                              
+-a----         9/25/2026   9:53 PM       17094835 tokenizer.json                                                       
+-a----         9/25/2026   9:53 PM          11456 tokenizer_config.json                                                
+-a----         9/25/2026   9:53 PM           5368 training_args.bin                                                    
+
+
+    Directory: E:\ai-rdvd-ui\translation-models\mbart-large-50-mmt-ko-vi\.cache
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/25/2026   9:53 PM                huggingface                                                          
+
+
+    Directory: E:\ai-rdvd-ui\translation-models\mbart-large-50-mmt-ko-vi\benchmark-10
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/26/2026  12:21 AM           4306 mbart-ko-vi-benchmark-10.json                                        
+-a----         9/26/2026  12:21 AM           3155 mbart-ko-vi-benchmark-10.txt                                         
+
+
+    Directory: E:\ai-rdvd-ui\translation-template
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/24/2026   7:47 AM                data                                                                 
+d-----         9/24/2026   7:47 AM                dictionaries                                                         
+-a----         9/24/2026   5:58 PM            996 manifest.json                                                        
+
+
+    Directory: E:\ai-rdvd-ui\translation-template\data
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/24/2026   5:16 PM            237 korean-voice-test.json                                               
+-a----         9/24/2026   5:16 PM           1758 xianxia-domain-lexicon.json                                          
+
+
+    Directory: E:\ai-rdvd-ui\translation-template\dictionaries
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/24/2026   7:47 AM                ko                                                                   
+-a----         9/24/2026   5:16 PM           2120 domain-glossary.json                                                 
+-a----         9/24/2026   5:16 PM            932 semantic-evidence-v010.json                                          
+
+
+    Directory: E:\ai-rdvd-ui\translation-template\dictionaries\ko
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/24/2026   5:16 PM             58 korean-domain.json                                                   
+-a----         9/24/2026   5:16 PM             52 korean-fantasy.json                                                  
+-a----         9/24/2026   5:16 PM             62 korean-general.json                                                  
+-a----         9/24/2026   5:16 PM             65 korean-hanja.json                                                    
+
+
+    Directory: E:\ai-rdvd-ui\_AUDIT_CLEAN
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/25/2026  12:11 PM           6536 01-source-tree.txt                                                   
+-a----         9/25/2026  12:11 PM         100191 02-translation-references.txt                                        
+-a----         9/25/2026  12:11 PM           4710 03-korean-references.txt                                             
+-a----         9/25/2026  12:11 PM          19539 04-chinese-references.txt                                            
+-a----         9/25/2026  12:11 PM           1185 05-core-files.txt                                                    
+-a----         9/25/2026  12:11 PM            291 06-test-files.txt                                                    
+-a----         9/25/2026  12:11 PM           9599 09-largest-source-files.txt                                          
+-a----         9/25/2026  12:11 PM            520 10-summary.txt                                                       
+
+
+    Directory: E:\ai-rdvd-ui\_AUDIT_FULL
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----         9/25/2026   8:13 AM        3756351 01-file-tree.txt                                                     
+-a----         9/25/2026   8:13 AM          12593 02-translation-files.txt                                             
+-a----         9/25/2026   8:20 AM          27298 03-source-language.txt                                               
+-a----         9/25/2026   8:26 AM         207553 04-core-references.txt                                               
+-a----         9/25/2026   8:34 AM         188132 05-korean-references.txt                                             
+-a----         9/25/2026   8:48 AM         646284 06-chinese-references.txt                                            
+-a----         9/25/2026   8:55 AM       41941570 07-model-references.txt                                              
+-a----         9/25/2026   8:55 AM         842895 08-tests.txt                                                         
+-a----         9/25/2026   8:55 AM          48804 09-docs.txt                                                          
+-a----         9/25/2026   8:55 AM              0 10-git-status.txt                                                    
+-a----         9/25/2026   8:55 AM          10188 11-build-files.txt                                                   
+-a----         9/25/2026  11:57 AM        4859135 _AUDIT_FULL.zip                                                      
+
+
+    Directory: E:\ai-rdvd-ui\_patch-backups
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/21/2026  12:34 AM                V48.1-R2                                                             
+
+
+    Directory: E:\ai-rdvd-ui\_patch-backups\V48.1-R2
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/21/2026  12:34 AM                src                                                                  
+
+
+    Directory: E:\ai-rdvd-ui\_patch-backups\V48.1-R2\src
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----         9/21/2026  12:34 AM                components                                                           
+d-----         9/21/2026  12:34 AM                styles                                                               
+
+

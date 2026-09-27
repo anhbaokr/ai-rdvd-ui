@@ -1,0 +1,550 @@
+{
+  "schema": "ai-rdvd.translation-assets.v1",
+  "installedAtUnix": 1789911102,
+  "installMode": "imported-vocalize-lab",
+  "sources": {
+    "mode": "imported-vocalize-lab"
+  },
+  "files": [
+    {
+      "path": "data/corpus-metadata.json",
+      "size": 2366,
+      "sha256": "21c1e21898613d32caa4fe551fcff77c274302475b0b4854dbd3ec6bffd9124b"
+    },
+    {
+      "path": "data/dep-dict.jsonl",
+      "size": 2052,
+      "sha256": "708f5e481300c4ab056aeeeafe8a48dd5d4cddaf1c0988d2fe72538048c586e2"
+    },
+    {
+      "path": "data/full-local-fixture.json",
+      "size": 9742,
+      "sha256": "4fbde00a951352c592c20c53c15924c3fb152f54b462af3dd03a47c4325bc11c"
+    },
+    {
+      "path": "data/raw-hachimi-results.json",
+      "size": 84323,
+      "sha256": "b249b21fbc4bfb45afb0b942da34b317f75dab00a355ee6d16952fa0d5e9816f"
+    },
+    {
+      "path": "data/stress-dialogues.jsonl",
+      "size": 2741,
+      "sha256": "91675fe6fe922ad69663bdc21209ad4935bd95a9b2b5c4f73b90cda633b21f67"
+    },
+    {
+      "path": "data/xianxia-domain-lexicon.json",
+      "size": 1757,
+      "sha256": "f4df9730fb2c2ca1e8efca29cab0c4ebb6af71b582f3fbfd3104401408c16bed"
+    },
+    {
+      "path": "dictionaries/domain-glossary.before-xianxia-v001.json",
+      "size": 711,
+      "sha256": "ef52583c25c0bd64e8eddeba3dfe840c6d907aa05afc3093c3594dea76d2c598"
+    },
+    {
+      "path": "dictionaries/domain-glossary.before-xianxia-v002.json",
+      "size": 2882,
+      "sha256": "dd3912d57775c64bf1006da16a08052a55ce57f2e7d67348e590c53a0c3ce5c0"
+    },
+    {
+      "path": "dictionaries/domain-glossary.before-xianxia-v003.json",
+      "size": 1976,
+      "sha256": "73e1495636f51db1cfbda1dac75a2a80501cc25fae1c0c68fa110e09a49aadcc"
+    },
+    {
+      "path": "dictionaries/domain-glossary.json",
+      "size": 2195,
+      "sha256": "2853a5e80df3b4b09bc1cf17aad1a0e95a5bf8d698d1497508f483baa6fcd16d"
+    },
+    {
+      "path": "dictionaries/semantic-evidence-v010.json",
+      "size": 932,
+      "sha256": "11da5276e195bcea3a4dcffe0dcf350e45272febfda9337af1c413dafc972c70"
+    },
+    {
+      "path": "dictionaries/xianxia-domain-glossary-v001.json",
+      "size": 2129,
+      "sha256": "94aa6395027753581f6edd37c375a600e8aa30057f04f9ff475e1447697efd44"
+    },
+    {
+      "path": "dictionaries/xianxia-domain-glossary-v002.json",
+      "size": 1307,
+      "sha256": "e1b64590eaf351a0907781c70ed8413e031153283fc4ab7b04291f952f896a7f"
+    },
+    {
+      "path": "dictionaries/xianxia-domain-glossary-v003.json",
+      "size": 1449,
+      "sha256": "de2efb9aa63e0a7265bd4919b2121e625021181032c8658399e307c476e15b1b"
+    },
+    {
+      "path": "models/HachimiMT-60-QT/.cache/huggingface/.gitignore",
+      "size": 1,
+      "sha256": "684888c0ebb17f374298b65ee2807526c066094c701bcc7ebbe1c1095f494fc1"
+    },
+    {
+      "path": "models/HachimiMT-60-QT/.cache/huggingface/download/config.json.metadata",
+      "size": 104,
+      "sha256": "d3b957cbe70cdec1369e615eb325d5930b9e753468fb9664a67703c2f3576bd8"
+    },
+    {
+      "path": "models/HachimiMT-60-QT/.cache/huggingface/download/ct2-int8_float32/config.json.metadata",
+      "size": 104,
+      "sha256": "acbc3ea2421040388109b30804d0673f30030c0ef4083257a69d7c1f5b74d39d"
+    },
+    {
+      "path": "models/HachimiMT-60-QT/.cache/huggingface/download/ct2-int8_float32/model.bin.metadata",
+      "size": 127,
+      "sha256": "5a710d9a6c18eac2289ba07598e282c5714e189f6951cd1f6ba13f2b2537b525"
+    },
+    {
+      "path": "models/HachimiMT-60-QT/.cache/huggingface/download/ct2-int8_float32/shared_vocabulary.json.metadata",
+      "size": 104,
+      "sha256": "0588c8d66bd22d2814f606bbe30f44b979c9a2e82b6020b99e39ca124db4861b"
+    },
+    {
+      "path": "models/HachimiMT-60-QT/.cache/huggingface/download/ct2-int8_float32/source.spm.metadata",
+      "size": 128,
+      "sha256": "90f10521650573d886adfee374db5f4316926948a7abca6aa59d32e63862d1ab"
+    },
+    {
+      "path": "models/HachimiMT-60-QT/.cache/huggingface/download/ct2-int8_float32/special_tokens_map.json.metadata",
+      "size": 104,
+      "sha256": "6a1e43d3cfd082d6385ca57581a71ee46b15ed0e3846eb6082fdaadeb4c816d2"
+    },
+    {
+      "path": "models/HachimiMT-60-QT/.cache/huggingface/download/ct2-int8_float32/target.spm.metadata",
+      "size": 128,
+      "sha256": "0609e6f3f01beef0f15fba2d5d9988a8e469f13e137f1b30d9df6f3afe3f0c1a"
+    },
+    {
+      "path": "models/HachimiMT-60-QT/.cache/huggingface/download/ct2-int8_float32/tokenizer_config.json.metadata",
+      "size": 104,
+      "sha256": "f249c65187adab9eb9a97ae2d0728e219595d0e7f6765b7753a1947f01c19291"
+    },
+    {
+      "path": "models/HachimiMT-60-QT/.cache/huggingface/download/ct2-int8_float32/vocab.json.metadata",
+      "size": 104,
+      "sha256": "93c07b4b33d089d8efb62598a3e7f6430c9944be6058b653f7729105f9374810"
+    },
+    {
+      "path": "models/HachimiMT-60-QT/.cache/huggingface/download/generation_config.json.metadata",
+      "size": 104,
+      "sha256": "17f310ac70fd925e5f5ac9c4f11c1df79127305d6bcb3edffc1fc821f86bead9"
+    },
+    {
+      "path": "models/HachimiMT-60-QT/.cache/huggingface/download/source.spm.metadata",
+      "size": 126,
+      "sha256": "af1e3edc31e74fdb37880d0406f1da4deb09dbb9983f2b0827cae5602120c31e"
+    },
+    {
+      "path": "models/HachimiMT-60-QT/.cache/huggingface/download/special_tokens_map.json.metadata",
+      "size": 104,
+      "sha256": "e95136800c93912456177dd378489f9efb583c6b9dd34f96f2bbf1bb9b337e0f"
+    },
+    {
+      "path": "models/HachimiMT-60-QT/.cache/huggingface/download/target.spm.metadata",
+      "size": 128,
+      "sha256": "d972a3ee4275ec1e9dd0bfb608409174089ca955ecb5fd6aca897982dd86a83c"
+    },
+    {
+      "path": "models/HachimiMT-60-QT/.cache/huggingface/download/tokenizer_config.json.metadata",
+      "size": 104,
+      "sha256": "cc2e35294aa3e4209f2bb84d71df36919d0b7a2aca65989b01344ed28410380b"
+    },
+    {
+      "path": "models/HachimiMT-60-QT/.cache/huggingface/download/vocab.json.metadata",
+      "size": 104,
+      "sha256": "2fb605d775f41f850e832f4c8ff8007110ab89a58bb92979c01b69fc7f6ed9cc"
+    },
+    {
+      "path": "models/HachimiMT-60-QT/config.json",
+      "size": 885,
+      "sha256": "4e38f18b51578b6a3ec9480601e196f4c143c28e665e77c1dd02bd26d9db8e5f"
+    },
+    {
+      "path": "models/HachimiMT-60-QT/ct2-int8_float32/config.json",
+      "size": 223,
+      "sha256": "8f6496adfc930cbfecbe8281112197705c488fab47d34b4829b06d7f478909af"
+    },
+    {
+      "path": "models/HachimiMT-60-QT/ct2-int8_float32/model.bin",
+      "size": 58130959,
+      "sha256": "4d0ced0d53406fa61e94589f0c20c6cda20206517e7bf308f33d40d745cae974"
+    },
+    {
+      "path": "models/HachimiMT-60-QT/ct2-int8_float32/shared_vocabulary.json",
+      "size": 432821,
+      "sha256": "723ed01c27a48d3ffb3ee8a8c341a7a79f57e9f7bc9e0f6a339f6985da8f0276"
+    },
+    {
+      "path": "models/HachimiMT-60-QT/ct2-int8_float32/source.spm",
+      "size": 606686,
+      "sha256": "49a3f79179c418a358f14cbad55bb98945262a6b74ca77280a394354c85f0d75"
+    },
+    {
+      "path": "models/HachimiMT-60-QT/ct2-int8_float32/special_tokens_map.json",
+      "size": 100,
+      "sha256": "25fad97543a902bad023befe0a4fb5ed1e6c4811193ed732026414ff5b947b0b"
+    },
+    {
+      "path": "models/HachimiMT-60-QT/ct2-int8_float32/target.spm",
+      "size": 606202,
+      "sha256": "d1557335c5892d2f33c6a4864f3ae598b235f705a713e32ca020b9fadb99a99e"
+    },
+    {
+      "path": "models/HachimiMT-60-QT/ct2-int8_float32/tokenizer_config.json",
+      "size": 1072,
+      "sha256": "39787c84d257a68573b035a48ebc84ad99e73d7c4e485820a31f450cc281881e"
+    },
+    {
+      "path": "models/HachimiMT-60-QT/ct2-int8_float32/vocab.json",
+      "size": 589711,
+      "sha256": "7f7783a5b312550f9185a9f698d5f548aaae7af8e879af8a1405e4ea52f47237"
+    },
+    {
+      "path": "models/HachimiMT-60-QT/generation_config.json",
+      "size": 274,
+      "sha256": "e4c6c497189f1e4f36bcf9b8551e6d3565afb64a13c873414906a2f047331e0f"
+    },
+    {
+      "path": "models/HachimiMT-60-QT/source.spm",
+      "size": 606686,
+      "sha256": "49a3f79179c418a358f14cbad55bb98945262a6b74ca77280a394354c85f0d75"
+    },
+    {
+      "path": "models/HachimiMT-60-QT/special_tokens_map.json",
+      "size": 100,
+      "sha256": "25fad97543a902bad023befe0a4fb5ed1e6c4811193ed732026414ff5b947b0b"
+    },
+    {
+      "path": "models/HachimiMT-60-QT/target.spm",
+      "size": 606202,
+      "sha256": "d1557335c5892d2f33c6a4864f3ae598b235f705a713e32ca020b9fadb99a99e"
+    },
+    {
+      "path": "models/HachimiMT-60-QT/tokenizer_config.json",
+      "size": 1072,
+      "sha256": "39787c84d257a68573b035a48ebc84ad99e73d7c4e485820a31f450cc281881e"
+    },
+    {
+      "path": "models/HachimiMT-60-QT/vocab.json",
+      "size": 589711,
+      "sha256": "7f7783a5b312550f9185a9f698d5f548aaae7af8e879af8a1405e4ea52f47237"
+    },
+    {
+      "path": "sources/CVDICT/.git/config",
+      "size": 295,
+      "sha256": "9f102ecc124d9f65fb068ef6d5c1ca39d36133b37cdfe8ac493af6ae30f70998"
+    },
+    {
+      "path": "sources/CVDICT/.git/description",
+      "size": 73,
+      "sha256": "85ab6c163d43a17ea9cf7788308bca1466f1b0a8d1cc92e26e9bf63da4062aee"
+    },
+    {
+      "path": "sources/CVDICT/.git/HEAD",
+      "size": 21,
+      "sha256": "28d25bf82af4c0e2b72f50959b2beb859e3e60b9630a5e8c603dad4ddb2b6e80"
+    },
+    {
+      "path": "sources/CVDICT/.git/hooks/applypatch-msg.sample",
+      "size": 478,
+      "sha256": "0223497a0b8b033aa58a3a521b8629869386cf7ab0e2f101963d328aa62193f7"
+    },
+    {
+      "path": "sources/CVDICT/.git/hooks/commit-msg.sample",
+      "size": 1972,
+      "sha256": "efc1401b0e99d1ff51494d154d98b46c1e99059bcd8bf9f73cecde19fd3eb23b"
+    },
+    {
+      "path": "sources/CVDICT/.git/hooks/fsmonitor-watchman.sample",
+      "size": 4611,
+      "sha256": "9159720099ad5595b8e66645cbfd47763c1e920f46e0b50ae75e642bbec57ef0"
+    },
+    {
+      "path": "sources/CVDICT/.git/hooks/post-update.sample",
+      "size": 189,
+      "sha256": "81765af2daef323061dcbc5e61fc16481cb74b3bac9ad8a174b186523586f6c5"
+    },
+    {
+      "path": "sources/CVDICT/.git/hooks/pre-applypatch.sample",
+      "size": 424,
+      "sha256": "e15c5b469ea3e0a695bea6f2c82bcf8e62821074939ddd85b77e0007ff165475"
+    },
+    {
+      "path": "sources/CVDICT/.git/hooks/pre-commit.sample",
+      "size": 1649,
+      "sha256": "57185b7b9f05239d7ab52db045f5b89eb31348d7b2177eab214f5eb872e1971b"
+    },
+    {
+      "path": "sources/CVDICT/.git/hooks/pre-merge-commit.sample",
+      "size": 416,
+      "sha256": "d3825a70337940ebbd0a5c072984e13245920cdf8898bd225c8d27a6dfc9cb53"
+    },
+    {
+      "path": "sources/CVDICT/.git/hooks/pre-push.sample",
+      "size": 1374,
+      "sha256": "ecce9c7e04d3f5dd9d8ada81753dd1d549a9634b26770042b58dda00217d086a"
+    },
+    {
+      "path": "sources/CVDICT/.git/hooks/pre-rebase.sample",
+      "size": 4898,
+      "sha256": "4febce867790052338076f4e66cc47efb14879d18097d1d61c8261859eaaa7b3"
+    },
+    {
+      "path": "sources/CVDICT/.git/hooks/pre-receive.sample",
+      "size": 544,
+      "sha256": "a4c3d2b9c7bb3fd8d1441c31bd4ee71a595d66b44fcf49ddb310252320169989"
+    },
+    {
+      "path": "sources/CVDICT/.git/hooks/prepare-commit-msg.sample",
+      "size": 1492,
+      "sha256": "e9ddcaa4189fddd25ed97fc8c789eca7b6ca16390b2392ae3276f0c8e1aa4619"
+    },
+    {
+      "path": "sources/CVDICT/.git/hooks/push-to-checkout.sample",
+      "size": 2783,
+      "sha256": "a53d0741798b287c6dd7afa64aee473f305e65d3f49463bb9d7408ec3b12bf5f"
+    },
+    {
+      "path": "sources/CVDICT/.git/hooks/sendemail-validate.sample",
+      "size": 2308,
+      "sha256": "44ebfc923dc5466bc009602f0ecf067b9c65459abfe8868ddc49b78e6ced7a92"
+    },
+    {
+      "path": "sources/CVDICT/.git/hooks/update.sample",
+      "size": 3650,
+      "sha256": "8d5f2fa83e103cf08b57eaa67521df9194f45cbdbcb37da52ad586097a14d106"
+    },
+    {
+      "path": "sources/CVDICT/.git/index",
+      "size": 281,
+      "sha256": "34f0b5700836542cf817334e8050d72d4374a9ad283c1ac09cacb1448d2eaf31"
+    },
+    {
+      "path": "sources/CVDICT/.git/info/exclude",
+      "size": 240,
+      "sha256": "6671fe83b7a07c8932ee89164d1f2793b2318058eb8b98dc5c06ee0a5a3b0ec1"
+    },
+    {
+      "path": "sources/CVDICT/.git/logs/HEAD",
+      "size": 193,
+      "sha256": "59c37b027b223908b5fa7d6c17a7468f2073d04cc46d814de50a575b16199bd8"
+    },
+    {
+      "path": "sources/CVDICT/.git/logs/refs/heads/main",
+      "size": 193,
+      "sha256": "59c37b027b223908b5fa7d6c17a7468f2073d04cc46d814de50a575b16199bd8"
+    },
+    {
+      "path": "sources/CVDICT/.git/logs/refs/remotes/origin/HEAD",
+      "size": 193,
+      "sha256": "59c37b027b223908b5fa7d6c17a7468f2073d04cc46d814de50a575b16199bd8"
+    },
+    {
+      "path": "sources/CVDICT/.git/objects/pack/pack-524c2e0f9b56290fdd97b49ad6e37ed4c9273fd7.idx",
+      "size": 3116,
+      "sha256": "6d5fbffcc8b4f4a6dfae53c7d6922b32dec5ac8b2e566641ccdd2eae3a959a04"
+    },
+    {
+      "path": "sources/CVDICT/.git/objects/pack/pack-524c2e0f9b56290fdd97b49ad6e37ed4c9273fd7.pack",
+      "size": 8606264,
+      "sha256": "ee1d33b4eba02533280c0441c4e035a6d167f1e5833621fbe2af505c146c2cb9"
+    },
+    {
+      "path": "sources/CVDICT/.git/objects/pack/pack-524c2e0f9b56290fdd97b49ad6e37ed4c9273fd7.rev",
+      "size": 344,
+      "sha256": "5174bffa2a02c76e2b3419d06e600798fdb0bd0ab1e70d970fabdd35ac857ed9"
+    },
+    {
+      "path": "sources/CVDICT/.git/packed-refs",
+      "size": 170,
+      "sha256": "59a6a13fa74f39e69fb42adbff92c2a94d617a7451310572b311f130b42154cd"
+    },
+    {
+      "path": "sources/CVDICT/.git/refs/heads/main",
+      "size": 41,
+      "sha256": "ccfc35b126d747140af200ecb9e76d23567133528cfcce7c82e570c70b8d126f"
+    },
+    {
+      "path": "sources/CVDICT/.git/refs/remotes/origin/HEAD",
+      "size": 30,
+      "sha256": "2bb6a24aa0fc6c484100f5d51a29bbad841cd2c755f5d93faa204e5dbb4eb2b4"
+    },
+    {
+      "path": "sources/CVDICT/a.py",
+      "size": 2860,
+      "sha256": "3ceb88ccd0fe870fd136c4a507437050aca5aac11f308d33e332502ded4e0180"
+    },
+    {
+      "path": "sources/CVDICT/CVDICT.u8",
+      "size": 10925941,
+      "sha256": "c213512231b5db253e65a8314c5c504fa6b10d03275290416877a267d84c7ca6"
+    },
+    {
+      "path": "sources/CVDICT/README.md",
+      "size": 2851,
+      "sha256": "fa2c235b8a8663558b683cd8627aae88b3401b8992b3d496ec2c14bc182e1f31"
+    },
+    {
+      "path": "sources/hanviet-pinyin-wordlist/.git/config",
+      "size": 312,
+      "sha256": "1990aba5e20e6be4b111a9a558da098c5821cba20632ffd8d971f19b637f7c0e"
+    },
+    {
+      "path": "sources/hanviet-pinyin-wordlist/.git/description",
+      "size": 73,
+      "sha256": "85ab6c163d43a17ea9cf7788308bca1466f1b0a8d1cc92e26e9bf63da4062aee"
+    },
+    {
+      "path": "sources/hanviet-pinyin-wordlist/.git/HEAD",
+      "size": 21,
+      "sha256": "28d25bf82af4c0e2b72f50959b2beb859e3e60b9630a5e8c603dad4ddb2b6e80"
+    },
+    {
+      "path": "sources/hanviet-pinyin-wordlist/.git/hooks/applypatch-msg.sample",
+      "size": 478,
+      "sha256": "0223497a0b8b033aa58a3a521b8629869386cf7ab0e2f101963d328aa62193f7"
+    },
+    {
+      "path": "sources/hanviet-pinyin-wordlist/.git/hooks/commit-msg.sample",
+      "size": 1972,
+      "sha256": "efc1401b0e99d1ff51494d154d98b46c1e99059bcd8bf9f73cecde19fd3eb23b"
+    },
+    {
+      "path": "sources/hanviet-pinyin-wordlist/.git/hooks/fsmonitor-watchman.sample",
+      "size": 4611,
+      "sha256": "9159720099ad5595b8e66645cbfd47763c1e920f46e0b50ae75e642bbec57ef0"
+    },
+    {
+      "path": "sources/hanviet-pinyin-wordlist/.git/hooks/post-update.sample",
+      "size": 189,
+      "sha256": "81765af2daef323061dcbc5e61fc16481cb74b3bac9ad8a174b186523586f6c5"
+    },
+    {
+      "path": "sources/hanviet-pinyin-wordlist/.git/hooks/pre-applypatch.sample",
+      "size": 424,
+      "sha256": "e15c5b469ea3e0a695bea6f2c82bcf8e62821074939ddd85b77e0007ff165475"
+    },
+    {
+      "path": "sources/hanviet-pinyin-wordlist/.git/hooks/pre-commit.sample",
+      "size": 1649,
+      "sha256": "57185b7b9f05239d7ab52db045f5b89eb31348d7b2177eab214f5eb872e1971b"
+    },
+    {
+      "path": "sources/hanviet-pinyin-wordlist/.git/hooks/pre-merge-commit.sample",
+      "size": 416,
+      "sha256": "d3825a70337940ebbd0a5c072984e13245920cdf8898bd225c8d27a6dfc9cb53"
+    },
+    {
+      "path": "sources/hanviet-pinyin-wordlist/.git/hooks/pre-push.sample",
+      "size": 1374,
+      "sha256": "ecce9c7e04d3f5dd9d8ada81753dd1d549a9634b26770042b58dda00217d086a"
+    },
+    {
+      "path": "sources/hanviet-pinyin-wordlist/.git/hooks/pre-rebase.sample",
+      "size": 4898,
+      "sha256": "4febce867790052338076f4e66cc47efb14879d18097d1d61c8261859eaaa7b3"
+    },
+    {
+      "path": "sources/hanviet-pinyin-wordlist/.git/hooks/pre-receive.sample",
+      "size": 544,
+      "sha256": "a4c3d2b9c7bb3fd8d1441c31bd4ee71a595d66b44fcf49ddb310252320169989"
+    },
+    {
+      "path": "sources/hanviet-pinyin-wordlist/.git/hooks/prepare-commit-msg.sample",
+      "size": 1492,
+      "sha256": "e9ddcaa4189fddd25ed97fc8c789eca7b6ca16390b2392ae3276f0c8e1aa4619"
+    },
+    {
+      "path": "sources/hanviet-pinyin-wordlist/.git/hooks/push-to-checkout.sample",
+      "size": 2783,
+      "sha256": "a53d0741798b287c6dd7afa64aee473f305e65d3f49463bb9d7408ec3b12bf5f"
+    },
+    {
+      "path": "sources/hanviet-pinyin-wordlist/.git/hooks/sendemail-validate.sample",
+      "size": 2308,
+      "sha256": "44ebfc923dc5466bc009602f0ecf067b9c65459abfe8868ddc49b78e6ced7a92"
+    },
+    {
+      "path": "sources/hanviet-pinyin-wordlist/.git/hooks/update.sample",
+      "size": 3650,
+      "sha256": "8d5f2fa83e103cf08b57eaa67521df9194f45cbdbcb37da52ad586097a14d106"
+    },
+    {
+      "path": "sources/hanviet-pinyin-wordlist/.git/index",
+      "size": 361,
+      "sha256": "ea6471f7d666d2bf90de49003607021459e145296b0f3819e14267ac622b0ac9"
+    },
+    {
+      "path": "sources/hanviet-pinyin-wordlist/.git/info/exclude",
+      "size": 240,
+      "sha256": "6671fe83b7a07c8932ee89164d1f2793b2318058eb8b98dc5c06ee0a5a3b0ec1"
+    },
+    {
+      "path": "sources/hanviet-pinyin-wordlist/.git/logs/HEAD",
+      "size": 210,
+      "sha256": "3a91da6750924e40687d594e89baccc254d9e36c0e270ddbcefcb754c968f04a"
+    },
+    {
+      "path": "sources/hanviet-pinyin-wordlist/.git/logs/refs/heads/main",
+      "size": 210,
+      "sha256": "3a91da6750924e40687d594e89baccc254d9e36c0e270ddbcefcb754c968f04a"
+    },
+    {
+      "path": "sources/hanviet-pinyin-wordlist/.git/logs/refs/remotes/origin/HEAD",
+      "size": 210,
+      "sha256": "3a91da6750924e40687d594e89baccc254d9e36c0e270ddbcefcb754c968f04a"
+    },
+    {
+      "path": "sources/hanviet-pinyin-wordlist/.git/objects/pack/pack-a0a1d6db24255dba6a07c48ce3322b2872eb71c5.idx",
+      "size": 1828,
+      "sha256": "a5457f4f54fec33e79dbd539652d7cff554e76eac8df869fb51f111973b54ea8"
+    },
+    {
+      "path": "sources/hanviet-pinyin-wordlist/.git/objects/pack/pack-a0a1d6db24255dba6a07c48ce3322b2872eb71c5.pack",
+      "size": 87340,
+      "sha256": "7d12a0e99dc8e1562df3f8e305b2e0e4696f19c3642b85388c25fc0a121450b5"
+    },
+    {
+      "path": "sources/hanviet-pinyin-wordlist/.git/objects/pack/pack-a0a1d6db24255dba6a07c48ce3322b2872eb71c5.rev",
+      "size": 160,
+      "sha256": "29e41c920dac6e8dc74f20f11a8c7193ad10d6ecad1e180e12b7a68e5b4d24f2"
+    },
+    {
+      "path": "sources/hanviet-pinyin-wordlist/.git/packed-refs",
+      "size": 112,
+      "sha256": "881592a649f76d6bb61001aa8fabd304572bf8845424950ee30a1416f4874a38"
+    },
+    {
+      "path": "sources/hanviet-pinyin-wordlist/.git/refs/heads/main",
+      "size": 41,
+      "sha256": "ccef464456112497f6fa407ec5ee8d7d74443f45c674f13f43330d4c845d4ffa"
+    },
+    {
+      "path": "sources/hanviet-pinyin-wordlist/.git/refs/remotes/origin/HEAD",
+      "size": 30,
+      "sha256": "2bb6a24aa0fc6c484100f5d51a29bbad841cd2c755f5d93faa204e5dbb4eb2b4"
+    },
+    {
+      "path": "sources/hanviet-pinyin-wordlist/hanviet.csv",
+      "size": 206585,
+      "sha256": "f8c00138502c17a8ea0868c7620400ee07712ede696565c078665c5c77b26eb9"
+    },
+    {
+      "path": "sources/hanviet-pinyin-wordlist/LICENSE",
+      "size": 1067,
+      "sha256": "eb3fb58bfa5001dc6a0230e98f10f57df7f9790fbcae790eb889aad2c7fef4f5"
+    },
+    {
+      "path": "sources/hanviet-pinyin-wordlist/main.py",
+      "size": 4094,
+      "sha256": "3148b44b5cecb173cd4c657f352097558dd6f87cc187787674d03b9d410f78f8"
+    },
+    {
+      "path": "sources/hanviet-pinyin-wordlist/README.md",
+      "size": 2942,
+      "sha256": "66aa6fba244017c3a8c5c64bebb85b48aeb3e77d0bae4e8a1b3e4e9d1b16a84c"
+    }
+  ]
+}

@@ -1,0 +1,2402 @@
+[
+  {
+    "line_no": 1,
+    "source": "桌角下面压着一块宗门通行令牌",
+    "target": "Phía dưới góc bàn đang đè một tấm lệnh bài thông hành tông môn.",
+    "latency_ms": 113.75,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 2,
+    "source": "这块令牌只允许外门弟子进入药园",
+    "target": "Khối lệnh bài này chỉ cho phép đệ tử ngoại môn tiến vào Dược Viên.",
+    "latency_ms": 118.52,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 3,
+    "source": "令牌背面没有刻任何人名",
+    "target": "Mặt sau lệnh bài không khắc tên bất kỳ ai.",
+    "latency_ms": 86.82,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 4,
+    "source": "若捡到黑铁令牌先交给执事登记",
+    "target": "Nếu nhặt được lệnh bài Hắc Thiết giao cho chấp sự đăng ký trước.",
+    "latency_ms": 117.88,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 5,
+    "source": "墙缝里塞着两张破旧符纸",
+    "target": "Trong khe tường nhét hai lá bùa cũ nát.",
+    "latency_ms": 79.8,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 6,
+    "source": "第一张符纸上只有天然墨迹",
+    "target": "Trên tờ giấy phù đầu tiên chỉ có mực tự nhiên.",
+    "latency_ms": 90.93,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 7,
+    "source": "第二张符纸才画着完整符纹",
+    "target": "Lá bùa thứ hai mới vẽ phù văn hoàn chỉnh.",
+    "latency_ms": 93.48,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 8,
+    "source": "别把纸上的裂痕误认成符纹",
+    "target": "Đừng nhận nhầm vết nứt trên giấy thành phù văn.",
+    "latency_ms": 83.92,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 9,
+    "source": "地上散落着五块灰白石片",
+    "target": "Trên mặt đất rải rác năm mảnh đá xám trắng.",
+    "latency_ms": 83.62,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 10,
+    "source": "这些石片只是修墙剩下的材料",
+    "target": "Những phiến đá này chỉ là vật liệu còn sót lại sau khi xây tường.",
+    "latency_ms": 110.24,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 11,
+    "source": "最大那块石片压住了门缝",
+    "target": "Mảnh đá lớn nhất đè chặt khe cửa",
+    "latency_ms": 71.02,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 12,
+    "source": "藤筐里装着三只白瓷瓶",
+    "target": "Trong giỏ mây đựng ba chiếc bình sứ trắng",
+    "latency_ms": 66.36,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 13,
+    "source": "白瓷瓶中一只已经空了",
+    "target": "Một chiếc bình sứ trắng đã trống rỗng.",
+    "latency_ms": 82.58,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 14,
+    "source": "另一只瓶里还有少量药液",
+    "target": "Trong lọ còn lại còn có một lượng nhỏ dược dịch.",
+    "latency_ms": 83.96,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 15,
+    "source": "门边的水缸只剩半缸清水",
+    "target": "Vại nước bên cửa chỉ còn lại nửa vại nước trong.",
+    "latency_ms": 95.2,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 16,
+    "source": "水缸旁放着一张短纸条",
+    "target": "Bên cạnh chum nước đặt một mẩu giấy ngắn.",
+    "latency_ms": 86.83,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 17,
+    "source": "纸条上写的是取水时辰",
+    "target": "Trên tờ giấy viết thời gian lấy nước thời gian.",
+    "latency_ms": 78.98,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 18,
+    "source": "木盒底下还有一枚赤铜印",
+    "target": "Dưới hộp gỗ còn có một ấn đồng đỏ",
+    "latency_ms": 74.81,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 19,
+    "source": "这枚赤铜印只是库房用印",
+    "target": "Ấn đồng đỏ này chỉ là trong kho dùng ấn.",
+    "latency_ms": 97.79,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 20,
+    "source": "真正的法器并不在这个木盒里",
+    "target": "Pháp khí thực sự không nằm trong chiếc hộp gỗ này.",
+    "latency_ms": 87.54,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 21,
+    "source": "端木师叔在炼器堂门口等人",
+    "target": "Đoan Mộc sư thúc đang đợi người ở cửa luyện khí đường.",
+    "latency_ms": 87.27,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 22,
+    "source": "炼器堂今天只开放东侧小门",
+    "target": "Hôm nay Luyện Khí Đường chỉ mở cánh cửa nhỏ phía đông.",
+    "latency_ms": 100.94,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 23,
+    "source": "公孙师妹已经去了药阁取药",
+    "target": "Công Tôn sư muội đã đến Dược Các lấy thuốc.",
+    "latency_ms": 86.23,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 24,
+    "source": "药阁二层不允许普通弟子进入",
+    "target": "Dược Các tầng hai không cho phép đệ tử bình thường tiến vào",
+    "latency_ms": 98.1,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 25,
+    "source": "诸葛师姐正在剑阁整理旧剑谱",
+    "target": "Gia Cát sư tỷ đang ở Kiếm Các sắp xếp lại kiếm phổ cũ.",
+    "latency_ms": 112.04,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 26,
+    "source": "剑阁后院有一座小型试剑台",
+    "target": "Hậu viện Kiếm Các có một đài thử kiếm cỡ nhỏ.",
+    "latency_ms": 83.83,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 27,
+    "source": "驭兽堂的弟子清晨就出山了",
+    "target": "Đệ tử Ngự Thú Đường sáng sớm đã xuất sơn.",
+    "latency_ms": 92.82,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 28,
+    "source": "驭兽堂只负责登记宗门灵兽",
+    "target": "Ngự Thú Đường chỉ phụ trách đăng ký linh thú của tông môn.",
+    "latency_ms": 101.68,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 29,
+    "source": "任何弟子都不得私自打开兽笼",
+    "target": "Bất kỳ đệ tử nào cũng không được tự ý mở lồng thú.",
+    "latency_ms": 99.3,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 30,
+    "source": "探路弟子先去查看前方山谷",
+    "target": "Đệ tử dò đường trước tiên đi kiểm tra thung lũng phía trước.",
+    "latency_ms": 111.39,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 31,
+    "source": "路师兄则留在原地看守行李",
+    "target": "Lộ sư huynh thì ở lại tại chỗ canh giữ hành lý.",
+    "latency_ms": 94.47,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 32,
+    "source": "何师兄负责清点剩下的灵石",
+    "target": "Hà sư huynh phụ trách kiểm kê số linh thạch còn lại.",
+    "latency_ms": 93.34,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 33,
+    "source": "东方师兄今天随长老下山",
+    "target": "Đông Phương sư huynh hôm nay theo trưởng lão xuống núi.",
+    "latency_ms": 82.93,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 34,
+    "source": "石室东方只有一扇普通木门",
+    "target": "Phía đông thạch thất chỉ có một cánh cửa gỗ bình thường.",
+    "latency_ms": 92.21,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 35,
+    "source": "这里的东方表示方位不是人名",
+    "target": "Phương Đông nơi này cho thấy phương vị không phải là tên người.",
+    "latency_ms": 102.01,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 36,
+    "source": "若文中写东方师兄才是复姓",
+    "target": "Nếu trong văn viết Đông Phương sư huynh mới là họ kép.",
+    "latency_ms": 109.93,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 37,
+    "source": "原路返回时不要走错岔口",
+    "target": "Khi quay về đường cũ, không được đi nhầm ngã rẽ.",
+    "latency_ms": 92.75,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 38,
+    "source": "路线不通就改走南侧石桥",
+    "target": "Lộ trình không thông thì đổi sang cầu đá phía nam.",
+    "latency_ms": 90.04,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 39,
+    "source": "任何人发现异常都要立刻报告",
+    "target": "Bất luận kẻ nào phát hiện dị thường đều phải lập tức báo cáo.",
+    "latency_ms": 108.19,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 40,
+    "source": "何长老本人并不在这支队伍里",
+    "target": "Bản thân Hà trưởng lão không ở trong đội ngũ này.",
+    "latency_ms": 89.1,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 41,
+    "source": "兵器架最下层放着四把普通铁剑",
+    "target": "Tầng dưới cùng của giá vũ khí đặt bốn thanh kiếm sắt bình thường.",
+    "latency_ms": 106.28,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 42,
+    "source": "那些铁剑都是新弟子练习用的",
+    "target": "Những thanh kiếm sắt đó đều là thứ đệ tử mới luyện tập.",
+    "latency_ms": 105.33,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 43,
+    "source": "木架上另有两把没有开刃的木剑",
+    "target": "Trên giá gỗ còn có hai thanh kiếm gỗ chưa mài lưỡi.",
+    "latency_ms": 94.68,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 44,
+    "source": "木剑不能当成飞剑御使",
+    "target": "Mộc kiếm không thể dùng làm phi kiếm để điều khiển.",
+    "latency_ms": 86.07,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 45,
+    "source": "墙上悬着一柄没有名字的飞剑",
+    "target": "Trên tường treo lơ lửng một thanh phi kiếm không tên.",
+    "latency_ms": 96.01,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 46,
+    "source": "此剑名为断岳青锋剑",
+    "target": "Thanh kiếm này tên là Đoạn Nhạc Thanh Phong Kiếm",
+    "latency_ms": 73.81,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 47,
+    "source": "断岳青锋剑已经认主多年",
+    "target": "Đoạn Nhạc Thanh Phong Kiếm đã nhận chủ nhiều năm.",
+    "latency_ms": 87.97,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 48,
+    "source": "桌上那方赤铜印不是法宝",
+    "target": "Ấn đồng đỏ trên bàn không phải pháp bảo.",
+    "latency_ms": 72.63,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 49,
+    "source": "真正的法印名为赤霞镇山印",
+    "target": "Pháp ấn chân chính tên là Xích Hà Trấn Sơn Ấn",
+    "latency_ms": 91.9,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 50,
+    "source": "赤霞镇山印不可借给外人",
+    "target": "Xích Hà Trấn Sơn Ấn không thể cho người ngoài mượn.",
+    "latency_ms": 84.35,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 51,
+    "source": "柜中还放着三张普通令符",
+    "target": "Trong tủ còn đặt ba tấm lệnh phù thông thường",
+    "latency_ms": 78.39,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 52,
+    "source": "最上面的令符只用于传令",
+    "target": "Lệnh phù trên cùng chỉ dùng để truyền lệnh.",
+    "latency_ms": 81.24,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 53,
+    "source": "黑色令符名为镇关令",
+    "target": "Lệnh phù màu đen tên là Trấn Quan Lệnh",
+    "latency_ms": 68.1,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 54,
+    "source": "镇关令与普通通行令牌用途不同",
+    "target": "Trấn Quan Lệnh có công dụng khác với lệnh bài thông hành thông thường.",
+    "latency_ms": 116.44,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 55,
+    "source": "门口的令牌不能代替镇关令",
+    "target": "Lệnh bài ở cửa không thể thay thế Trấn Quan Lệnh",
+    "latency_ms": 84.6,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 56,
+    "source": "石台上摆着一面旧铜镜",
+    "target": "Trên bệ đá đặt một chiếc gương đồng cũ",
+    "latency_ms": 73.71,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 57,
+    "source": "铜镜只是照明用的普通器物",
+    "target": "Chiếc gương đồng chỉ là vật dụng thông thường dùng để chiếu sáng.",
+    "latency_ms": 97.67,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 58,
+    "source": "镜后藏着一面噬魂幡的残片",
+    "target": "Phía sau gương giấu một mảnh vỡ của Phệ Hồn Phiên.",
+    "latency_ms": 96.34,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 59,
+    "source": "这面噬魂幡本质上仍是魔道法器",
+    "target": "Tấm Phệ Hồn Phiên này bản chất vẫn là pháp khí ma đạo.",
+    "latency_ms": 110.82,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 60,
+    "source": "没有确认之前不要认定残片来自同一件法器",
+    "target": "Khi chưa xác nhận trước đó đừng xác nhận tàn phiến đến từ cùng một món pháp khí.",
+    "latency_ms": 130.44,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 61,
+    "source": "聚灵阵外围换上了八块新阵石",
+    "target": "Bên ngoài Tụ Linh Trận đã thay thế tám khối đá trận mới.",
+    "latency_ms": 106.64,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 62,
+    "source": "八块阵石必须分别放在八个方位",
+    "target": "Tám khối trận thạch phải phân biệt đặt ở tám phương vị.",
+    "latency_ms": 103.49,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 63,
+    "source": "阵石之间的阵纹还没有完全连通",
+    "target": "Trận văn giữa các trận thạch vẫn chưa hoàn toàn kết nối.",
+    "latency_ms": 88.38,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 64,
+    "source": "符纹和阵纹不是同一种东西",
+    "target": "Phù văn và trận văn không phải cùng một loại đồ vật.",
+    "latency_ms": 104.78,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 65,
+    "source": "阵盘边缘标着十二个方位符号",
+    "target": "Bên rìa trận bàn đánh dấu mười hai ký hiệu phương vị.",
+    "latency_ms": 89.61,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 66,
+    "source": "十二个符号里没有任何人名",
+    "target": "Trong mười hai ký hiệu không có bất kỳ tên nào.",
+    "latency_ms": 81.25,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 67,
+    "source": "阵盘中心的阵眼已经出现裂痕",
+    "target": "Trận nhãn ở trung tâm trận bàn đã xuất hiện vết nứt.",
+    "latency_ms": 93.76,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 68,
+    "source": "阵眼下方埋着三根普通石桩",
+    "target": "Phía dưới trận nhãn chôn ba cọc đá bình thường.",
+    "latency_ms": 86.9,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 69,
+    "source": "石桩只用来固定阵基",
+    "target": "Cọc đá chỉ dùng để cố định trận cơ.",
+    "latency_ms": 75.71,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 70,
+    "source": "阵基本身没有明显裂缝",
+    "target": "Bản thân trận cơ không có vết nứt rõ ràng.",
+    "latency_ms": 77.3,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 71,
+    "source": "地下二层才是真正的传送阵台",
+    "target": "Tầng hầm thứ hai mới là đài truyền tống chân chính.",
+    "latency_ms": 95.15,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 72,
+    "source": "传送阵台中央需要放入四块灵石",
+    "target": "Trung tâm truyền tống trận đài cần bỏ vào bốn khối linh thạch.",
+    "latency_ms": 93.45,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 73,
+    "source": "阵台四角的阵纹必须同时亮起",
+    "target": "Trận văn ở bốn góc trận đài phải đồng thời sáng lên.",
+    "latency_ms": 89.57,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 74,
+    "source": "传送阵没有稳定以前谁也不能进入",
+    "target": "Truyền tống trận trước khi chưa ổn định thì không ai được phép tiến vào.",
+    "latency_ms": 107.18,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 75,
+    "source": "禁制松动后先检查阵心",
+    "target": "Cấm chế lỏng lẻo rồi kiểm tra trận tâm trước.",
+    "latency_ms": 92.54,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 76,
+    "source": "阵心附近不能堆放普通器物",
+    "target": "Xung quanh trận tâm không thể chất đống đồ vật thông thường.",
+    "latency_ms": 96.83,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 77,
+    "source": "西北阵角缺少一面阵旗",
+    "target": "Trận góc Tây Bắc thiếu một trận kỳ.",
+    "latency_ms": 68.76,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 78,
+    "source": "阵旗不是装饰用的普通旗子",
+    "target": "Trận kỳ không phải là cờ bình thường dùng để trang trí.",
+    "latency_ms": 89.7,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 79,
+    "source": "修补血阵时不得混入聚灵阵材料",
+    "target": "Khi sửa chữa huyết trận không được trà trộn vào vật liệu Tụ Linh Trận.",
+    "latency_ms": 105.59,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 80,
+    "source": "血阵和聚灵阵的作用完全不同",
+    "target": "Huyết trận và Tụ Linh trận tác dụng hoàn toàn khác biệt.",
+    "latency_ms": 90.96,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 81,
+    "source": "你的丹田昨夜又出现轻微震动",
+    "target": "Đan điền của ngươi đêm qua lại xuất hiện chấn động nhẹ.",
+    "latency_ms": 92.91,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 82,
+    "source": "丹田稳定以后再运转真气",
+    "target": "Đan điền ổn định rồi lại vận chuyển chân khí.",
+    "latency_ms": 86.46,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 83,
+    "source": "经脉里仍有一股逆行灵力",
+    "target": "Trong kinh mạch vẫn còn một luồng linh lực nghịch hành.",
+    "latency_ms": 83.55,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 84,
+    "source": "不要强行冲击尚未打通的经脉",
+    "target": "Đừng cưỡng ép xung kích kinh mạch chưa khai thông",
+    "latency_ms": 83.42,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 85,
+    "source": "他刚突破炼气九层还需要稳固境界",
+    "target": "Hắn vừa đột phá Luyện Khí tầng chín còn cần củng cố cảnh giới.",
+    "latency_ms": 108.01,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 86,
+    "source": "筑基之前先确认灵根没有受损",
+    "target": "Trước khi Trúc Cơ, trước tiên xác nhận linh căn không bị tổn hại.",
+    "latency_ms": 110.71,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 87,
+    "source": "金丹表面的丹纹比昨日清晰",
+    "target": "Đan văn trên bề mặt Kim Đan rõ ràng hơn hôm qua",
+    "latency_ms": 88.15,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 88,
+    "source": "没有丹纹也不能直接判定结丹失败",
+    "target": "Không có đan văn cũng không thể trực tiếp phán định kết đan thất bại.",
+    "latency_ms": 110.37,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 89,
+    "source": "心魔未除之前不要急着闭关",
+    "target": "Trước khi tâm ma chưa trừ, đừng vội bế quan.",
+    "latency_ms": 92.36,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 90,
+    "source": "天劫降临时护山大阵必须开启",
+    "target": "Khi thiên kiếp giáng lâm, đại trận hộ sơn phải mở ra.",
+    "latency_ms": 100.08,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 91,
+    "source": "我们最多只能等半个时辰",
+    "target": "Chúng ta nhiều nhất chỉ có thể đợi nửa canh giờ.",
+    "latency_ms": 82.5,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 92,
+    "source": "半个时辰就是一个小时",
+    "target": "Nửa canh giờ là một tiếng đồng hồ.",
+    "latency_ms": 68.3,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 93,
+    "source": "两刻钟后再检查他的丹田",
+    "target": "Hai khắc sau lại kiểm tra đan điền của hắn.",
+    "latency_ms": 89.51,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 94,
+    "source": "两刻钟等于三十分钟",
+    "target": "Hai khắc đồng hồ bằng ba mươi phút.",
+    "latency_ms": 71.95,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 95,
+    "source": "这道禁制还能维持六个时辰",
+    "target": "Cấm chế này còn có thể duy trì sáu canh giờ.",
+    "latency_ms": 89.63,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 96,
+    "source": "六个时辰换算下来正好是十二小时",
+    "target": "Sáu canh giờ tính ra vừa vặn là mười hai giờ.",
+    "latency_ms": 92.78,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 97,
+    "source": "库房里只剩五十块下品灵石",
+    "target": "Trong kho chỉ còn lại năm mươi khối hạ phẩm linh thạch.",
+    "latency_ms": 90.88,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 98,
+    "source": "另外还有八十块中品灵石",
+    "target": "Ngoài ra còn có tám mươi khối trung phẩm linh thạch.",
+    "latency_ms": 82.46,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 99,
+    "source": "阵盘需要十二块灵石才能启动",
+    "target": "Trận bàn cần mười hai khối linh thạch mới có thể khởi động.",
+    "latency_ms": 105.71,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 100,
+    "source": "八块阵石一块也不能少",
+    "target": "Tám khối trận thạch một khối cũng không thể thiếu.",
+    "latency_ms": 79.91,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 101,
+    "source": "药架左边放着两株紫叶参",
+    "target": "Bên trái giá thuốc đặt hai cây sâm lá tím",
+    "latency_ms": 79.23,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 102,
+    "source": "这两株紫叶参都有两百年以上药龄",
+    "target": "Hai cây Tử Diệp Sâm này đều có dược linh trên hai trăm năm.",
+    "latency_ms": 108.44,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 103,
+    "source": "紫叶参只是这炉丹药的辅药",
+    "target": "Tử Diệp Sâm chỉ là dược liệu phụ của lò đan dược này.",
+    "latency_ms": 100.18,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 104,
+    "source": "右边竹盘里摆着三株赤阳草",
+    "target": "Trong đĩa trúc bên phải bày ba cây Xích Dương Thảo.",
+    "latency_ms": 94.75,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 105,
+    "source": "赤阳草不能和普通红草混在一起",
+    "target": "Xích Dương Thảo không thể hòa lẫn với cỏ đỏ thông thường.",
+    "latency_ms": 97.09,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 106,
+    "source": "药童正在清洗五枚青灵果",
+    "target": "Dược đồng đang rửa sạch năm quả Thanh Linh Quả",
+    "latency_ms": 76.62,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 107,
+    "source": "青灵果切开后要立刻放入玉盒",
+    "target": "Thanh Linh Quả sau khi cắt ra muốn lập tức bỏ vào hộp ngọc.",
+    "latency_ms": 105.65,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 108,
+    "source": "地火莲子才是这一炉的主药",
+    "target": "Địa Hỏa Liên Tử mới là chủ dược của lò này.",
+    "latency_ms": 93.9,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 109,
+    "source": "成熟的地火莲子表面有淡金纹路",
+    "target": "Trên bề mặt hạt sen Địa Hỏa chín muồi có đường vân vàng nhạt",
+    "latency_ms": 110.86,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 110,
+    "source": "别把普通莲子当成地火莲子",
+    "target": "Đừng coi hạt sen bình thường là hạt sen địa hỏa là hạt sen.",
+    "latency_ms": 121.0,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 111,
+    "source": "青叶草可以拿去喂灵兔",
+    "target": "Thanh Diệp Thảo có thể mang đi cho linh thỏ ăn.",
+    "latency_ms": 86.93,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 112,
+    "source": "青叶草不是炼制筑基丹的主药",
+    "target": "Thanh Diệp Thảo không phải là dược liệu chính để luyện chế Trúc Cơ Đan.",
+    "latency_ms": 107.7,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 113,
+    "source": "寒玉髓放在最里面的寒玉盒中",
+    "target": "Hàn Ngọc Tủy đặt trong hàn hộp ngọc trong cùng.",
+    "latency_ms": 96.42,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 114,
+    "source": "寒玉髓属于炼器材料而不是丹药",
+    "target": "Hàn Ngọc Tủy là vật liệu luyện khí chứ không phải đan dược",
+    "latency_ms": 98.34,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 115,
+    "source": "灵药和炼器材料必须分开登记",
+    "target": "Vật liệu linh dược và luyện khí phải tách ra đăng ký.",
+    "latency_ms": 103.29,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 116,
+    "source": "这瓶药液只用来浸泡紫叶参",
+    "target": "Chai dược dịch này chỉ dùng để ngâm Tử Diệp Sâm",
+    "latency_ms": 90.87,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 117,
+    "source": "瓶中的药液已经变成淡绿色",
+    "target": "Dược dịch trong bình đã biến thành màu xanh nhạt.",
+    "latency_ms": 79.43,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 118,
+    "source": "药阁今天新送来十株灵草",
+    "target": "Hôm nay Dược Các mới đưa tới mười gốc linh thảo.",
+    "latency_ms": 90.06,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 119,
+    "source": "其中五株要留给炼丹房",
+    "target": "Trong đó năm cây phải để lại cho luyện đan phòng.",
+    "latency_ms": 79.49,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 120,
+    "source": "余下五株先放进低温药柜",
+    "target": "Năm gốc còn lại trước tiên đặt vào tủ thuốc nhiệt độ thấp",
+    "latency_ms": 99.68,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 121,
+    "source": "炼丹前先按君臣佐使分配药材",
+    "target": "Trước khi luyện đan, trước tiên phân phối dược liệu theo quân thần tá sứ.",
+    "latency_ms": 133.67,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 122,
+    "source": "君药的分量不能和辅药一样",
+    "target": "Chất lượng quân dược không thể giống như phụ dược.",
+    "latency_ms": 90.23,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 123,
+    "source": "臣药负责增强主药的药效",
+    "target": "Thần dược phụ trách tăng cường dược hiệu của chủ dược.",
+    "latency_ms": 86.86,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 124,
+    "source": "佐药用来缓和过强的药性",
+    "target": "Tác dược dùng để làm dịu dược tính quá mạnh.",
+    "latency_ms": 84.48,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 125,
+    "source": "使药负责协调诸药归经",
+    "target": "Sứ dược phụ trách điều phối các thuốc thuộc về kinh nghiệm.",
+    "latency_ms": 88.38,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 126,
+    "source": "这四种作用合称君臣佐使",
+    "target": "Bốn loại tác dụng này hợp xưng quân thần Tá sứ",
+    "latency_ms": 88.95,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 127,
+    "source": "丹炉底部的地火已经稳定",
+    "target": "Lửa đất dưới đáy lò đan đã ổn định.",
+    "latency_ms": 85.73,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 128,
+    "source": "炉盖没有合严就不要加大火力",
+    "target": "Nắp lò chưa đóng chặt thì đừng tăng hỏa lực.",
+    "latency_ms": 93.6,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 129,
+    "source": "第一炉丹药表面出现了两道丹纹",
+    "target": "Lò đan dược đầu tiên xuất hiện hai đường vân đan dược.",
+    "latency_ms": 113.43,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 130,
+    "source": "丹纹清晰不代表药效一定完美",
+    "target": "Đan văn rõ ràng không có nghĩa là dược hiệu nhất định hoàn mỹ.",
+    "latency_ms": 100.97,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 131,
+    "source": "第二炉没有丹纹但气味正常",
+    "target": "Lò thứ hai không có đan văn nhưng mùi vị bình thường.",
+    "latency_ms": 101.38,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 132,
+    "source": "先检查丹药内部是否有裂纹",
+    "target": "Trước tiên kiểm tra xem bên trong đan dược có vết nứt không.",
+    "latency_ms": 110.48,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 133,
+    "source": "白色瓷瓶装的是止血散",
+    "target": "Bình sứ màu trắng chứa cầm máu tán.",
+    "latency_ms": 78.21,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 134,
+    "source": "黑色瓷瓶里则是解毒丹",
+    "target": "Trong bình sứ màu đen là Giải Độc Đan",
+    "latency_ms": 70.88,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 135,
+    "source": "瓶子颜色不能代表丹药种类",
+    "target": "Màu sắc bình không thể đại diện cho chủng loại đan dược.",
+    "latency_ms": 97.22,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 136,
+    "source": "这枚丹药只适合炼气期弟子",
+    "target": "Viên đan dược này chỉ thích hợp cho đệ tử Luyện Khí kỳ.",
+    "latency_ms": 95.25,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 137,
+    "source": "筑基修士服用前也要确认剂量",
+    "target": "Tu sĩ Trúc Cơ trước khi uống cũng phải xác nhận liều lượng.",
+    "latency_ms": 99.78,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 138,
+    "source": "三百年份的药材不能随便浪费",
+    "target": "Ba trăm năm không thể tùy tiện lãng phí dược liệu.",
+    "latency_ms": 88.9,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 139,
+    "source": "两百年份和三百年份药性差别很大",
+    "target": "Sự khác biệt rất lớn so với dược tính hai trăm năm và ba trăm năm.",
+    "latency_ms": 122.02,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 140,
+    "source": "炼丹记录里必须写清每种药材的年份",
+    "target": "Trong ghi chép luyện đan bắt buộc phải ghi rõ niên đại của từng loại dược liệu.",
+    "latency_ms": 126.11,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 141,
+    "source": "剑阁里找到一部没有题名的剑谱",
+    "target": "Trong Kiếm Các tìm thấy một bộ kiếm phổ không có đề tên.",
+    "latency_ms": 96.52,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 142,
+    "source": "这部无名剑谱只有前六页完整",
+    "target": "Bộ vô danh kiếm phổ này chỉ có sáu trang đầu tiên hoàn chỉnh.",
+    "latency_ms": 103.29,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 143,
+    "source": "第一页写着一段运剑口诀",
+    "target": "Trang đầu tiên viết một đoạn khẩu quyết vận kiếm.",
+    "latency_ms": 82.12,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 144,
+    "source": "口诀必须整句理解不能拆成单字",
+    "target": "Khẩu quyết bắt buộc phải nói trọn câu lý giải chứ không được chia thành chữ đơn.",
+    "latency_ms": 127.6,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 145,
+    "source": "后面记着一招名为落星斩",
+    "target": "Phía sau ghi lại một chiêu tên là Lạc Tinh Trảm",
+    "latency_ms": 84.54,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 146,
+    "source": "落星斩不适合在狭窄石室施展",
+    "target": "Lạc Tinh Trảm không thích hợp để thi triển trong thạch thất chật hẹp",
+    "latency_ms": 94.89,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 147,
+    "source": "另一门术法名为引雷诀",
+    "target": "Môn thuật pháp khác tên là Dẫn Lôi Quyết",
+    "latency_ms": 73.05,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 148,
+    "source": "引雷诀必须在雷云出现时使用",
+    "target": "Dẫn Lôi Quyết phải sử dụng khi lôi vân xuất hiện.",
+    "latency_ms": 90.73,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 149,
+    "source": "师父还教过我一套踏云身法",
+    "target": "Sư phụ còn dạy ta một bộ Thân pháp Đạp Vân",
+    "latency_ms": 95.64,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 150,
+    "source": "身法口诀和剑诀不能混为一谈",
+    "target": "Thân pháp khẩu quyết và kiếm quyết không thể đánh đồng với nhau.",
+    "latency_ms": 96.69,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 151,
+    "source": "那位散修一直深藏不露",
+    "target": "Vị tán tu kia vẫn luôn thâm tàng bất lộ.",
+    "latency_ms": 89.0,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 152,
+    "source": "不到最后一刻谁也看不出他的实力",
+    "target": "Không đến một khắc cuối cùng ai cũng không nhìn ra thực lực của hắn.",
+    "latency_ms": 110.95,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 153,
+    "source": "眼下封印破裂已经迫在眉睫",
+    "target": "Lúc này phong ấn vỡ vụn đã cấp bách trước mắt",
+    "latency_ms": 93.99,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 154,
+    "source": "现在最重要的是先撤出受伤弟子",
+    "target": "Hiện tại quan trọng nhất là rút lui những đệ tử bị thương trước.",
+    "latency_ms": 107.26,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 155,
+    "source": "进入死地几乎是九死一生",
+    "target": "Tiến vào tử địa gần như cửu tử nhất sinh",
+    "latency_ms": 77.95,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 156,
+    "source": "即便九死一生也不能坐以待毙",
+    "target": "Dù cửu tử nhất sinh cũng không thể ngồi chờ chết.",
+    "latency_ms": 91.48,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 157,
+    "source": "对方已经赶尽杀绝没有和谈余地",
+    "target": "Đối phương đã tận diệt tuyệt đối không còn đường lui để đàm phán.",
+    "latency_ms": 106.85,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 158,
+    "source": "交手时若对方认输就手下留情",
+    "target": "Khi giao thủ, nếu đối phương nhận thua sẽ nương tay.",
+    "latency_ms": 93.46,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 159,
+    "source": "两派之间并非真的不共戴天",
+    "target": "Giữa hai phái không phải thật sự không đội trời chung.",
+    "latency_ms": 87.94,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 160,
+    "source": "别把一句固定说法拆成普通词逐字翻译",
+    "target": "Đừng đem một câu nói cố định thành từ phổ thông dịch từng chữ",
+    "latency_ms": 111.06,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 161,
+    "source": "山脚草棚里养着三只普通灰兔",
+    "target": "Trong lều cỏ dưới chân núi nuôi ba con thỏ xám bình thường",
+    "latency_ms": 101.9,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 162,
+    "source": "普通灰兔不能直接称作灵兔",
+    "target": "Thỏ xám bình thường không thể trực tiếp gọi là Linh Thỏ",
+    "latency_ms": 98.54,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 163,
+    "source": "灵兔耳朵上有淡淡的灵气",
+    "target": "Trên lỗ tai linh thỏ thoang thoảng linh khí.",
+    "latency_ms": 85.3,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 164,
+    "source": "两只灵鹤停在竹林外的石栏上",
+    "target": "Hai con hạc linh dừng lại trên lan can đá ngoài rừng trúc.",
+    "latency_ms": 96.85,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 165,
+    "source": "灵鹤脚上绑着传信用的竹筒",
+    "target": "Linh Hạc buộc ống trúc dùng để truyền tin dưới chân Linh Hạc.",
+    "latency_ms": 101.87,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 166,
+    "source": "普通白鹤没有这种宗门标记",
+    "target": "Bạch Hạc bình thường không có loại ký hiệu tông môn này.",
+    "latency_ms": 88.72,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 167,
+    "source": "驭兽堂还养着四匹青鬃马",
+    "target": "Ngự Thú Đường còn nuôi bốn con ngựa bờm xanh.",
+    "latency_ms": 88.63,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 168,
+    "source": "青鬃马只是拉车用的普通马",
+    "target": "Thanh Tông Mã chỉ là một con ngựa bình thường dùng để kéo xe.",
+    "latency_ms": 101.36,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 169,
+    "source": "其中一匹灵马才是长老的坐骑",
+    "target": "Một con linh mã mới là tọa kỵ của trưởng lão.",
+    "latency_ms": 95.85,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 170,
+    "source": "坐骑与灵宠的用途并不相同",
+    "target": "Thú cưỡi và linh sủng có công dụng không giống nhau.",
+    "latency_ms": 86.35,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 171,
+    "source": "小师妹怀里抱着一只幼年灵狐",
+    "target": "Tiểu sư muội ôm trong lòng một con linh hồ non nớt.",
+    "latency_ms": 102.98,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 172,
+    "source": "这只灵狐已经被驯化半年",
+    "target": "Con linh hồ này đã bị thuần hóa nửa năm.",
+    "latency_ms": 78.26,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 173,
+    "source": "山里出现的普通狐狸不一定是灵狐",
+    "target": "Hồ ly bình thường xuất hiện trong núi không nhất định là linh hồ.",
+    "latency_ms": 108.81,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 174,
+    "source": "河边有两只普通乌龟晒太阳",
+    "target": "Bên bờ sông có hai con rùa bình thường phơi nắng.",
+    "latency_ms": 88.16,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 175,
+    "source": "普通乌龟和玄龟不能混称",
+    "target": "Ô Quy thông thường và Huyền Quy không thể gọi chung được.",
+    "latency_ms": 89.29,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 176,
+    "source": "石碑上画着玄龟并不证明附近有玄龟",
+    "target": "Trên bia đá vẽ Huyền Quy không chứng minh gần đây có Huyền Quy.",
+    "latency_ms": 119.12,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 177,
+    "source": "林中还有一头受伤的梅花鹿",
+    "target": "Trong rừng còn có một con hươu sao bị thương.",
+    "latency_ms": 89.58,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 178,
+    "source": "这头鹿只是普通野兽",
+    "target": "Con hươu này chỉ là dã thú bình thường.",
+    "latency_ms": 74.58,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 179,
+    "source": "灵兽和普通野兽必须分开记录",
+    "target": "Linh thú và dã thú bình thường phải tách ra ghi chép lại.",
+    "latency_ms": 112.11,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 180,
+    "source": "没有灵气特征就先按普通动物处理",
+    "target": "Không có đặc điểm linh khí thì cứ xử lý theo động vật bình thường.",
+    "latency_ms": 113.81,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 181,
+    "source": "前方山谷里发现三只二阶铁背狼",
+    "target": "Trong thung lũng phía trước phát hiện ba con Thiết Bối Lang cấp hai",
+    "latency_ms": 99.83,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 182,
+    "source": "铁背狼的背毛坚硬如铁",
+    "target": "Lông lưng Thiết Bối Lang cứng rắn như sắt thép.",
+    "latency_ms": 88.78,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 183,
+    "source": "银月狼只是狼类妖兽的一种称呼",
+    "target": "Ngân Nguyệt Lang chỉ là một cách xưng hô của yêu thú loài sói.",
+    "latency_ms": 108.7,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 184,
+    "source": "银色月纹只是特征不一定是名字",
+    "target": "Trăng văn màu bạc chỉ là đặc điểm không nhất định là tên.",
+    "latency_ms": 100.57,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 185,
+    "source": "悬崖下盘着一条黑鳞巨蟒",
+    "target": "Dưới vách núi cuộn tròn một con mãng xà vảy đen khổng lồ.",
+    "latency_ms": 116.39,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 186,
+    "source": "那条巨蟒腹部已经长出几片蛟鳞",
+    "target": "Trên bụng con mãng xà khổng lồ kia đã mọc ra mấy mảnh vảy giao long.",
+    "latency_ms": 121.7,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 187,
+    "source": "没有化蛟以前它仍然属于蟒类妖兽",
+    "target": "Trước khi chưa hóa giao, nó vẫn thuộc về yêu thú loài mãng xà.",
+    "latency_ms": 116.55,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 188,
+    "source": "沼泽边出现两只三眼毒蟾",
+    "target": "Bên đầm lầy xuất hiện hai con Tam Nhãn Độc Thiềm.",
+    "latency_ms": 95.14,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 189,
+    "source": "三眼毒蟾吐出的毒雾不能直接触碰",
+    "target": "Độc Vụ do Tam Nhãn Độc Thiềm phun ra không thể trực tiếp chạm vào.",
+    "latency_ms": 108.16,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 190,
+    "source": "噬魂蛛属于妖虫而不是鬼物",
+    "target": "Phệ Hồn Chu thuộc về yêu trùng chứ không phải quỷ vật",
+    "latency_ms": 87.75,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 191,
+    "source": "噬魂蛛结出的黑网带有微弱魂力",
+    "target": "Lưới đen do Phệ Hồn Chu kết ra mang theo Hồn Lực yếu ớt.",
+    "latency_ms": 107.53,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 192,
+    "source": "冰谷深处发现了几条冰魄蚕",
+    "target": "Sâu trong thung lũng băng phát hiện mấy con tằm Băng Phách",
+    "latency_ms": 100.7,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 193,
+    "source": "冰魄蚕吐出的冰丝能够用来炼制法衣",
+    "target": "Băng Phách Tằm phun ra sợi băng có thể dùng để luyện chế pháp y.",
+    "latency_ms": 116.58,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 194,
+    "source": "火洞附近栖息着赤甲火蜥",
+    "target": "Gần hang lửa có Xích Giáp Hỏa Tích trú ngụ",
+    "latency_ms": 82.78,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 195,
+    "source": "雷角犀头上的雷角正在积蓄雷光",
+    "target": "Lôi Giác trên đầu Lôi Giác Tê đang tích tụ lôi quang.",
+    "latency_ms": 91.31,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 196,
+    "source": "雷角是外形特征不是它的名字",
+    "target": "Lôi Giác là đặc điểm ngoại hình không phải tên của nó.",
+    "latency_ms": 105.66,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 197,
+    "source": "妖鹰落地后留下几根赤色羽毛",
+    "target": "Yêu Ưng đáp xuống đất rồi để lại vài chiếc lông vũ màu đỏ.",
+    "latency_ms": 107.28,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 198,
+    "source": "妖兽尸体旁发现了清晰的兽爪印",
+    "target": "Bên cạnh thi thể yêu thú phát hiện rõ ràng móng thú ấn ký.",
+    "latency_ms": 107.85,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 199,
+    "source": "这些爪印比普通狼爪大得多",
+    "target": "Những trảo ấn này lớn hơn nhiều so với lang trảo thông thường.",
+    "latency_ms": 98.75,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 200,
+    "source": "单凭爪印还不能确认凶兽身份",
+    "target": "Chỉ dựa vào trảo ấn vẫn chưa thể xác nhận thân phận hung thú.",
+    "latency_ms": 100.33,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 201,
+    "source": "师祖当年收服过一头灵兽",
+    "target": "Sư tổ năm đó từng thu phục một con linh thú.",
+    "latency_ms": 86.61,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 202,
+    "source": "那头灵兽后来名为踏雪青麟兽",
+    "target": "Con linh thú kia về sau tên là Đạp Tuyết Thanh Lân Thú.",
+    "latency_ms": 110.01,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 203,
+    "source": "踏雪青麟兽并不是普通青麟兽",
+    "target": "Đạp Tuyết Thanh Lân Thú không phải Thanh Lân Thú tầm thường.",
+    "latency_ms": 107.66,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 204,
+    "source": "兽册中还记载了一只九尾天狐",
+    "target": "Trong thú sách còn ghi chép một con Cửu Vĩ Thiên Hồ",
+    "latency_ms": 91.37,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 205,
+    "source": "九尾天狐属于传说中的高阶灵兽",
+    "target": "Cửu Vĩ Thiên Hồ thuộc về linh thú cao giai trong truyền thuyết.",
+    "latency_ms": 93.18,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 206,
+    "source": "多尾狐狸未必就是九尾天狐",
+    "target": "Đa Vĩ Hồ Ly chưa chắc đã là Cửu Vĩ Thiên Hồ",
+    "latency_ms": 89.97,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 207,
+    "source": "古籍中提到白泽能够辨识万物",
+    "target": "Trong sách cổ đề cập Bạch Trạch có thể phân biệt vạn vật.",
+    "latency_ms": 94.42,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 208,
+    "source": "白泽传说不能直接当成现场证据",
+    "target": "Bạch Trạch truyền thuyết không thể trực tiếp coi như chứng cứ hiện trường.",
+    "latency_ms": 114.72,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 209,
+    "source": "护宗图腾画着一只玄龟",
+    "target": "Hộ tông đồ đằng vẽ một con Huyền Quy",
+    "latency_ms": 71.85,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 210,
+    "source": "玄龟图腾只是宗门象征",
+    "target": "Huyền Quy Đồ Đằng chỉ là biểu tượng của tông môn.",
+    "latency_ms": 90.84,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 211,
+    "source": "兽群前方出现一头金角兽王",
+    "target": "Phía trước đàn thú xuất hiện một đầu Kim Giác Thú Vương.",
+    "latency_ms": 90.92,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 212,
+    "source": "金角只是兽王头部的外形特征",
+    "target": "Kim Giác chỉ là đặc điểm ngoại hình trên đầu Thú Vương.",
+    "latency_ms": 97.16,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 213,
+    "source": "不要因为金角就擅自给它取名",
+    "target": "Đừng vì Kim Giác mà tự tiện đặt tên cho nó.",
+    "latency_ms": 92.58,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 214,
+    "source": "远处越来越多妖兽开始聚集",
+    "target": "Xa xa càng ngày càng nhiều yêu thú bắt đầu tụ tập.",
+    "latency_ms": 103.62,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 215,
+    "source": "眼前的动静可能预示着一场小规模兽潮",
+    "target": "Động tĩnh trước mắt có thể báo hiệu một trận thú triều quy mô nhỏ",
+    "latency_ms": 101.87,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 216,
+    "source": "兽潮来临前先把灵宠带回兽栏",
+    "target": "Trước khi thú triều ập đến, trước tiên đưa linh sủng về chuồng thú.",
+    "latency_ms": 125.26,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 217,
+    "source": "坐骑也要提前撤进内山门",
+    "target": "Tọa kỵ cũng phải rút lui sớm vào nội sơn môn.",
+    "latency_ms": 83.33,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 218,
+    "source": "驭兽堂正在核对所有兽契",
+    "target": "Ngự Thú Đường đang đối chiếu tất cả khế thú.",
+    "latency_ms": 84.77,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 219,
+    "source": "没有兽契的妖兽不得带进宗门",
+    "target": "Yêu thú không có khế ước thú thì không được mang vào tông môn.",
+    "latency_ms": 106.2,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 220,
+    "source": "找到的兽毛先送去驭兽堂鉴定",
+    "target": "Lông thú tìm được trước tiên đưa đến Ngự Thú Đường giám định.",
+    "latency_ms": 103.4,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 221,
+    "source": "旧洞府里残留着一缕怨灵气息",
+    "target": "Trong động phủ cũ còn sót lại một tia khí tức oán linh.",
+    "latency_ms": 95.62,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 222,
+    "source": "怨灵和妖兽的处理方法完全不同",
+    "target": "Phương pháp xử lý của oán linh và yêu thú hoàn toàn khác biệt.",
+    "latency_ms": 102.93,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 223,
+    "source": "魔修留下的血阵还在缓慢运转",
+    "target": "Huyết trận do ma tu để lại vẫn đang chậm rãi vận chuyển.",
+    "latency_ms": 94.48,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 224,
+    "source": "血阵中央插着一面破旧噬魂幡",
+    "target": "Giữa huyết trận cắm một mặt Phệ Hồn Phiên cũ nát.",
+    "latency_ms": 105.28,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 225,
+    "source": "噬魂幡上的黑气已经非常微弱",
+    "target": "Hắc khí trên Phệ Hồn Phiên đã cực kỳ yếu ớt.",
+    "latency_ms": 88.18,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 226,
+    "source": "魔道法器不能和普通阵旗混在一起",
+    "target": "Ma đạo pháp khí không thể hòa lẫn với trận kỳ thông thường.",
+    "latency_ms": 97.24,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 227,
+    "source": "石室角落躺着一具破碎傀儡",
+    "target": "Trong góc thạch thất nằm một cỗ khôi lỗi vỡ nát.",
+    "latency_ms": 82.3,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 228,
+    "source": "傀儡胸口嵌着一枚暗色魂晶",
+    "target": "Trên ngực khôi lỗi khảm một viên hồn tinh màu tối.",
+    "latency_ms": 85.56,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 229,
+    "source": "魂晶可能只是驱动傀儡的核心",
+    "target": "Hồn tinh có lẽ chỉ là thúc đẩy hạch tâm của khôi lỗi.",
+    "latency_ms": 99.79,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 230,
+    "source": "没有证据不能说魂晶里一定有残魂",
+    "target": "Không có chứng cứ thì không thể nói trong hồn tinh nhất định có tàn hồn.",
+    "latency_ms": 118.26,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 231,
+    "source": "墙后封着一团青色鬼火",
+    "target": "Phía sau bức tường phong kín một đoàn quỷ hỏa màu xanh.",
+    "latency_ms": 101.24,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 232,
+    "source": "鬼火和灵火的性质并不相同",
+    "target": "Tính chất của Quỷ Hỏa và Linh Hỏa cũng không giống nhau.",
+    "latency_ms": 89.36,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 233,
+    "source": "地面还有几道残缺血阵纹路",
+    "target": "Trên mặt đất còn có mấy đường vân huyết trận tàn khuyết.",
+    "latency_ms": 87.34,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 234,
+    "source": "先确认血阵是否仍与噬魂幡相连",
+    "target": "Trước tiên xác nhận huyết trận có còn liên kết với Phệ Hồn Phiên hay không.",
+    "latency_ms": 114.96,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 235,
+    "source": "魔修本人可能早已离开此地",
+    "target": "Bản thân Ma tu có lẽ đã sớm rời khỏi nơi này.",
+    "latency_ms": 94.89,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 236,
+    "source": "不要把附近散修都当成魔修",
+    "target": "Đừng coi tán tu xung quanh là ma tu.",
+    "latency_ms": 78.79,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 237,
+    "source": "一具无主傀儡忽然从石门后走出",
+    "target": "Một cỗ khôi lỗi vô chủ đột nhiên từ sau cửa đá bước ra.",
+    "latency_ms": 100.73,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 238,
+    "source": "傀儡没有神智只能执行简单命令",
+    "target": "Khôi lỗi không có thần trí chỉ có thể thi hành mệnh lệnh đơn giản.",
+    "latency_ms": 116.32,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 239,
+    "source": "若魂晶破裂傀儡就会停止行动",
+    "target": "Nếu hồn tinh vỡ tan khôi lỗi sẽ ngừng hành động.",
+    "latency_ms": 87.62,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 240,
+    "source": "收起魂晶前先确认上面没有禁制",
+    "target": "Trước khi thu hồi hồn tinh, xác nhận phía trên không có cấm chế.",
+    "latency_ms": 118.64,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 241,
+    "source": "石壁上写着东方两个字",
+    "target": "Trên vách đá khắc hai chữ \"Đông Phương\"",
+    "latency_ms": 75.39,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 242,
+    "source": "这里的东方只是方向提示",
+    "target": "Phía đông nơi này chỉ là hướng dẫn.",
+    "latency_ms": 69.19,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 243,
+    "source": "若后面接师兄才可能是东方这个复姓",
+    "target": "Nếu sau này đón sư huynh mới có thể là người họ kép Đông Phương này.",
+    "latency_ms": 123.58,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 244,
+    "source": "石门旁刻着何字但没有任何人名",
+    "target": "Bên cạnh cửa đá khắc chữ gì nhưng không có tên bất kỳ ai.",
+    "latency_ms": 105.69,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 245,
+    "source": "任何弟子都不能把何字直接当成姓氏",
+    "target": "Bất kỳ đệ tử nào cũng không thể trực tiếp coi chữ Hà là họ.",
+    "latency_ms": 110.03,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 246,
+    "source": "探路弟子报告前方没有岔口",
+    "target": "Đệ tử dò đường báo cáo phía trước không có ngã rẽ.",
+    "latency_ms": 101.86,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 247,
+    "source": "路师兄的姓氏确实是路",
+    "target": "Họ của Lộ sư huynh quả thực là Lộ sư huynh",
+    "latency_ms": 81.07,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 248,
+    "source": "路线中的路字却不是人名",
+    "target": "Chữ đường trong lộ trình lại không phải tên người",
+    "latency_ms": 86.25,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 249,
+    "source": "石片上写着归山二字",
+    "target": "Trên phiến đá khắc hai chữ \"Quy Sơn\"",
+    "latency_ms": 70.4,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 250,
+    "source": "归山可能是命令也可能是地名",
+    "target": "Quy Sơn có thể là mệnh lệnh cũng có thể là địa danh.",
+    "latency_ms": 99.58,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 251,
+    "source": "没有上下文就先保留这个不确定性",
+    "target": "Không có văn trên dưới thì trước tiên giữ lại sự bất định này.",
+    "latency_ms": 105.75,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 252,
+    "source": "令牌上的镇关二字可能是职能说明",
+    "target": "Hai chữ \"trấn quan\" trên lệnh bài có thể nói rõ chức năng",
+    "latency_ms": 125.64,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 253,
+    "source": "若法器名为镇关令才把它当成专名",
+    "target": "Nếu pháp khí tên là Trấn Quan Lệnh mới coi nó là tên chuyên biệt.",
+    "latency_ms": 110.34,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 254,
+    "source": "金角两个字在这里描述的是兽角",
+    "target": "Hai chữ \"Kim Giác\" được miêu tả ở đây là thú giác.",
+    "latency_ms": 105.14,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 255,
+    "source": "金角若出现在人名册中则另行判断",
+    "target": "Kim Giác nếu xuất hiện trong danh sách người khác thì phán đoán khác.",
+    "latency_ms": 115.57,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 256,
+    "source": "玄明这两个字既可能指人也可能指地名",
+    "target": "Hai chữ Huyền Minh này đã có thể chỉ người cũng có thể chỉ đích danh.",
+    "latency_ms": 120.03,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 257,
+    "source": "当前证据还不足以固定玄明的译名",
+    "target": "Bằng chứng hiện tại vẫn chưa đủ để dịch tên của huyền minh cố định.",
+    "latency_ms": 114.41,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 258,
+    "source": "丹纹中的纹不是普通皮肤纹身",
+    "target": "Văn trong đan văn không phải là hình xăm da thông thường.",
+    "latency_ms": 94.85,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 259,
+    "source": "符纹中的符也不是普通纸符本身",
+    "target": "Phù trong phù văn cũng không phải bản thân phù giấy thông thường.",
+    "latency_ms": 110.23,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 260,
+    "source": "出没这个词里的没不表示没有",
+    "target": "\"Có từ này không có không có nghĩa là không có.\"",
+    "latency_ms": 107.33,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 261,
+    "source": "黑风岭周围经常有散修来往出没",
+    "target": "Xung quanh Hắc Phong Lĩnh thường xuyên có tán tu lui tới.",
+    "latency_ms": 105.36,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 262,
+    "source": "前方山谷今晚可能有妖兽活动",
+    "target": "Sơn cốc phía trước đêm nay có thể có yêu thú hoạt động.",
+    "latency_ms": 100.95,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 263,
+    "source": "日落前必须赶到无名古殿",
+    "target": "Trước khi mặt trời lặn nhất định phải chạy tới Vô Danh Cổ Điện",
+    "latency_ms": 94.0,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 264,
+    "source": "古殿后方有一条通往地下的石道",
+    "target": "Phía sau cổ điện có một con đường đá dẫn xuống lòng đất.",
+    "latency_ms": 96.28,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 265,
+    "source": "石道尽头可能连接一处小型秘境",
+    "target": "Cuối con đường đá có thể nối liền một bí cảnh nhỏ.",
+    "latency_ms": 99.88,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 266,
+    "source": "这座秘境通常每隔三年开启一次",
+    "target": "Bí cảnh này thông thường cứ ba năm lại mở ra một lần.",
+    "latency_ms": 94.02,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 267,
+    "source": "这次入口只能维持六个时辰",
+    "target": "Lần này lối vào chỉ có thể duy trì sáu canh giờ.",
+    "latency_ms": 93.86,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 268,
+    "source": "六个时辰过后入口会自动关闭",
+    "target": "Sau sáu canh giờ, lối vào sẽ tự động đóng lại.",
+    "latency_ms": 94.18,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 269,
+    "source": "队伍只有八十块下品灵石",
+    "target": "Đội ngũ chỉ có tám mươi khối hạ phẩm linh thạch.",
+    "latency_ms": 82.06,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 270,
+    "source": "进入秘境还要准备五十张普通符纸",
+    "target": "Tiến vào bí cảnh còn phải chuẩn bị năm mươi lá bùa thông thường.",
+    "latency_ms": 101.48,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 271,
+    "source": "每人再带十二枚解毒丹",
+    "target": "Mỗi người lại mang theo mười hai viên giải độc đan",
+    "latency_ms": 83.91,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 272,
+    "source": "两刻钟后在古殿门口集合",
+    "target": "Hai khắc sau, tập hợp ở cửa cổ điện.",
+    "latency_ms": 85.48,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 273,
+    "source": "半个时辰内没有回来就发传信符",
+    "target": "Trong vòng nửa canh giờ chưa trở về đã gửi thư phù.",
+    "latency_ms": 98.62,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 274,
+    "source": "任何人都不得独自离开队伍",
+    "target": "Bất luận kẻ nào cũng không được một mình rời khỏi đội ngũ.",
+    "latency_ms": 94.64,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 275,
+    "source": "探路弟子先确认山谷里有没有兽群",
+    "target": "Đệ tử dò đường trước tiên xác nhận trong thung lũng có đàn thú nào không.",
+    "latency_ms": 115.33,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 276,
+    "source": "若路线被封就沿原路撤回",
+    "target": "Nếu lộ tuyến bị phong tỏa theo đường cũ rút về.",
+    "latency_ms": 93.07,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 277,
+    "source": "冰谷和火洞分别在秘境两侧",
+    "target": "Băng Cốc và Hỏa Động lần lượt ở hai bên bí cảnh.",
+    "latency_ms": 95.17,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 278,
+    "source": "火洞附近可能出现赤甲火蜥",
+    "target": "Gần hang lửa có thể xuất hiện Xích Giáp Hỏa Tích.",
+    "latency_ms": 95.33,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 279,
+    "source": "冰谷深处则可能有冰魄蚕",
+    "target": "Sâu trong Băng Cốc có thể có Băng Phách Tàm",
+    "latency_ms": 83.83,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 280,
+    "source": "没有确认之前不要把传闻当成事实",
+    "target": "Trước khi chưa xác nhận thì đừng coi tin đồn là sự thật.",
+    "latency_ms": 108.61,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 281,
+    "source": "药童把紫叶参和赤阳草装进同一个藤筐",
+    "target": "Dược đồng đem Tử Diệp Sâm và Xích Dương Thảo nhét vào cùng một giỏ mây.",
+    "latency_ms": 125.98,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 282,
+    "source": "先把青灵果与地火莲子分开放好",
+    "target": "Trước tiên tách Thanh Linh Quả và Địa Hỏa Liên Tử đặt ngay ngắn.",
+    "latency_ms": 103.62,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 283,
+    "source": "君臣佐使的顺序写在炼丹口诀旁边",
+    "target": "Thứ tự quân thần tá sứ viết bên cạnh khẩu quyết luyện đan.",
+    "latency_ms": 113.87,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 284,
+    "source": "剑阁弟子拿来一部无名剑谱和一把木剑",
+    "target": "Đệ tử Kiếm Các mang đến một bộ kiếm phổ vô danh và một thanh mộc kiếm.",
+    "latency_ms": 119.27,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 285,
+    "source": "无名剑谱里记着落星斩与引雷诀",
+    "target": "Trong Vô Danh Kiếm Phổ ghi chép Lạc Tinh Trảm và Dẫn Lôi Quyết.",
+    "latency_ms": 104.77,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 286,
+    "source": "驭兽堂外留下三枚巨大的兽爪印",
+    "target": "Bên ngoài Ngự Thú Đường lưu lại ba chiếc vuốt thú khổng lồ.",
+    "latency_ms": 102.76,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 287,
+    "source": "爪印旁还有黑鳞巨蟒脱落的鳞片",
+    "target": "Bên cạnh trảo ấn còn có vảy của Hắc Lân Cự Mãng rụng ra.",
+    "latency_ms": 109.45,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 288,
+    "source": "这些蛟鳞不能证明巨蟒已经化蛟",
+    "target": "Những vảy giao long này không thể chứng minh cự mãng đã hóa giao long.",
+    "latency_ms": 118.45,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 289,
+    "source": "灵鹤带来的竹筒里装着一张宗门令牌",
+    "target": "Trong ống trúc mà Linh Hạc mang đến có đựng một tấm lệnh bài tông môn.",
+    "latency_ms": 123.37,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 290,
+    "source": "这张令牌不是镇关令也不是法宝",
+    "target": "Tấm lệnh bài này không phải Trấn Quan Lệnh cũng chẳng phải pháp bảo.",
+    "latency_ms": 101.55,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 291,
+    "source": "传送阵台下方发现一枚暗色魂晶",
+    "target": "Phía dưới đài truyền tống trận phát hiện một viên ám sắc hồn tinh.",
+    "latency_ms": 106.04,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 292,
+    "source": "魂晶旁的傀儡却没有任何反应",
+    "target": "Khôi lỗi bên cạnh hồn tinh lại không có bất kỳ phản ứng nào.",
+    "latency_ms": 98.83,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 293,
+    "source": "血阵外圈画着与普通符纹相似的纹路",
+    "target": "Vòng ngoài huyết trận vẽ những đường vân tương tự phù văn thông thường.",
+    "latency_ms": 124.5,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 294,
+    "source": "不要把血阵纹路误认成普通符纹",
+    "target": "Đừng nhận nhầm đường vân huyết trận thành phù văn thông thường.",
+    "latency_ms": 91.14,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 295,
+    "source": "雷角犀从山谷经过后留下几根兽毛",
+    "target": "Lôi Giác Tê từ sau khi đi qua thung lũng để lại mấy sợi lông thú.",
+    "latency_ms": 142.56,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 296,
+    "source": "金角兽王是否出现仍然无法确定",
+    "target": "Kim Giác Thú Vương có xuất hiện hay không vẫn không thể xác định.",
+    "latency_ms": 104.86,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 297,
+    "source": "迫在眉睫的危险不代表我们只能坐以待毙",
+    "target": "Nguy hiểm trước mắt không có nghĩa là chúng ta chỉ có thể ngồi chờ chết.",
+    "latency_ms": 125.85,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 298,
+    "source": "即使九死一生也要先保护受伤弟子",
+    "target": "Dù là cửu tử nhất sinh cũng phải bảo vệ đệ tử bị thương trước.",
+    "latency_ms": 109.81,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 299,
+    "source": "深藏不露的散修可能就在古殿附近",
+    "target": "Tán tu thâm tàng bất lộ có lẽ đang ở gần cổ điện.",
+    "latency_ms": 99.79,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  },
+  {
+    "line_no": 300,
+    "source": "所有结论都必须依据当前证据不能凭空猜测",
+    "target": "Tất cả kết luận đều phải dựa vào chứng cứ hiện tại không thể suy đoán suông.",
+    "latency_ms": 144.86,
+    "status": "PASS",
+    "reason": "model produced non-empty Vietnamese output"
+  }
+]

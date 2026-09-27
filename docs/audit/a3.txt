@@ -1,0 +1,401 @@
+    setTimelineScrubbing(false);
+  }, [timelineScrubbing]);
+
+  const openTimelineMenu = useCallback((event: React.MouseEvent<HTMLElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+    if (!videoFile || !videoDuration) return;
+    const target = event.currentTarget as HTMLElement;
+    const rect = target.getBoundingClientRect();
+    const ratio = Math.max(0, Math.min(1, (event.clientX - rect.left) / Math.max(1, rect.width)));
+    setTimelineContextMenu({ x: event.clientX, y: event.clientY, time: ratio * videoDuration });
+  }, [videoFile, videoDuration]);
+
+  useEffect(() => {
+    const close = () => setTimelineContextMenu(null);
+    window.addEventListener('pointerdown', close);
+    window.addEventListener('resize', close);
+    return () => { window.removeEventListener('pointerdown', close); window.removeEventListener('resize', close); };
+  }, []);
+
+  useEffect(() => {
+    const onTimelineKey = (event: KeyboardEvent) => {
+      const target = event.target as HTMLElement | null;
+      if (!target?.closest('.rdvd-timeline')) return;
+      if (target.tagName === 'INPUT' || target.tagName === 'SELECT' || target.isContentEditable) return;
+      if (event.code === 'Space') { event.preventDefault(); const player = videoRef.current; if (player) player.paused ? void player.play() : player.pause(); }
+      else if (event.key === 'ArrowLeft') { event.preventDefault(); seekVideo(videoCurrentTime - (event.shiftKey ? 1 : playbackSeekStep)); }
+      else if (event.key === 'ArrowRight') { event.preventDefault(); seekVideo(videoCurrentTime + (event.shiftKey ? 1 : playbackSeekStep)); }
+      else if (event.key === 'Home') { event.preventDefault(); seekVideo(0); }
+      else if (event.key === 'End') { event.preventDefault(); seekVideo(videoDuration); }
+    };
+    window.addEventListener('keydown', onTimelineKey);
+    return () => window.removeEventListener('keydown', onTimelineKey);
+  }, [seekVideo, videoCurrentTime, videoDuration, playbackSeekStep]);
+
+  const exportLog = useCallback(() => {
+    const content = renderLogs.length ? renderLogs.join('\\n') : t.logReady;
+    const blob = new Blob([content + '\\n'], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement('a');
+    anchor.href = url;
+    anchor.download = `ai-rdvd-log-${new Date().toISOString().replace(/[:.]/g, '-')}.txt`;
+    anchor.click();
+    URL.revokeObjectURL(url);
+  }, [renderLogs, t.logReady]);
+
+  const openLogFolder = useCallback(async () => {
+    const tauriOpen = (window as typeof window & { __TAURI__?: unknown }).__TAURI__;
+    if (tauriOpen) {
+      window.dispatchEvent(new CustomEvent('ai-rdvd:open-log-folder'));
+      return;
+    }
+    if ('showDirectoryPicker' in window) {
+      try { await (window as typeof window & { showDirectoryPicker?: () => Promise<unknown> }).showDirectoryPicker?.(); } catch { /* user cancelled */ }
+      return;
+    }
+    window.alert(t.folderBrowserHint);
+  }, [t.folderBrowserHint]);
+
+  const startAutoPipeline = useCallback(() => {
+    if (!videoFile || pipelineRunning) return;
+    setPipelineRunning(true);
+    setPipelineDone(false);
+    setExportQueued(false);
+    setRenderLogs([]);
+
+    const stages: AutoStage[] = [];
+    if (!dialogueFile && !translatedFile) stages.push('recognizing');
+    if (!translatedFile) stages.push('translating');
+    stages.push('dubbing', 'committing');
+
+    if (dialogueFile && !translatedFile) addLog(`${t.skipAsrLog} ${dialogueFile.name}.`);
+    if (translatedFile) {
+      addLog(`${t.skipAsrLog} ${translatedFile.name}.`);
+      addLog(`${t.skipTranslationLog} ${translatedFile.name}.`);
+    }
+
+    const stageLogs: Record<AutoStage, string> = {
+      idle: '',
+      recognizing: t.runAsrLog,
+      translating: t.runTranslationLog,
+      dubbing: t.autoDubbing,
+      committing: t.autoCommitting,
+      completed: t.renderDoneLog,
+    };
+
+    stages.forEach((stage, index) => {
+      window.setTimeout(() => {
+        setAutoStage(stage);
+        addLog(stageLogs[stage]);
+        if (index === stages.length - 1) {
+          window.setTimeout(() => {
+            setAutoStage('completed');
+            setPipelineRunning(false);
+            setPipelineDone(true);
+            addLog(t.renderDoneLog);
+            setEditTab('edit');
+          }, 650);
+        }
+      }, index * 950);
+    });
+  }, [videoFile, dialogueFile, translatedFile, pipelineRunning, addLog, t]);
+
+  const handleFinalExport = useCallback(() => {
+    if (!pipelineDone) return;
+    setExportQueued(true);
+    addLog(t.exportEnginePending);
+  }, [pipelineDone, addLog, t.exportEnginePending]);
+
+
+  const clampBox = useCallback((value: BoxState): BoxState => {
+    const w = Math.min(STAGE_W, Math.max(MIN_W, value.w));
+    const h = Math.min(STAGE_H, Math.max(MIN_H, value.h));
+    const x = Math.max(w / 2, Math.min(STAGE_W - w / 2, value.x));
+    const y = Math.max(h / 2, Math.min(STAGE_H - h / 2, value.y));
+    return { x, y, w, h };
+  }, []);
+
+  const resizeBox = useCallback((start: BoxState, handle: SelectionHandle, dx: number, dy: number): BoxState => {
+    let left = start.x - start.w / 2;
+    let right = start.x + start.w / 2;
+    let top = start.y - start.h / 2;
+    let bottom = start.y + start.h / 2;
+
+    if (handle.includes('w')) left += dx;
+    if (handle.includes('e')) right += dx;
+    if (handle.includes('n')) top += dy;
+    if (handle.includes('s')) bottom += dy;
+
+    // Giữ từng cạnh trong canvas để tay nắm không chạy mất khỏi vùng nhìn thấy.
+    left = Math.max(0, Math.min(STAGE_W, left));
+    right = Math.max(0, Math.min(STAGE_W, right));
+    top = Math.max(0, Math.min(STAGE_H, top));
+    bottom = Math.max(0, Math.min(STAGE_H, bottom));
+
+    // Giữ kích thước tối thiểu, nhưng vẫn neo đúng cạnh đối diện.
+    if (right - left < MIN_W) {
+      if (handle.includes('w')) left = Math.max(0, right - MIN_W);
+      else right = Math.min(STAGE_W, left + MIN_W);
+    }
+    if (bottom - top < MIN_H) {
+      if (handle.includes('n')) top = Math.max(0, bottom - MIN_H);
+      else bottom = Math.min(STAGE_H, top + MIN_H);
+    }
+
+    return {
+      x: (left + right) / 2,
+      y: (top + bottom) / 2,
+      w: right - left,
+      h: bottom - top,
+    };
+  }, []);
+
+  const boxRef = useRef<BoxState>(box);
+  const dragElementRef = useRef<HTMLDivElement>(null);
+  const subtitleBoxRef = useRef<HTMLDivElement>(null);
+  const lastPreviewCommitRef = useRef(0);
+
+  useEffect(() => {
+    boxRef.current = box;
+  }, [box]);
+
+  const updateDragDom = useCallback((next: BoxState) => {
+    const dragEl = dragElementRef.current;
+    if (dragEl) {
+      dragEl.style.left = `${(next.x / STAGE_W) * 100}%`;
+      dragEl.style.top = `${(next.y / STAGE_H) * 100}%`;
+      dragEl.style.width = `${(next.w / STAGE_W) * 100}%`;
+      dragEl.style.height = `${(next.h / STAGE_H) * 100}%`;
+    }
+  }, []);
+
+  const applyPointerMove = useCallback(() => {
+    const session = sessionRef.current;
+    if (!session || !session.pendingEvent) return;
+
+    const event = session.pendingEvent;
+    session.pendingEvent = null;
+    session.rafId = null;
+
+    const dx = (event.clientX - session.startClientX) * session.scaleX;
+    const dy = (event.clientY - session.startClientY) * session.scaleY;
+    const next = session.mode === 'move'
+      ? clampBox({
+          ...session.startBox,
+          x: session.startBox.x + dx,
+          y: session.startBox.y + dy,
+        })
+      : (session.handle
+          ? resizeBox(session.startBox, session.handle, dx, dy)
+          : session.startBox);
+
+    session.currentBox = next;
+    updateDragDom(next);
+
+    const now = performance.now();
+    // Cập nhật React chậm hơn DOM để tránh render lại liên tục khi kéo
+    if (now - lastPreviewCommitRef.current >= 80) {
+      lastPreviewCommitRef.current = now;
+      setDragPreview(next);
+    }
+  }, [clampBox, resizeBox, updateDragDom]);
+
+  const scheduleApply = useCallback((event: PointerEvent) => {
+    const session = sessionRef.current;
+    if (!session) return;
+    session.pendingEvent = event;
+    if (session.rafId == null) {
+      session.rafId = requestAnimationFrame(applyPointerMove);
+    }
+  }, [applyPointerMove]);
+
+  const handlePointerDown = useCallback((event: React.PointerEvent<HTMLDivElement>) => {
+    if (event.pointerType === 'mouse' && event.button !== 0) return;
+    const scene = sceneRef.current;
+    const dragEl = dragElementRef.current;
+    if (!scene || !dragEl) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    const target = event.target instanceof Element
+      ? event.target.closest<HTMLElement>('[data-handle]')
+      : null;
+    const handle = target?.dataset.handle as SelectionHandle | undefined;
+    // Các nút resize không được kích hoạt hành vi button mặc định
+    if (handle) event.currentTarget.focus();
+    const rect = scene.getBoundingClientRect();
+    const startBox = boxRef.current;
+    const scaleX = STAGE_W / Math.max(1, rect.width);
+    const scaleY = STAGE_H / Math.max(1, rect.height);
+
+    sessionRef.current = {
+      mode: handle ? 'resize' : 'move',
+      handle,
+      pointerId: event.pointerId,
+      startClientX: event.clientX,
+      startClientY: event.clientY,
+      startBox,
+      currentBox: startBox,
+      scaleX,
+      scaleY,
+      rafId: null,
+      pendingEvent: null,
+    };
+
+    lastPreviewCommitRef.current = performance.now();
+    updateDragDom(startBox);
+    setDragPreview(startBox);
+    try {
+      dragEl.setPointerCapture(event.pointerId);
+    } catch {
+      // Pointer capture is best-effort; React pointer events remain active on the element.
+    }
+
+    setDragging(true);
+    document.body.classList.add('rdvd-dragging');
+    document.body.style.cursor = handle ? CURSOR_BY_HANDLE[handle] : 'grabbing';
+  }, []);
+
+  const handlePointerMove = useCallback((event: React.PointerEvent<HTMLDivElement>) => {
+    const session = sessionRef.current;
+    if (!session || event.pointerId !== session.pointerId) return;
+    event.preventDefault();
+    scheduleApply(event.nativeEvent);
+  }, [scheduleApply]);
+
+  const endSession = useCallback((event?: React.PointerEvent<HTMLDivElement>) => {
+    const session = sessionRef.current;
+    if (!session) return;
+    if (event && event.pointerId !== session.pointerId) return;
+
+    if (session.pendingEvent) {
+      applyPointerMove();
+    }
+    if (session.rafId != null) {
+      cancelAnimationFrame(session.rafId);
+    }
+
+    const finalBox = clampBox(session.currentBox);
+    boxRef.current = finalBox;
+    setBox(finalBox);
+    setDragPreview(null);
+    sessionRef.current = null;
+    setDragging(false);
+    document.body.classList.remove('rdvd-dragging');
+    document.body.style.cursor = '';
+
+    const dragEl = dragElementRef.current;
+    if (dragEl && dragEl.hasPointerCapture(session.pointerId)) {
+      try { dragEl.releasePointerCapture(session.pointerId); } catch {}
+    }
+  }, [applyPointerMove]);
+
+  useEffect(() => {
+    return () => {
+      const session = sessionRef.current;
+      if (session?.rafId != null) cancelAnimationFrame(session.rafId);
+      document.body.classList.remove('rdvd-dragging');
+      document.body.style.cursor = '';
+    };
+  }, []);
+
+  useEffect(() => {
+    logoBoxRef.current = logoBox;
+  }, [logoBox]);
+
+  const clampLogoBox = useCallback((value: BoxState): BoxState => {
+    const w = Math.min(STAGE_W, Math.max(40, value.w));
+    const h = Math.min(STAGE_H, Math.max(24, value.h));
+    const x = Math.max(w / 2, Math.min(STAGE_W - w / 2, value.x));
+    const y = Math.max(h / 2, Math.min(STAGE_H - h / 2, value.y));
+    return { x, y, w, h };
+  }, []);
+
+  const resizeLogoBox = useCallback((start: BoxState, handle: SelectionHandle, dx: number, dy: number): BoxState => {
+    let left = start.x - start.w / 2;
+    let right = start.x + start.w / 2;
+    let top = start.y - start.h / 2;
+    let bottom = start.y + start.h / 2;
+    if (handle.includes('w')) left += dx;
+    if (handle.includes('e')) right += dx;
+    if (handle.includes('n')) top += dy;
+    if (handle.includes('s')) bottom += dy;
+    if (right - left < 40) {
+      if (handle.includes('w')) left = right - 40; else right = left + 40;
+    }
+    if (bottom - top < 24) {
+      if (handle.includes('n')) top = bottom - 24; else bottom = top + 24;
+    }
+    return clampLogoBox({ x: (left + right) / 2, y: (top + bottom) / 2, w: right - left, h: bottom - top });
+  }, [clampLogoBox]);
+
+  const handleLogoPointerDown = useCallback((event: React.PointerEvent<HTMLDivElement>) => {
+    if (!logoUrl || (event.pointerType === 'mouse' && event.button !== 0)) return;
+    const scene = sceneRef.current;
+    const element = logoElementRef.current;
+    if (!scene || !element) return;
+    event.preventDefault();
+    event.stopPropagation();
+    const target = event.target instanceof Element ? event.target.closest<HTMLElement>('[data-logo-handle]') : null;
+    const handle = target?.dataset.logoHandle as SelectionHandle | undefined;
+    const rect = scene.getBoundingClientRect();
+    const startBox = logoBoxRef.current;
+    logoDragRef.current = {
+      mode: handle ? 'resize' : 'move', handle,
+      pointerId: event.pointerId, startClientX: event.clientX, startClientY: event.clientY,
+      startBox, scaleX: STAGE_W / Math.max(1, rect.width), scaleY: STAGE_H / Math.max(1, rect.height),
+    };
+    try { element.setPointerCapture(event.pointerId); } catch {}
+    setLogoDragging(true);
+  }, [logoUrl]);
+
+  const handleLogoPointerMove = useCallback((event: React.PointerEvent<HTMLDivElement>) => {
+    const session = logoDragRef.current;
+    if (!session || event.pointerId !== session.pointerId) return;
+    event.preventDefault();
+    const dx = (event.clientX - session.startClientX) * session.scaleX;
+    const dy = (event.clientY - session.startClientY) * session.scaleY;
+    const next = session.mode === 'move'
+      ? clampLogoBox({ ...session.startBox, x: session.startBox.x + dx, y: session.startBox.y + dy })
+      : (session.handle ? resizeLogoBox(session.startBox, session.handle, dx, dy) : session.startBox);
+    logoBoxRef.current = next;
+    setLogoBox(next);
+  }, [clampLogoBox, resizeLogoBox]);
+
+  const endLogoDrag = useCallback((event?: React.PointerEvent<HTMLDivElement>) => {
+    const session = logoDragRef.current;
+    if (!session) return;
+    if (event && event.pointerId !== session.pointerId) return;
+    logoDragRef.current = null;
+    setLogoDragging(false);
+    const element = logoElementRef.current;
+    if (element && element.hasPointerCapture(session.pointerId)) {
+      try { element.releasePointerCapture(session.pointerId); } catch {}
+    }
+  }, []);
+
+  useEffect(() => () => {
+    if (logoUrl) URL.revokeObjectURL(logoUrl);
+  }, [logoUrl]);
+
+  useEffect(() => {
+    const player = videoRef.current;
+    if (!player) return;
+    player.loop = loopPlayback;
+    player.volume = volume;
+    player.muted = isMuted;
+  }, [volume, isMuted, videoUrl, loopPlayback]);
+
+  const activeBox = dragPreview ?? box;
+  const subtitleDragStyle = useMemo(() => ({
+    left: `${(activeBox.x / STAGE_W) * 100}%`,
+    top: `${(activeBox.y / STAGE_H) * 100}%`,
+    width: `${(activeBox.w / STAGE_W) * 100}%`,
+    height: `${(activeBox.h / STAGE_H) * 100}%`,
+  }), [activeBox.x, activeBox.y, activeBox.w, activeBox.h]);
+
+  const resetAppSettings = useCallback(() => {
+    setLanguage('vi'); setTheme('dark'); setGlobalShortcutsEnabled(true); setPlaybackSeekStep(5);
+    setLoopPlayback(false); setStartMuted(false); setDefaultTimelineZoom(1); setAutoSubtitleFrame(true);
