@@ -57,6 +57,7 @@ interface TimelineProps {
   pipelineDone: boolean;
   ttsGeneration: TtsGenerationResult | null;
   videoCurrentTime: number;
+  isVideoPlaying: boolean;
   timelineContextMenu: { x: number; y: number; time: number } | null;
   setTimelineContextMenu: Dispatch<SetStateAction<{ x: number; y: number; time: number } | null>>;
 }
@@ -75,7 +76,7 @@ export function Timeline(props: TimelineProps) {
     subtitleTrackLocked, setSubtitleTrackLocked, subtitleSegments, translatedFile,
     seekVideo, dubbedTrackSolo, setDubbedTrackSolo, dubbedTrackMuted, setDubbedTrackMuted, dubbedTrackLocked,
     setDubbedTrackLocked, dubbedTrackSync, setDubbedTrackSync, pipelineDone, ttsGeneration,
-    videoCurrentTime, timelineContextMenu, setTimelineContextMenu,
+    videoCurrentTime, isVideoPlaying, timelineContextMenu, setTimelineContextMenu,
   } = props;
 
   return (
@@ -139,8 +140,17 @@ export function Timeline(props: TimelineProps) {
                 <button type="button" className={audioTrackSync ? 'track-control active' : 'track-control'} title={t.syncLock} onPointerDown={(e) => e.stopPropagation()} onClick={() => setAudioTrackSync((v) => !v)}>↕</button>
               </>
             }>
-              <div className={`timeline-clip real-waveform${timelineMuted ? ' muted' : ''}`} style={{ width: 'var(--timeline-clip-width)' }} onPointerDown={startTimelineScrub} onPointerMove={moveTimelineScrub} onPointerUp={endTimelineScrub} onPointerCancel={endTimelineScrub} onContextMenu={openTimelineMenu}>
-                {audioWaveform.length ? audioWaveform.map((height, index) => <i key={index} style={{ height: `${Math.max(8, height * 100)}%` }} />) : <div className="timeline-empty">{videoFile ? t.analyzingAudio : t.noVideo}</div>}
+              <div className={`timeline-clip real-waveform${timelineMuted ? ' muted' : ''}${isVideoPlaying ? ' playing' : ''}`} style={{ width: 'var(--timeline-clip-width)' }} onPointerDown={startTimelineScrub} onPointerMove={moveTimelineScrub} onPointerUp={endTimelineScrub} onPointerCancel={endTimelineScrub} onContextMenu={openTimelineMenu}>
+                {audioWaveform.length ? audioWaveform.map((height, index) => (
+                  <i
+                    key={index}
+                    className={`wave-bar wave-bar-${index % 5} ${height > 0.72 ? 'wave-high' : height > 0.42 ? 'wave-mid' : 'wave-low'}`}
+                    style={{
+                      height: `${Math.max(8, height * 100)}%`,
+                      animationDelay: `${(index % 7) * 45}ms`,
+                    }}
+                  />
+                )) : <div className="timeline-empty">{videoFile ? t.analyzingAudio : t.noVideo}</div>}
               </div>
             </TimelineRow>
     

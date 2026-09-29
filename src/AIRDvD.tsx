@@ -1083,6 +1083,7 @@ export default function AIRDvD() {
             dubbedTrackLocked={dubbedTrackLocked} setDubbedTrackLocked={setDubbedTrackLocked}
             dubbedTrackSync={dubbedTrackSync} setDubbedTrackSync={setDubbedTrackSync}
             pipelineDone={pipelineDone} ttsGeneration={ttsGeneration} videoCurrentTime={videoCurrentTime}
+          isVideoPlaying={isVideoPlaying}
             timelineContextMenu={timelineContextMenu} setTimelineContextMenu={setTimelineContextMenu}
           />
         </section>

@@ -57,3 +57,8 @@ translation-assets/models/
 
 # External dictionary sources
 translation-assets/sources/
+
+runtime/ocr_env/
+backend/output/
+__pycache__/
+*.pyc
