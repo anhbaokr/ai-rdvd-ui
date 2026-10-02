@@ -1,0 +1,14 @@
+{
+  "enabled": true,
+  "schema": 1,
+  "author": "1stPK-Luận Nguyễn",
+  "bankName": "MBBank",
+  "bankBin": "970422",
+  "accountNumber": "868626121983",
+  "accountName": "NGUYEN VAN LUAN",
+  "addInfo": "UNG HO AI RDvD",
+  "amount": null,
+  "payloadHash": "2befc94772a4201314c82bb578587ca86b9f4b4fad5dfb2cff8c89cf838af565",
+  "signature": "Qspq7TdxY0tImBQ7/Yy30e4cilJI82z5/OXKWdMXSSTBtQdG+O/5QySN87u0U0u6p7GqpgsY/A9vdmRE6HjUBg==",
+  "publicKey": "MCowBQYDK2VwAyEAIi9ehX+iLiGBnmnfX8X7+DJNRXIIc9TbKmltCtsHdh8="
+}

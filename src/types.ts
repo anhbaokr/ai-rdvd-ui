@@ -24,6 +24,47 @@ export type Voice =
   | 'anh-khoi';
 
 export type RecognizeMode = 'voice' | 'subtitle' | 'both';
+
+export interface RecognitionRequest {
+  videoPath: string;
+  mode: RecognizeMode;
+  sourceLanguage: 'zh' | 'ko';
+}
+
+export interface RecognitionProgress {
+  phase: string;
+  completed: number;
+  total: number;
+  percent: number;
+  message: string;
+}
+
+export interface RecognitionLogEvent {
+  level: string;
+  category: string;
+  message: string;
+}
+
+export interface RecognitionSegment {
+  id: number;
+  start: number;
+  end: number;
+  text: string;
+}
+
+export interface RecognitionResult {
+  status: 'completed' | 'partial' | string;
+  mode: RecognizeMode;
+  sourceLanguage: 'zh' | 'ko';
+  engine: string;
+  timelineBasePath: string;
+  timelineJsonPath: string;
+  timelineSrtPath: string;
+  srtContent: string;
+  segments: RecognitionSegment[];
+  detectedCount: number;
+  warning: string | null;
+}
 export type Language = 'vi' | 'en';
 export type Theme = 'dark' | 'light';
 export type SettingsTab = 'general' | 'playback' | 'appearance' | 'timeline' | 'shortcuts';

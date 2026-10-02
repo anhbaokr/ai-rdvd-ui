@@ -5,6 +5,7 @@ import type {
   Language,
   PipelineProgressView,
   RecognizeMode,
+  RecognitionProgress,
   TranslationEnvironmentResult,
   TranslationProgress,
   TtsEnvironmentResult,
@@ -28,6 +29,11 @@ interface WorkflowSidebarProps {
   removeVideo: () => void;
   recognizeMode: RecognizeMode;
   setRecognizeMode: Dispatch<SetStateAction<RecognizeMode>>;
+  recognitionRunning: boolean;
+  recognitionProgress: RecognitionProgress | null;
+  recognitionResultCount: number;
+  handleStartRecognition: () => void;
+  handleChooseMedia: () => void;
   dialogueInputRef: RefObject<HTMLInputElement | null>;
   dialogueFile: File | null;
   handleDialogueFile: (file: File | null) => void;
@@ -75,7 +81,8 @@ interface WorkflowSidebarProps {
 export function WorkflowSidebar(props: WorkflowSidebarProps) {
   const {
     t, language, sourceLanguage, setSourceLanguage, videoInputRef, handleVideoFile, videoFile, removeVideo,
-    recognizeMode, setRecognizeMode, dialogueInputRef, dialogueFile, handleDialogueFile,
+    recognizeMode, setRecognizeMode, recognitionRunning, recognitionProgress, recognitionResultCount, handleStartRecognition,
+    handleChooseMedia, dialogueInputRef, dialogueFile, handleDialogueFile,
     translatedInputRef, translatedFile, handleTranslatedFile, voice, setVoice,
     translationEnvironment, translationRunning, translationProgress, handleStartTranslation,
     savedTranslationPath, handleOpenTranslationFolder,
@@ -98,36 +105,65 @@ export function WorkflowSidebar(props: WorkflowSidebarProps) {
         <section className="rdvd-card">
           <div className="rdvd-step"><b>1</b><h2>{t.importTitle}</h2><span>⌃</span></div>
           <input ref={videoInputRef} className="rdvd-hidden-file" type="file" accept="video/*" onChange={(e) => { handleVideoFile(e.target.files?.[0] ?? null); e.currentTarget.value = ''; }} />
-          <button className="rdvd-primary" onClick={() => videoInputRef.current?.click()}>▣ <span>{t.chooseMedia}</span></button>
+          <button className="rdvd-primary" onClick={handleChooseMedia}>▣ <span>{t.chooseMedia}</span></button>
           <div className="rdvd-path-label">{t.path}</div>
           <div className="rdvd-input-row"><input value={videoFile?.name ?? t.noVideo} readOnly /><button aria-label={language === 'vi' ? 'Xóa video' : 'Remove video'} disabled={!videoFile} onClick={removeVideo}>×</button></div>
-          {videoFile && <div className="rdvd-file-info"><div className="rdvd-file-icon">MEDIA</div><div><strong>{videoFile.name}</strong><span>{t.fileLoaded} · {Math.round(videoFile.size / 1024 / 1024 * 10) / 10} MB</span></div></div>}
+          {videoFile && <div className="rdvd-file-info"><div className="rdvd-file-icon">MEDIA</div><div><strong>{videoFile.name}</strong><span>{t.fileLoaded}{videoFile.size > 0 ? ` · ${Math.round(videoFile.size / 1024 / 1024 * 10) / 10} MB` : ''}</span></div></div>}
         </section>
     
         <section className="rdvd-card">
           <div className="rdvd-step"><b className="green">2</b><h2>{t.recognition}</h2><button className="rdvd-mini-btn">⚙ <span>{t.settings}</span></button></div>
-          <div className="rdvd-radio-row">
-            <label><input type="radio" checked={recognizeMode === 'voice'} onChange={() => setRecognizeMode('voice')} /><span><strong>{t.onlyVoice}</strong><small>{t.textOnly}</small></span></label>
-            <label><input type="radio" checked={recognizeMode === 'subtitle'} onChange={() => setRecognizeMode('subtitle')} /><span><strong>{t.onlySubtitle}</strong><small>{t.srtVtt}</small></span></label>
-            <label><input type="radio" checked={recognizeMode === 'both'} onChange={() => setRecognizeMode('both')} /><span><strong>{t.both}</strong><small>{t.andSubtitle}</small></span></label>
+          <div className="rdvd-two-col">
+            <div><label>{t.recognitionSourceLanguage}</label><select value={sourceLanguage} onChange={(e) => setSourceLanguage(e.target.value as 'zh' | 'ko')} disabled={recognitionRunning}>
+              <option value="zh">🇨🇳 {t.recognitionSourceChinese}</option>
+              <option value="ko">🇰🇷 {t.recognitionSourceKorean}</option>
+            </select></div>
           </div>
-          <button className="rdvd-action green-action">▶ <span>{t.startRecognition}</span></button>
+          <div className="rdvd-radio-row">
+            <label className={recognizeMode === 'voice' ? 'disabled' : ''}><input type="radio" disabled checked={recognizeMode === 'voice'} onChange={() => setRecognizeMode('voice')} /><span><strong>{t.onlyVoice}</strong><small>{t.textOnly}</small></span></label>
+            <label><input type="radio" disabled={recognitionRunning} checked={recognizeMode === 'subtitle'} onChange={() => setRecognizeMode('subtitle')} /><span><strong>{t.onlySubtitle}</strong><small>{t.srtVtt}</small></span></label>
+            <label><input type="radio" disabled={recognitionRunning} checked={recognizeMode === 'both'} onChange={() => setRecognizeMode('both')} /><span><strong>{t.both}</strong><small>{t.andSubtitle}</small></span></label>
+          </div>
+          {sourceLanguage === 'ko'
+            ? <div className="rdvd-render-warning">⚠ {t.recognitionKoreanPending}</div>
+            : recognizeMode === 'voice'
+              ? <div className="rdvd-render-warning">⚠ {t.recognitionAsrPending}</div>
+              : <div className="rdvd-render-warning">ℹ {t.recognitionSubtitleReady}{recognizeMode === 'both' ? ` · ${t.recognitionAsrPending}` : ''}</div>}
+          {recognitionProgress && <div className={`rdvd-work-progress ${recognitionRunning ? 'active' : ''}`}>
+            <div className="rdvd-work-progress-meta"><span title={recognitionProgress.message}>{t.recognitionProgress}</span><strong>{recognitionProgress.percent.toFixed(1)}%</strong></div>
+            <div className="rdvd-work-progress-track" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={recognitionProgress.percent}>
+              <div className="rdvd-work-progress-fill" style={{ width: `${recognitionProgress.percent}%` }} />
+            </div>
+          </div>}
+          {!recognitionRunning && recognitionResultCount > 0 && <div className="rdvd-render-warning">✓ {recognitionResultCount} {t.recognitionSegments}</div>}
+          <button
+            className={`rdvd-action green-action${recognitionRunning ? ' running' : ''}`}
+            disabled={!videoFile || !videoFile.name || sourceLanguage === 'ko' || recognizeMode === 'voice' || recognitionRunning}
+            onClick={handleStartRecognition}
+          >▶ <span>{recognitionRunning && recognitionProgress ? `${t.startRecognition} ${recognitionProgress.percent.toFixed(0)}%` : t.startRecognition}</span></button>
         </section>
     
         <section className="rdvd-card">
           <div className="rdvd-step"><b className="orange">3</b><h2>{t.translation}</h2><span>⌃</span></div>
-          <div className="rdvd-two-col">
-            <div><label>{t.sourceLanguage}</label><select value={sourceLanguage} onChange={(e) => {
-              const value = e.target.value as 'zh' | 'ko';
-              setSourceLanguage(value);
-              if (value === 'ko') {
-                addLog('Đã chọn ngôn ngữ nguồn: Tiếng Hàn (한국어). Model dịch Hàn → Việt chưa được tích hợp, hệ thống đang chờ model.', 'TRANSLATION');
-                addLog('KO-VI PIPELINE: WAITING_MODEL — Không sử dụng HachimiMT-60-QT.', 'MODEL');
-              } else {
-                addLog('Đã chọn ngôn ngữ nguồn: Tiếng Trung (简体中文). Sử dụng HachimiMT-60-QT.', 'TRANSLATION');
-              }
-            }}><option value="zh">🇨🇳 Tiếng Trung (简体中文)</option><option value="ko">🇰🇷 Tiếng Hàn (한국어) — Chờ model</option></select></div>
-            <div><label>{t.targetLanguage}</label><select value="vi"><option value="vi">🇻🇳 Tiếng Việt</option></select></div>
+          <div className="rdvd-two-col rdvd-translation-language-row">
+            <div className="rdvd-translation-language-field" style={{ minWidth: 0 }}>
+              <label>{t.sourceLanguage}</label>
+              <select
+                value={sourceLanguage}
+                onChange={(e) => setSourceLanguage(e.target.value as 'zh' | 'ko')}
+                disabled={recognitionRunning || translationRunning}
+                style={{ width: '100%', minWidth: 0, boxSizing: 'border-box' }}
+              >
+                <option value="zh">🇨🇳 {t.recognitionSourceChinese}</option>
+                <option value="ko">🇰🇷 {t.recognitionSourceKorean}</option>
+              </select>
+            </div>
+            <div className="rdvd-translation-language-field" style={{ minWidth: 0 }}>
+              <label>{t.targetLanguage}</label>
+              <select value="vi" style={{ width: '100%', minWidth: 0, boxSizing: 'border-box' }} onChange={() => undefined}>
+                <option value="vi">🇻🇳 Tiếng Việt</option>
+              </select>
+            </div>
           </div>
           <input ref={dialogueInputRef} className="rdvd-hidden-file" type="file" accept=".txt,.srt,.vtt,.json" onChange={(e) => handleDialogueFile(e.target.files?.[0] ?? null)} />
           <div className="rdvd-upload-row"><div className="upload-label">{t.dialogue}</div><input value={dialogueFile?.name ?? t.noFile} readOnly /><button className="rdvd-secondary" onClick={() => dialogueInputRef.current?.click()}>↥ <span>{t.upload}</span></button></div>
@@ -203,7 +239,13 @@ export function WorkflowSidebar(props: WorkflowSidebarProps) {
           <div className="rdvd-pipeline-list">{pipeline.map((step) => <div className={`pipeline-item ${step.state}`} key={step.key}><span className="pipeline-dot">{step.state === 'ready' ? '✓' : step.state === 'skip' ? '↷' : step.state === 'run' ? '▶' : '!'}</span><div><strong>{step.label}</strong><small>{step.detail}</small></div><em>{step.state === 'ready' ? t.ready : step.state === 'skip' ? t.skip : step.state === 'run' ? t.run : t.blocked}</em></div>)}</div>
           {!videoFile && <div className="rdvd-render-warning">⚠ {t.missingVideo}</div>}
           {videoFile && !pipelineSourceReady && <div className="rdvd-render-warning">⚠ {t.missingTtsSource}</div>}
-          <button className={`rdvd-action purple-action render-action pipeline-main-button${pipelineRunning ? ' running' : ''}`} disabled={!videoFile || voiceEngineState !== 'ready' || !pipelineSourceReady || pipelineRunning} onClick={startAutoPipeline}><span>{autoActionLabel}</span></button>
+          <button
+            className={`rdvd-action purple-action render-action pipeline-main-button${pipelineRunning || recognitionRunning || translationRunning || generationRunning ? ' running' : ''}`}
+            disabled={!videoFile || voiceEngineState !== 'ready' || pipelineRunning || recognitionRunning || translationRunning || generationRunning}
+            onClick={startAutoPipeline}
+          >
+            <span>{autoActionLabel}</span>
+          </button>
         </section>
     
         <section className="rdvd-card rdvd-log-card">

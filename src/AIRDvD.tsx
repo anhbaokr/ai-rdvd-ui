@@ -12,12 +12,16 @@ import { useVoiceEngine } from './hooks/useVoiceEngine';
 import { useTranslationEngine } from './hooks/useTranslationEngine';
 import { useAppLog } from './hooks/useAppLog';
 import { Topbar } from './components/topbar/Topbar';
+import { AppUpdateDialog, useAppUpdate } from './features/appUpdate';
 import { SettingsDialog } from './components/settings/SettingsDialog';
 import { Timeline } from './components/timeline/Timeline';
 import { WorkflowSidebar } from './components/workflow/WorkflowSidebar';
 import { VideoPreview } from './components/preview/VideoPreview';
 import { EditPanel } from './components/editor/EditPanel';
 import { buildSubtitleDisplayCues } from './utils/subtitleDisplay';
+import { chooseVideoFilePath } from './services/recognition';
+import { useRecognition } from './hooks/useRecognition';
+import { isTauriRuntime } from './services/tts';
 
 export default function AIRDvD() {
   const [language, setLanguage] = useState<Language>(() => (localStorage.getItem('ai-rdvd-language') as Language) || 'vi');
@@ -29,6 +33,8 @@ export default function AIRDvD() {
   const languageButtonRef = useRef<HTMLButtonElement | null>(null);
   const themeButtonRef = useRef<HTMLButtonElement | null>(null);
   const [showSettings, setShowSettings] = useState(false);
+  const [showAppUpdate, setShowAppUpdate] = useState(false);
+  const appUpdate = useAppUpdate();
   const [settingsTab, setSettingsTab] = useState<SettingsTab>('general');
   const [globalShortcutsEnabled, setGlobalShortcutsEnabled] = useState(() => localStorage.getItem('ai-rdvd-shortcuts') !== 'off');
   const [playbackSeekStep, setPlaybackSeekStep] = useState(() => Number(localStorage.getItem('ai-rdvd-seek-step') || '5'));
@@ -129,7 +135,7 @@ export default function AIRDvD() {
     };
   }, [globalShortcutsEnabled, showSettings]);
 
-  const [recognizeMode, setRecognizeMode] = useState<RecognizeMode>('both');
+  const [recognizeMode, setRecognizeMode] = useState<RecognizeMode>('subtitle');
   const [subtitleVisible, setSubtitleVisible] = useState(true);
   const [subtitleFrameVisible, setSubtitleFrameVisible] = useState(false);
   const [isPointerOverPlayer, setIsPointerOverPlayer] = useState(false);
@@ -161,7 +167,7 @@ export default function AIRDvD() {
   const sessionRef = useRef<DragSession | null>(null);
 
   const {
-    videoFile, setVideoFile, videoUrl, setVideoUrl, isVideoPlaying, setIsVideoPlaying,
+    videoFile, setVideoFile, videoPath, setVideoPath, videoUrl, setVideoUrl, isVideoPlaying, setIsVideoPlaying,
     videoCurrentTime, setVideoCurrentTime, videoDuration, setVideoDuration,
     videoThumbnails, setVideoThumbnails, audioWaveform, setAudioWaveform,
     dialogueFile, setDialogueFile, translatedFile, setTranslatedFile,
@@ -187,6 +193,19 @@ export default function AIRDvD() {
     setTranslatedFile,
     setSubtitleSegments,
     setTranslationAccepted,
+    addLog,
+  });
+
+  const {
+    running: recognitionRunning,
+    progress: recognitionProgress,
+    result: recognitionResult,
+    startRecognition: runRecognition,
+  } = useRecognition({
+    videoPath,
+    mode: recognizeMode,
+    sourceLanguage,
+    language,
     addLog,
   });
 
@@ -359,6 +378,40 @@ export default function AIRDvD() {
     setExportQueued(false);
   }, [voice, speed, pitch, ttsText, setPipelineDone, setAutoStage, setExportQueued]);
 
+  const handleChooseMedia = useCallback(async () => {
+    if (!isTauriRuntime()) {
+      videoInputRef.current?.click();
+      return;
+    }
+    try {
+      const selectedPath = await chooseVideoFilePath();
+      if (!selectedPath) return;
+      const name = selectedPath.split(/[\\\\/]/).pop() || selectedPath;
+      setVideoFile(new File([], name, { type: 'video/mp4' }));
+      setVideoPath(selectedPath);
+      setPipelineDone(false);
+      setAutoStage('idle');
+      setExportQueued(false);
+      setIsVideoPlaying(false);
+      setSubtitleSegments([]);
+      setTranslatedFile(null);
+      setDialogueFile(null);
+      setTranslationAccepted(false);
+      setVideoCurrentTime(0);
+      setVideoDuration(0);
+      setSubtitleVisible(true);
+      setSubtitleFrameVisible(autoSubtitleFrame);
+      setIsMuted(startMuted);
+      if (videoUrl) URL.revokeObjectURL(videoUrl);
+      setVideoUrl(convertFileSrc(selectedPath));
+      addLog(`${language === 'vi' ? 'Đã chọn video' : 'Video selected'}: ${selectedPath}`, 'RECOGNITION');
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      addLog(`${language === 'vi' ? 'Không thể chọn video' : 'Could not open the video picker'}: ${message}`, 'ERROR');
+      videoInputRef.current?.click();
+    }
+  }, [addLog, autoSubtitleFrame, language, setAutoStage, setDialogueFile, setExportQueued, setIsVideoPlaying, setPipelineDone, setSubtitleSegments, setSubtitleFrameVisible, setSubtitleVisible, setTranslatedFile, setTranslationAccepted, setVideoCurrentTime, setVideoDuration, setVideoFile, setVideoPath, setVideoUrl, startMuted, videoInputRef, videoUrl]);
+
   const handleVideoFile = useCallback((file: File | null) => {
     if (!file) return;
     if (!file.type.startsWith('video/')) {
@@ -366,11 +419,15 @@ export default function AIRDvD() {
       return;
     }
     setVideoFile(file);
+    setVideoPath(null);
     setPipelineDone(false);
     setAutoStage('idle');
     setExportQueued(false);
     setIsVideoPlaying(false);
     setSubtitleSegments([]);
+    setTranslatedFile(null);
+    setDialogueFile(null);
+    setTranslationAccepted(false);
     setVideoCurrentTime(0);
     setVideoDuration(0);
     setSubtitleVisible(true);
@@ -379,7 +436,60 @@ export default function AIRDvD() {
     if (videoUrl) URL.revokeObjectURL(videoUrl);
     const objectUrl = URL.createObjectURL(file);
     setVideoUrl(objectUrl);
-  }, [t.invalidVideo, videoUrl, autoSubtitleFrame, startMuted]);
+  }, [t.invalidVideo, videoUrl, autoSubtitleFrame, startMuted, setAutoStage, setDialogueFile, setExportQueued, setIsVideoPlaying, setPipelineDone, setSubtitleSegments, setSubtitleFrameVisible, setSubtitleVisible, setTranslatedFile, setTranslationAccepted, setVideoCurrentTime, setVideoDuration, setVideoFile, setVideoPath]);
+
+  useEffect(() => {
+    if (!recognitionResult) return;
+    setSubtitleSegments(recognitionResult.segments.map((segment) => ({
+      id: `recognition-${segment.id}`,
+      start: segment.start,
+      end: segment.end,
+      text: segment.text,
+    })));
+    if (recognitionResult.srtContent.trim()) {
+      const sourceName = (videoFile?.name || 'video').replace(/\\.[^.]+$/, '');
+      setDialogueFile(new File([recognitionResult.srtContent], `${sourceName}.ocr.srt`, { type: 'text/plain' }));
+    }
+    setTranslatedFile(null);
+    setTranslationAccepted(false);
+    setPipelineDone(false);
+    setAutoStage('idle');
+    setExportQueued(false);
+  }, [recognitionResult, setAutoStage, setDialogueFile, setExportQueued, setPipelineDone, setSubtitleSegments, setTranslatedFile, setTranslationAccepted, videoFile?.name]);
+
+  const [autoPipelineAfterRecognition, setAutoPipelineAfterRecognition] = useState(false);
+
+  const handleStartRecognition = useCallback(() => {
+    void runRecognition().catch((error) => {
+      setAutoPipelineAfterRecognition(false);
+      const message = error instanceof Error ? error.message : String(error);
+      addLog(message, 'ERROR');
+    });
+  }, [addLog, runRecognition]);
+
+  const handleAutoPipeline = useCallback(() => {
+    if (!videoFile || pipelineRunning || recognitionRunning) return;
+
+    if (dialogueFile) {
+      startAutoPipeline();
+      return;
+    }
+
+    if (sourceLanguage === 'ko') {
+      addLog('Nhận dạng OCR tiếng Hàn chưa được tích hợp trong bản hiện tại.', 'ERROR');
+      return;
+    }
+
+    setAutoPipelineAfterRecognition(true);
+    handleStartRecognition();
+  }, [addLog, dialogueFile, handleStartRecognition, pipelineRunning, recognitionRunning, sourceLanguage, startAutoPipeline, videoFile]);
+
+  useEffect(() => {
+    if (!autoPipelineAfterRecognition || !recognitionResult || !dialogueFile) return;
+
+    setAutoPipelineAfterRecognition(false);
+    startAutoPipeline();
+  }, [autoPipelineAfterRecognition, dialogueFile, recognitionResult, startAutoPipeline]);
 
   const handleLogoFile = useCallback((file: File | null) => {
     if (!file) return;
@@ -459,6 +569,7 @@ export default function AIRDvD() {
 
   const removeVideo = useCallback(() => {
     setVideoFile(null);
+    setVideoPath(null);
     if (videoUrl) URL.revokeObjectURL(videoUrl);
     setVideoUrl(null);
     setSubtitleFrameVisible(false);
@@ -594,7 +705,7 @@ export default function AIRDvD() {
     if (handle.includes('n')) top += dy;
     if (handle.includes('s')) bottom += dy;
 
-    // Giữ từng cạnh trong canvas để tay nắm không chạy mất khỏi vùng nhìn thấy.
+    // GiÃƒÂ¡Ã‚Â»Ã‚Â¯ tÃƒÂ¡Ã‚Â»Ã‚Â«ng cÃƒÂ¡Ã‚ÂºÃ‚Â¡nh trong canvas Ãƒâ€žÃ¢â‚¬ËœÃƒÂ¡Ã‚Â»Ã†â€™ tay nÃƒÂ¡Ã‚ÂºÃ‚Â¯m khÃƒÆ’Ã‚Â´ng chÃƒÂ¡Ã‚ÂºÃ‚Â¡y mÃƒÂ¡Ã‚ÂºÃ‚Â¥t khÃƒÂ¡Ã‚Â»Ã‚Âi vÃƒÆ’Ã‚Â¹ng nhÃƒÆ’Ã‚Â¬n thÃƒÂ¡Ã‚ÂºÃ‚Â¥y.
     left = Math.max(0, Math.min(STAGE_W, left));
     right = Math.max(0, Math.min(STAGE_W, right));
     top = Math.max(0, Math.min(STAGE_H, top));
@@ -980,8 +1091,20 @@ export default function AIRDvD() {
         showSettings={showSettings} setShowSettings={setShowSettings} menuPosition={menuPosition}
         languageButtonRef={languageButtonRef} themeButtonRef={themeButtonRef}
         positionTopbarMenu={positionTopbarMenu}
+        appUpdateAvailable={appUpdate.state.status === 'available'}
+        isCheckingAppUpdate={appUpdate.state.status === 'checking'}
+        onOpenAppUpdate={() => { setShowAppUpdate(true); setShowLanguageMenu(false); setShowThemeMenu(false); }}
+
       />
 
+      <AppUpdateDialog
+        open={showAppUpdate}
+        state={appUpdate.state}
+        onClose={() => setShowAppUpdate(false)}
+        onCheck={() => { void appUpdate.checkForUpdates(false); }}
+        onInstall={() => { void appUpdate.downloadAndInstall(); }}
+        onRelaunch={() => { void appUpdate.relaunch(); }}
+      />
       {showSettings && <SettingsDialog
         t={t} settingsTab={settingsTab} setSettingsTab={setSettingsTab}
         language={language} setLanguage={setLanguage} theme={theme} setTheme={setTheme}
@@ -997,9 +1120,9 @@ export default function AIRDvD() {
       />}
       <main className="rdvd-main">
         <WorkflowSidebar
-          t={t} language={language} sourceLanguage={sourceLanguage} setSourceLanguage={setSourceLanguage} videoInputRef={videoInputRef} handleVideoFile={handleVideoFile}
+          t={t} language={language} sourceLanguage={sourceLanguage} setSourceLanguage={setSourceLanguage} videoInputRef={videoInputRef} handleVideoFile={handleVideoFile} handleChooseMedia={handleChooseMedia}
           videoFile={videoFile} removeVideo={removeVideo} recognizeMode={recognizeMode}
-          setRecognizeMode={setRecognizeMode} dialogueInputRef={dialogueInputRef}
+          setRecognizeMode={setRecognizeMode} recognitionRunning={recognitionRunning} recognitionProgress={recognitionProgress} recognitionResultCount={recognitionResult?.detectedCount ?? 0} handleStartRecognition={handleStartRecognition} dialogueInputRef={dialogueInputRef}
           dialogueFile={dialogueFile} handleDialogueFile={handleDialogueFile}
           translatedInputRef={translatedInputRef} translatedFile={translatedFile}
           handleTranslatedFile={handleTranslatedFile} voice={voice} setVoice={setVoice}
@@ -1019,7 +1142,7 @@ export default function AIRDvD() {
           ttsGeneration={ttsGeneration}
           backgroundAudioMode={backgroundAudioMode} setBackgroundAudioMode={setBackgroundAudioMode}
           pipelineDone={pipelineDone} pipelineRunning={pipelineRunning} pipeline={pipeline}
-          startAutoPipeline={startAutoPipeline} autoActionLabel={autoActionLabel}
+          startAutoPipeline={handleAutoPipeline} autoActionLabel={autoActionLabel}
           exportLog={exportLog} openLogFolder={openLogFolder} clearLog={clearLog}
           renderLogs={renderLogs} progressView={pipelineProgressView} addLog={addLog}
         />

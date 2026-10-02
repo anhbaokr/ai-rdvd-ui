@@ -1,3 +1,4 @@
+use crate::donation::get_donation_info;
 use base64::{engine::general_purpose::STANDARD, Engine as _};
 use serde::{Deserialize, Serialize};
 use serde_json::{json, Value};
@@ -12,6 +13,10 @@ use std::{
     time::{SystemTime, UNIX_EPOCH},
 };
 use tauri::{Emitter, Manager};
+
+mod donation;
+
+mod recognition;
 
 const DEFAULT_PROJECT_ROOT: &str = r"E:\ai-rdvd-ui";
 const RESULT_PREFIX: &str = "AI_RDVD_RESULT:";
@@ -1293,8 +1298,12 @@ fn open_technical_log_directory(app: tauri::AppHandle) -> Result<String, String>
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
+        .plugin(tauri_plugin_process::init())
+        .plugin(tauri_plugin_updater::Builder::new().build())
+        .plugin(tauri_plugin_dialog::init())
         .invoke_handler(tauri::generate_handler![
             load_voice_preview,
+            recognition::start_recognition,
             check_tts_environment,
             generate_tts,
             check_translation_environment,
@@ -1305,8 +1314,8 @@ pub fn run() {
             open_translation_output_directory,
             append_technical_log,
             clear_technical_log,
-            open_technical_log_directory
-        ])
+            open_technical_log_directory,
+            get_donation_info])
         .run(tauri::generate_context!())
         .expect("error while running AI RDvD");
 }

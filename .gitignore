@@ -62,3 +62,20 @@ runtime/ocr_env/
 backend/output/
 __pycache__/
 *.pyc
+.secrets/
+# AI RDvD local release artifacts
+File-Update/
+backup/
+ocr-runtime/
+
+# Local updater metadata
+latest.json
+latest.json.before-*
+src-tauri/tauri.conf.json.before-*
+
+# Local patch / working notes
+PATCH-NOTE.txt
+UPDATE-PATCH-V9/
+package-config.txt
+updater-config.txt
+src-tauri/donation/donation-input.json

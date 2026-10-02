@@ -1,6 +1,7 @@
 import type { Dispatch, RefObject, SetStateAction } from 'react';
 import type { Language, Theme, UiText } from '../../types';
 import { closeAppWindow, minimizeAppWindow, toggleMaximizeAppWindow } from '../../tauriWindow';
+import { AboutPopover } from '../about/AboutPopover';
 
 interface TopbarProps {
   t: UiText;
@@ -13,18 +14,21 @@ interface TopbarProps {
   showThemeMenu: boolean;
   setShowThemeMenu: Dispatch<SetStateAction<boolean>>;
   showSettings: boolean;
+  appUpdateAvailable: boolean;
+  isCheckingAppUpdate: boolean;
   setShowSettings: Dispatch<SetStateAction<boolean>>;
   menuPosition: { top: number; left: number; width: number };
   languageButtonRef: RefObject<HTMLButtonElement | null>;
   themeButtonRef: RefObject<HTMLButtonElement | null>;
   positionTopbarMenu: (button: HTMLButtonElement | null) => void;
+  onOpenAppUpdate: () => void;
 }
 
 export function Topbar(props: TopbarProps) {
   const {
     t, language, setLanguage, theme, setTheme, showLanguageMenu, setShowLanguageMenu,
     showThemeMenu, setShowThemeMenu, showSettings, setShowSettings, menuPosition,
-    languageButtonRef, themeButtonRef, positionTopbarMenu,
+    languageButtonRef, themeButtonRef, positionTopbarMenu, appUpdateAvailable, isCheckingAppUpdate, onOpenAppUpdate,
   } = props;
 
   return <header className="rdvd-topbar">
@@ -57,6 +61,18 @@ export function Topbar(props: TopbarProps) {
         </div>
       </div>
       <div className="rdvd-window-divider" />
+      <AboutPopover language={language} />
+      <button
+        type="button"
+        className={`rdvd-icon-btn rdvd-update-button ${appUpdateAvailable ? "has-update" : ""} ${isCheckingAppUpdate ? "is-checking" : ""}`}
+        aria-label="Kiểm tra cập nhật"
+        title={appUpdateAvailable ? "Có bản cập nhật mới" : isCheckingAppUpdate ? "Đang kiểm tra cập nhật" : "Kiểm tra cập nhật"}
+        onClick={onOpenAppUpdate}
+      >
+        <span className="rdvd-update-glyph" aria-hidden="true">⟳</span>
+        {appUpdateAvailable ? <span className="rdvd-update-badge" aria-hidden="true" /> : null}
+        {appUpdateAvailable ? <span className="rdvd-update-notice" aria-hidden="true"><strong>Có bản cập nhật mới</strong><small>Bấm để tải và cài đặt</small></span> : null}
+      </button>
       <button className="rdvd-icon-btn settings-btn" aria-label={t.settings} aria-haspopup="dialog" aria-expanded={showSettings} onClick={() => { setShowSettings(true); setShowLanguageMenu(false); setShowThemeMenu(false); }}>⚙</button>
       <button type="button" className="rdvd-window" aria-label={language === 'vi' ? 'Thu nhỏ' : 'Minimize'} onClick={() => { void minimizeAppWindow(); }}>—</button>
       <button type="button" className="rdvd-window" aria-label={language === 'vi' ? 'Phóng to' : 'Maximize'} onClick={() => { void toggleMaximizeAppWindow(); }}>□</button>

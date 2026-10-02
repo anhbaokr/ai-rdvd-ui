@@ -162,9 +162,11 @@ export function Timeline(props: TimelineProps) {
             }>
               <div className={`timeline-clip subtitle-track${!subtitleTrackVisible ? ' track-disabled' : ''}${subtitleSegments.length ? '' : ' empty-track'}`} style={{ width: 'var(--timeline-clip-width)' }} onPointerDown={startTimelineScrub} onPointerMove={moveTimelineScrub} onPointerUp={endTimelineScrub} onPointerCancel={endTimelineScrub} onContextMenu={openTimelineMenu}>
                 {subtitleSegments.length ? subtitleSegments.map((segment, index) => {
-                  const left = videoDuration ? (segment.start / videoDuration) * 100 : 0;
-                  const width = videoDuration ? Math.max(1.5, ((Math.max(segment.end, segment.start + 0.25) - segment.start) / videoDuration) * 100) : 0;
-                  return <button type="button" className="subtitle-clip-block" key={`${segment.start}-${segment.end}-${index}`} style={{ left: `${left}%`, width: `${Math.min(width, 100 - left)}%` }} onClick={(event) => { event.stopPropagation(); seekVideo(segment.start); }} title={`${formatTimecode(segment.start)} → ${formatTimecode(segment.end)} · ${segment.text}`}>{segment.text || '…'}</button>;
+                  const start = Math.max(0, Number(segment.start) || 0);
+                  const end = Math.max(start, Number(segment.end) || start);
+                  const left = videoDuration ? Math.min(100, (start / videoDuration) * 100) : 0;
+                  const width = videoDuration ? Math.max(0, Math.min(100 - left, ((end - start) / videoDuration) * 100)) : 0;
+                  return <button type="button" className="subtitle-clip-block" key={`${segment.start}-${segment.end}-${index}`} style={{ left: `${left}%`, width: `${width}%` }} onClick={(event) => { event.stopPropagation(); seekVideo(segment.start); }} title={`${formatTimecode(segment.start)} → ${formatTimecode(segment.end)} · ${segment.text}`}>{segment.text || '…'}</button>;
                 }) : <div className="timeline-empty">{translatedFile ? t.noDialogue : t.targetSubtitle}</div>}
               </div>
             </TimelineRow>
@@ -180,9 +182,11 @@ export function Timeline(props: TimelineProps) {
               <div className={`timeline-clip dubbed-track${ttsGeneration ? '' : ' empty-track'}${dubbedTrackMuted ? ' muted' : ''}`} style={{ width: 'var(--timeline-clip-width)' }} onPointerDown={startTimelineScrub} onPointerMove={moveTimelineScrub} onPointerUp={endTimelineScrub} onPointerCancel={endTimelineScrub} onContextMenu={openTimelineMenu}>
                 {ttsGeneration?.cues?.length
                   ? <>{ttsGeneration.cues.map((cue, index) => {
-                      const left = videoDuration ? (cue.startMs / 1000 / videoDuration) * 100 : 0;
-                      const width = videoDuration ? Math.max(1.2, (((cue.endMs - cue.startMs) / 1000) / videoDuration) * 100) : 0;
-                      return <button key={`${cue.segmentId}-${index}`} type="button" className="dubbed-audio-cue" style={{ left: `${left}%`, width: `${Math.min(width, Math.max(0, 100 - left))}%` }} onClick={(event) => { event.stopPropagation(); seekVideo(cue.startMs / 1000); }} title={`${formatTimecode(cue.startMs / 1000)} → ${formatTimecode(cue.endMs / 1000)} · ${cue.text}`}>{cue.segmentId}</button>;
+                      const start = Math.max(0, Number(cue.startMs) || 0) / 1000;
+                      const end = Math.max(start, Number(cue.endMs) || cue.startMs) / 1000;
+                      const left = videoDuration ? Math.min(100, (start / videoDuration) * 100) : 0;
+                      const width = videoDuration ? Math.max(0, Math.min(100 - left, ((end - start) / videoDuration) * 100)) : 0;
+                      return <button key={`${cue.segmentId}-${index}`} type="button" className="dubbed-audio-cue" style={{ left: `${left}%`, width: `${width}%` }} onClick={(event) => { event.stopPropagation(); seekVideo(cue.startMs / 1000); }} title={`${formatTimecode(cue.startMs / 1000)} → ${formatTimecode(cue.endMs / 1000)} · ${cue.text}`}>{cue.segmentId}</button>;
                     })}</>
                   : ttsGeneration
                     ? <span title={ttsGeneration.outputPath}>✓ {ttsGeneration.voiceName} · {ttsGeneration.outputPath.split(/[\\/]/).pop()} · {ttsGeneration.aligned ? 'aligned' : 'legacy'}</span>

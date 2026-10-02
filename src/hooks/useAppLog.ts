@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
 import { appendTechnicalLog, clearTechnicalLog, openTechnicalLogDirectory } from '../services/tts';
 
-const MAX_VISIBLE_LOG_LINES = 7;
+const MAX_VISIBLE_LOG_LINES = 5;
 
 function timestamp() {
   return new Date().toLocaleTimeString('vi-VN', { hour12: false });
