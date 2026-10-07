@@ -1,4 +1,15 @@
 /* ---------- auto render pipeline ---------- */
+.rdvd-payment-card .rdvd-step>b.blue{color:#7fcaff;background:rgba(45,143,255,.13);border:1px solid rgba(70,157,223,.28)}
+.rdvd-payment-status{margin:7px 0;padding:8px;border:1px solid rgba(67,102,127,.24);border-radius:7px;background:rgba(9,23,35,.42);color:#8fa5b8;font-size:7.8px;line-height:1.35}
+.rdvd-payment-error{display:grid;gap:7px}.rdvd-payment-error .rdvd-secondary{height:27px;width:max-content;padding:0 9px}
+.rdvd-payment-package-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;margin:7px 0}
+.rdvd-payment-package-summary>div{min-width:0;padding:6px;border:1px solid rgba(67,102,127,.22);border-radius:6px;background:rgba(10,24,37,.38);display:grid;gap:2px}
+.rdvd-payment-package-summary span,.rdvd-payment-order-summary span{font-size:6.8px;color:#70879a}.rdvd-payment-package-summary strong{font-size:8px;color:#cfe0ec;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rdvd-payment-card .blue-action{margin-top:7px}.rdvd-payment-card .blue-action:disabled{opacity:.38;cursor:not-allowed;transform:none;box-shadow:none}
+.rdvd-payment-order-summary{display:grid;gap:4px;margin-top:7px;padding:7px;border:1px solid rgba(65,170,119,.25);border-radius:7px;background:rgba(25,100,68,.08)}
+.rdvd-payment-order-summary>div:not(.rdvd-payment-order-title){display:grid;grid-template-columns:70px minmax(0,1fr);gap:6px;align-items:center}.rdvd-payment-order-summary strong{font-size:7.6px;color:#cfe0ec;word-break:break-word}.rdvd-payment-order-title{font-size:8px;font-weight:800;color:#71d49d}
+.rdvd-app[data-theme="light"] .rdvd-payment-status,.rdvd-app[data-theme="light"] .rdvd-payment-package-summary>div{background:#f6f9fb;border-color:#d7e1e8}.rdvd-app[data-theme="light"] .rdvd-payment-package-summary strong,.rdvd-app[data-theme="light"] .rdvd-payment-order-summary strong{color:#40586a}
+.rdvd-app[data-theme="light"] .rdvd-payment-order-summary{background:#f2faf5;border-color:#c9e4d4}
 .rdvd-hidden-file{display:none}
 .rdvd-preview-media{display:block;width:100%;height:100%}
 .rdvd-file-icon{width:44px;height:32px;border-radius:7px;display:grid;place-items:center;background:#172e42;border:1px solid #31516b;color:#79c8ff;font-size:8px;font-weight:800;letter-spacing:.06em}
@@ -86,3 +97,74 @@
 .rdvd-app[data-theme="light"] .rdvd-center-play:hover{background:#e8f4fc}
 @media (max-width: 980px){.rdvd-log-actions .rdvd-mini-btn span{display:none}.rdvd-log-actions .rdvd-mini-btn{width:27px;padding:0;justify-content:center}}
 @media (max-width: 1180px){.translation-folder-button span{display:none}.translation-folder-button{width:33px;padding:0}}
+
+/* ---------- active license panel ---------- */
+.rdvd-license-card{
+  /* Subtle attention effect while license details are hidden. */
+  position:relative;
+  flex:0 0 auto;
+  overflow:hidden;
+  border:1px solid rgba(62,221,145,.36);
+  border-radius:9px;
+  background:
+    radial-gradient(circle at 100% 0%,rgba(58,215,145,.10),transparent 42%),
+    linear-gradient(180deg,rgba(13,38,42,.98),rgba(7,25,34,.99));
+  box-shadow:0 0 0 1px rgba(43,171,119,.06),0 10px 24px rgba(0,0,0,.16),0 0 22px rgba(35,201,132,.08);
+.rdvd-license-card:not(:has(.rdvd-license-details)){animation:rdvd-license-collapsed-attention 2.8s ease-in-out infinite;}
+}
+.rdvd-license-card::before{
+  content:"";
+  position:absolute;
+  inset:0 0 auto 0;
+  height:2px;
+  background:linear-gradient(90deg,#23d584,#35a8ff,#8b6cff,#23d584);
+  background-size:200% 100%;
+  animation:rdvd-license-shimmer 3.6s linear infinite;
+}
+.rdvd-license-card-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:7px;
+  min-height:58px;
+  padding:9px 10px;
+  border-bottom:1px solid rgba(104,147,171,.16);
+  background:linear-gradient(90deg,rgba(19,77,67,.20),rgba(20,47,73,.18));
+}
+.rdvd-license-card-title{display:flex;align-items:center;gap:8px;min-width:0}
+.rdvd-license-card-title>div{min-width:0;display:grid;gap:2px}
+.rdvd-license-card-title strong{font-size:9px;letter-spacing:.02em;color:#e7fff1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rdvd-license-card-title span:last-child{font-size:6.8px;color:#78a8a3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rdvd-license-status-icon{
+  width:26px;height:26px;flex:0 0 auto;display:grid;place-items:center;border-radius:50%;
+  color:#0a281d;background:linear-gradient(145deg,#77f2ad,#29cf84);font-size:13px;font-weight:900;
+  box-shadow:0 0 0 3px rgba(54,221,141,.10),0 0 16px rgba(54,221,141,.24);
+  animation:rdvd-license-pulse 2.2s ease-in-out infinite;
+}
+.rdvd-license-toggle{
+  flex:0 0 auto;border:1px solid rgba(74,167,218,.30);border-radius:6px;padding:5px 7px;
+  color:#a9d4ee;background:rgba(22,66,91,.50);font-size:7px;font-weight:800;cursor:pointer;
+}
+.rdvd-license-toggle:hover{color:#e5f6ff;border-color:rgba(76,188,242,.62);background:rgba(30,87,117,.62);box-shadow:0 4px 12px rgba(21,139,204,.16);transform:translateY(-1px)}
+.rdvd-license-details{padding:8px 9px 10px}
+.rdvd-license-grid{display:grid;grid-template-columns:54px minmax(0,1fr);gap:5px 7px;align-items:center}
+.rdvd-license-label{font-size:6.8px;font-weight:750;white-space:nowrap;color:#718b9d}
+.rdvd-license-value{min-width:0;font-size:8px;font-weight:800;line-height:1.25;text-align:right;overflow-wrap:anywhere;color:#d9e8f2;font-variant-numeric:tabular-nums}
+.label-blue{color:#65baff!important}.value-blue{color:#bfe6ff!important}
+.label-purple{color:#aa8cff!important}.value-purple{color:#d5c9ff!important}
+.label-green{color:#58df9f!important}.value-green{color:#8cf0be!important}
+.label-cyan{color:#52d4e8!important}.value-cyan{color:#a0edf5!important}
+.label-orange{color:#ffb14d!important}.value-orange{color:#ffd18d!important}
+.value-countdown{
+  color:#8dffbf!important;font-family:Consolas,"SFMono-Regular",monospace;font-size:8.5px;
+  letter-spacing:.025em;text-shadow:0 0 9px rgba(65,230,145,.22);
+}
+.rdvd-app[data-theme="light"] .rdvd-license-card{border-color:#9bd8bb;background:linear-gradient(180deg,#f2fbf6,#e9f6f0);box-shadow:0 8px 20px rgba(41,105,75,.10)}
+.rdvd-app[data-theme="light"] .rdvd-license-card-head{background:linear-gradient(90deg,#edf9f3,#eef6fb);border-color:#d0e6dc}
+.rdvd-app[data-theme="light"] .rdvd-license-card-title strong{color:#20553c}.rdvd-app[data-theme="light"] .rdvd-license-card-title span:last-child{color:#578072}
+.rdvd-app[data-theme="light"] .rdvd-license-value{color:#29465a}.rdvd-app[data-theme="light"] .rdvd-license-toggle{color:#286384;background:#edf7fb;border-color:#b9d8e8}
+@keyframes rdvd-license-collapsed-attention{0%,78%,100%{box-shadow:0 0 0 1px rgba(43,171,119,.06),0 10px 24px rgba(0,0,0,.16),0 0 22px rgba(35,201,132,.08)}88%{box-shadow:0 0 0 2px rgba(73,236,165,.20),0 10px 24px rgba(0,0,0,.16),0 0 34px rgba(35,201,132,.34),0 0 0 6px rgba(54,221,141,.06)}}
+@keyframes rdvd-license-pulse{0%,100%{box-shadow:0 0 0 3px rgba(54,221,141,.09),0 0 12px rgba(54,221,141,.18)}50%{box-shadow:0 0 0 5px rgba(54,221,141,.12),0 0 21px rgba(54,221,141,.34)}}
+@keyframes rdvd-license-shimmer{from{background-position:100% 0}to{background-position:-100% 0}}
+@media (prefers-reduced-motion:reduce){.rdvd-license-card,.rdvd-license-card::before,.rdvd-license-status-icon{animation:none}}
+@media (max-width:430px){.rdvd-license-card-head{align-items:flex-start}.rdvd-license-card-title strong{white-space:normal}.rdvd-license-toggle{margin-top:1px}.rdvd-license-grid{grid-template-columns:48px minmax(0,1fr)}}

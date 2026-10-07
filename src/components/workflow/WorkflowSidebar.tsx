@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import type { Dispatch, RefObject, SetStateAction } from 'react';
 import { VOICE_OPTIONS } from '../../constants/voices';
+import { PaymentCard } from '../../features/payment/components';
 import type {
   Language,
   PipelineProgressView,
@@ -76,7 +77,35 @@ interface WorkflowSidebarProps {
   renderLogs: string[];
   progressView: PipelineProgressView;
   addLog: (message: string, category?: string) => void;
+  license: LicenseSummary | null;
+  licenseRemainingMs: number;
+  licenseDetailsOpen: boolean;
+  onToggleLicenseDetails: () => void;
 }
+
+type LicenseSummary = {
+  package: string;
+  package_name?: string;
+  order_id: string;
+  status: string;
+  activated_at: string;
+  expires_at: string;
+  device_limit?: number;
+};
+
+const formatLicenseDate = (value: string, locale: string) => {
+  const timestamp = Date.parse(value);
+  return Number.isNaN(timestamp) ? value : new Date(timestamp).toLocaleString(locale);
+};
+
+const formatLicenseCountdown = (milliseconds: number, language: Language) => {
+  const totalSeconds = Math.max(0, Math.floor(milliseconds / 1000));
+  const days = Math.floor(totalSeconds / 86400);
+  const hours = Math.floor((totalSeconds % 86400) / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+  return `${days} ${language === 'vi' ? 'ngày' : 'days'} ${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+};
 
 export function WorkflowSidebar(props: WorkflowSidebarProps) {
   const {
@@ -91,7 +120,7 @@ export function WorkflowSidebar(props: WorkflowSidebarProps) {
     refreshTtsEnvironment, generationRunning, canGenerateVoice, handleGenerateVoice,
     ttsGeneration, backgroundAudioMode,
     setBackgroundAudioMode, pipelineDone, pipelineRunning, pipeline,
-    startAutoPipeline, autoActionLabel, exportLog, openLogFolder, clearLog, renderLogs, progressView, addLog,
+    startAutoPipeline, autoActionLabel, exportLog, openLogFolder, clearLog, renderLogs, progressView, addLog, license, licenseRemainingMs, licenseDetailsOpen, onToggleLicenseDetails,
   } = props;
   const logRef = useRef<HTMLDivElement | null>(null);
 
@@ -102,6 +131,97 @@ export function WorkflowSidebar(props: WorkflowSidebarProps) {
 
   return (
       <aside className="rdvd-sidebar">
+      <style>{`
+        @keyframes rdvdLicenseAttention {
+          0%, 100% {
+            box-shadow: 0 0 0 0 rgba(46, 219, 139, 0.00), 0 0 0 rgba(46, 219, 139, 0.00);
+          }
+          50% {
+            box-shadow: 0 0 0 2px rgba(46, 219, 139, 0.18), 0 0 18px rgba(46, 219, 139, 0.18);
+          }
+        }
+
+        @keyframes rdvdLicenseAttentionButton {
+          0%, 100% {
+            transform: translateY(0);
+            box-shadow: 0 0 0 rgba(72, 170, 255, 0.00);
+          }
+          50% {
+            transform: translateY(-1px);
+            box-shadow: 0 0 12px rgba(72, 170, 255, 0.28);
+          }
+        }
+
+        .rdvd-license-card-attention {
+          animation: rdvdLicenseAttention 2.8s ease-in-out infinite;
+        }
+
+        .rdvd-license-card-attention .rdvd-license-toggle {
+          animation: rdvdLicenseAttentionButton 2.8s ease-in-out infinite;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .rdvd-license-card-attention,
+          .rdvd-license-card-attention .rdvd-license-toggle {
+            animation: none;
+          }
+        }
+      `}</style>
+        {!license && <PaymentCard language={language} />}
+
+        {license && (
+          <section className={`rdvd-license-card${licenseDetailsOpen ? '' : ' rdvd-license-card-attention'}`} aria-label={language === 'vi' ? 'Bản quyền đang hoạt động' : 'License active'}>
+            <div className="rdvd-license-card-head">
+              <div className="rdvd-license-card-title">
+                <span className="rdvd-license-status-icon" aria-hidden="true">✓</span>
+                <div>
+                  <strong>{language === 'vi' ? 'BẢN QUYỀN ĐANG HOẠT ĐỘNG' : 'LICENSE ACTIVE'}</strong>
+                  <span>{language === 'vi' ? 'Được xác thực từ Payment Gateway' : 'Validated by Payment Gateway'}</span>
+                </div>
+              </div>
+              <button
+                type="button"
+                className="rdvd-license-toggle"
+                aria-expanded={licenseDetailsOpen}
+                onClick={onToggleLicenseDetails}
+              >
+                {licenseDetailsOpen
+                  ? (language === 'vi' ? 'Ẩn ▲' : 'Hide ▲')
+                  : (language === 'vi' ? 'Hiện ▼' : 'Show ▼')}
+              </button>
+            </div>
+
+            {licenseDetailsOpen && (
+              <div className="rdvd-license-details">
+                <div className="rdvd-license-grid">
+                  <span className="rdvd-license-label label-blue">{language === 'vi' ? 'Gói' : 'Package'}</span>
+                  <strong className="rdvd-license-value value-blue">{license.package_name || license.package}</strong>
+
+                  <span className="rdvd-license-label label-purple">{language === 'vi' ? 'Đơn hàng' : 'Order ID'}</span>
+                  <strong className="rdvd-license-value value-purple">{license.order_id}</strong>
+
+                  <span className="rdvd-license-label label-green">{language === 'vi' ? 'Trạng thái' : 'Status'}</span>
+                  <strong className="rdvd-license-value value-green">{license.status}</strong>
+
+                  <span className="rdvd-license-label label-cyan">{language === 'vi' ? 'Kích hoạt' : 'Activated'}</span>
+                  <strong className="rdvd-license-value value-cyan">{formatLicenseDate(license.activated_at, language === 'vi' ? 'vi-VN' : 'en-GB')}</strong>
+
+                  <span className="rdvd-license-label label-orange">{language === 'vi' ? 'Hết hạn' : 'Expires'}</span>
+                  <strong className="rdvd-license-value value-orange">{formatLicenseDate(license.expires_at, language === 'vi' ? 'vi-VN' : 'en-GB')}</strong>
+
+                  <span className="rdvd-license-label label-green">{language === 'vi' ? 'Còn lại' : 'Remaining'}</span>
+                  <strong className="rdvd-license-value value-countdown" aria-live="polite">
+                    {formatLicenseCountdown(licenseRemainingMs, language)}
+                  </strong>
+
+                  <span className="rdvd-license-label label-blue">{language === 'vi' ? 'Thiết bị' : 'Device'}</span>
+                  <strong className="rdvd-license-value value-blue">{`1 / ${license.device_limit ?? '—'}`}</strong>
+                </div>
+              </div>
+            )}
+          </section>
+        )}
+
         <section className="rdvd-card">
           <div className="rdvd-step"><b>1</b><h2>{t.importTitle}</h2><span>⌃</span></div>
           <input ref={videoInputRef} className="rdvd-hidden-file" type="file" accept="video/*" onChange={(e) => { handleVideoFile(e.target.files?.[0] ?? null); e.currentTarget.value = ''; }} />

@@ -16,6 +16,10 @@ use tauri::{Emitter, Manager};
 
 mod donation;
 
+mod license;
+mod payment_gateway;
+mod payment;
+
 mod recognition;
 
 const DEFAULT_PROJECT_ROOT: &str = r"E:\ai-rdvd-ui";
@@ -225,7 +229,7 @@ fn log_file(app: &tauri::AppHandle) -> PathBuf {
     log_directory(app).join("ai-rdvd-technical.log")
 }
 
-fn append_log_lines(app: &tauri::AppHandle, lines: &[String]) -> Result<(), String> {
+pub(crate) fn append_log_lines(app: &tauri::AppHandle, lines: &[String]) -> Result<(), String> {
     if lines.is_empty() {
         return Ok(());
     }
@@ -1315,7 +1319,15 @@ pub fn run() {
             append_technical_log,
             clear_technical_log,
             open_technical_log_directory,
-            get_donation_info])
+            get_donation_info,
+            license::get_machine_id,
+            license::get_local_license_state,
+            license::save_license_state,
+            license::save_license_token,
+            license::clear_license_token,
+            payment::generate_payment_qr,
+            payment_gateway::payment_gateway_post
+        ])
         .run(tauri::generate_context!())
         .expect("error while running AI RDvD");
 }

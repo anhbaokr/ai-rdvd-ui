@@ -22,6 +22,8 @@ import { buildSubtitleDisplayCues } from './utils/subtitleDisplay';
 import { chooseVideoFilePath } from './services/recognition';
 import { useRecognition } from './hooks/useRecognition';
 import { isTauriRuntime } from './services/tts';
+import { PaymentCard } from './features/payment/components';
+import { useLicense } from './features/license/useLicense';
 
 export default function AIRDvD() {
   const [language, setLanguage] = useState<Language>(() => (localStorage.getItem('ai-rdvd-language') as Language) || 'vi');
@@ -48,6 +50,32 @@ export default function AIRDvD() {
   const {
     renderLogs, addLog, clearLog, exportLog, openLogFolder,
   } = useAppLog(t.logReady);
+  const licenseGate = useLicense(addLog);
+  const [showLicenseDetails, setShowLicenseDetails] = useState(false);
+  const [licenseRemainingMs, setLicenseRemainingMs] = useState(0);
+
+  useEffect(() => {
+    const expiresAt = licenseGate.state.license?.expires_at;
+    if (licenseGate.state.status !== 'ACTIVE' || !expiresAt) {
+      setLicenseRemainingMs(0);
+      return;
+    }
+
+    const updateCountdown = () => {
+      const remaining = Math.max(0, Date.parse(expiresAt) - Date.now());
+      setLicenseRemainingMs(remaining);
+    };
+
+    updateCountdown();
+    const timer = window.setInterval(updateCountdown, 1000);
+    return () => window.clearInterval(timer);
+  }, [licenseGate.state.license?.expires_at, licenseGate.state.status]);
+
+  useEffect(() => {
+    if (licenseGate.state.status !== 'ACTIVE') {
+      setShowLicenseDetails(false);
+    }
+  }, [licenseGate.state.status]);
 
   useEffect(() => { localStorage.setItem('ai-rdvd-language', language); }, [language]);
   useEffect(() => { localStorage.setItem('ai-rdvd-theme', theme); }, [theme]);
@@ -1118,8 +1146,9 @@ export default function AIRDvD() {
         defaultTimelineZoom={defaultTimelineZoom} setDefaultTimelineZoom={setDefaultTimelineZoom}
         resetAppSettings={resetAppSettings} onClose={() => setShowSettings(false)}
       />}
-      <main className="rdvd-main">
-        <WorkflowSidebar
+      {licenseGate.state.status === 'ACTIVE' ? (
+        <main className="rdvd-main">
+          <WorkflowSidebar
           t={t} language={language} sourceLanguage={sourceLanguage} setSourceLanguage={setSourceLanguage} videoInputRef={videoInputRef} handleVideoFile={handleVideoFile} handleChooseMedia={handleChooseMedia}
           videoFile={videoFile} removeVideo={removeVideo} recognizeMode={recognizeMode}
           setRecognizeMode={setRecognizeMode} recognitionRunning={recognitionRunning} recognitionProgress={recognitionProgress} recognitionResultCount={recognitionResult?.detectedCount ?? 0} handleStartRecognition={handleStartRecognition} dialogueInputRef={dialogueInputRef}
@@ -1144,10 +1173,15 @@ export default function AIRDvD() {
           pipelineDone={pipelineDone} pipelineRunning={pipelineRunning} pipeline={pipeline}
           startAutoPipeline={handleAutoPipeline} autoActionLabel={autoActionLabel}
           exportLog={exportLog} openLogFolder={openLogFolder} clearLog={clearLog}
-          renderLogs={renderLogs} progressView={pipelineProgressView} addLog={addLog}
-        />
+            renderLogs={renderLogs} progressView={pipelineProgressView} addLog={addLog}
+          license={licenseGate.state.license}
+          licenseRemainingMs={licenseRemainingMs}
+          licenseDetailsOpen={showLicenseDetails}
+          onToggleLicenseDetails={() => setShowLicenseDetails((current) => !current)}
+          />
 
-        <section className="rdvd-workspace">
+          <section className="rdvd-workspace">
+
           <VideoPreview
             t={t} language={language} showSubtitlePanel={showSubtitlePanel} setShowSubtitlePanel={setShowSubtitlePanel}
             logoInputRef={logoInputRef} logoFile={logoFile} handleLogoFile={handleLogoFile}
@@ -1210,7 +1244,76 @@ export default function AIRDvD() {
             timelineContextMenu={timelineContextMenu} setTimelineContextMenu={setTimelineContextMenu}
           />
         </section>
-      </main>
+        </main>
+      ) : (
+        <main
+          className="rdvd-license-gate"
+          style={{
+            flex: 1,
+            minHeight: 0,
+            overflow: 'auto',
+            display: 'grid',
+            placeItems: 'center',
+            padding: 'clamp(16px, 4vw, 40px)',
+          }}
+        >
+          <section style={{ width: 'min(620px, 100%)', display: 'grid', gap: 16 }}>
+            <div
+              className="rdvd-card"
+              style={{
+                margin: 0,
+                textAlign: 'center',
+                borderColor: 'rgba(82, 164, 255, 0.28)',
+              }}
+            >
+              <div style={{ fontSize: 12, letterSpacing: '0.16em', opacity: 0.58, textTransform: 'uppercase' }}>AI RDvD · License Gate</div>
+              <h1 style={{ margin: '8px 0 6px', fontSize: 'clamp(22px, 3vw, 30px)' }}>
+                {licenseGate.state.status === 'CHECKING'
+                  ? (language === 'vi' ? 'Đang kiểm tra bản quyền' : 'Checking license')
+                  : licenseGate.state.status === 'NO_LICENSE'
+                    ? (language === 'vi' ? 'Chưa kích hoạt' : 'Not activated')
+                    : licenseGate.state.status === 'EXPIRED'
+                      ? (language === 'vi' ? 'Bản quyền đã hết hạn' : 'License expired')
+                      : licenseGate.state.status === 'MACHINE_MISMATCH'
+                        ? (language === 'vi' ? 'Bản quyền không thuộc máy này' : 'License belongs to another machine')
+                        : licenseGate.state.status === 'DEVICE_LIMIT'
+                          ? (language === 'vi' ? 'Đã vượt giới hạn thiết bị' : 'Device limit reached')
+                          : licenseGate.state.status === 'NETWORK_ERROR'
+                            ? (language === 'vi' ? 'Không thể kết nối máy chủ' : 'Cannot reach license server')
+                            : (language === 'vi' ? 'Bản quyền không hợp lệ' : 'Invalid license')}
+              </h1>
+              <p style={{ margin: 0, opacity: 0.72, lineHeight: 1.6 }}>
+                {licenseGate.state.status === 'CHECKING'
+                  ? (language === 'vi' ? 'Đang đọc trạng thái cục bộ và xác thực với Payment Gateway.' : 'Reading local state and validating with the Payment Gateway.')
+                  : licenseGate.state.status === 'NO_LICENSE'
+                    ? (language === 'vi' ? 'Vui lòng chọn gói và hoàn tất thanh toán để kích hoạt AI RDvD trên máy này.' : 'Choose a package and complete payment to activate AI RDvD on this device.')
+                    : (licenseGate.state.status === 'NETWORK_ERROR'
+                      ? (language === 'vi'
+                        ? 'Không thể kết nối Payment Gateway. Vui lòng kiểm tra kết nối Internet và thử lại.'
+                        : 'Cannot connect to the Payment Gateway. Check your Internet connection and try again.')
+                      : (licenseGate.state.error || (language === 'vi' ? 'Ứng dụng đang khóa cho đến khi bản quyền được xác thực.' : 'The application stays locked until the license is validated.')))}
+              </p>
+              {licenseGate.state.status !== 'CHECKING' && licenseGate.state.status !== 'NO_LICENSE' && (
+                <button
+                  type="button"
+                  className="rdvd-secondary"
+                  style={{ marginTop: 14 }}
+                  onClick={() => { void licenseGate.refresh(); }}
+                >
+                  {language === 'vi' ? 'Kiểm tra lại' : 'Check again'}
+                </button>
+              )}
+            </div>
+
+            {licenseGate.state.status !== 'CHECKING' && licenseGate.state.status !== 'NETWORK_ERROR' && (
+              <PaymentCard
+                language={language}
+                onActivated={() => licenseGate.refresh()}
+              />
+            )}
+          </section>
+        </main>
+      )}
     </div>
   );
 }
