@@ -16,7 +16,6 @@ import {
 import {
   activateDevice,
   checkLicense,
-  createLicense,
   saveLicenseToken,
 } from '../../license/licenseService';
 import type { LicenseRecord } from '../paymentContracts';
@@ -51,6 +50,7 @@ export function PaymentCard({ language, onActivated }: PaymentCardProps) {
   const [activationStep, setActivationStep] = useState<ActivationStep>(null);
   const [activeLicense, setActiveLicense] = useState<LicenseRecord | null>(null);
   const activationStartedRef = useRef(false);
+  const refreshOrderStatusRef = useRef<() => Promise<void>>(async () => {});
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -134,19 +134,13 @@ export function PaymentCard({ language, onActivated }: PaymentCardProps) {
     activationStartedRef.current = true;
     setError(null);
     setFlowState('PROCESSING');
-    setActivationStep('CREATING_LICENSE');
-
     try {
-      const licenseResponse = await createLicense(paidOrder.order_id);
-      if (!licenseResponse.success || !licenseResponse.license?.license_token) {
+      const licenseToken = String(paidOrder.license_token || '').trim();
+      if (!licenseToken) {
         throw new Error(
-          licenseResponse.error
-          || (vi ? 'Thanh toán đã được xác nhận nhưng chưa tạo được bản quyền.' : 'Payment was confirmed but the license could not be created.'),
+          vi ? 'Thanh toán đã được xác nhận nhưng chưa nhận được mã bản quyền.' : 'Payment was confirmed but no license token was returned.',
         );
       }
-
-      const licenseToken = licenseResponse.license.license_token;
-      setActiveLicense(licenseResponse.license);
 
       setActivationStep('CHECKING_LICENSE');
       const checkResponse = await checkLicense(licenseToken, paidOrder.machine_id);
@@ -191,16 +185,30 @@ export function PaymentCard({ language, onActivated }: PaymentCardProps) {
     if (!order || checking || flowState !== 'WAITING') return;
     setChecking(true);
     try {
-      const response = await checkPaymentOrder(order.order_id);
+      const orderAccessToken = String(order.order_access_token || '').trim();
+      if (!orderAccessToken) {
+        throw new Error(vi ? 'Thiếu khóa truy cập của đơn thanh toán.' : 'The payment order access token is missing.');
+      }
+
+      const response = await checkPaymentOrder(order.order_id, orderAccessToken);
       if (!response.success || !response.order) {
         throw new Error(response.error || (vi ? 'Không kiểm tra được trạng thái đơn.' : 'Could not check order status.'));
       }
 
-      const latestOrder = response.order;
+      const latestOrder = {
+        ...response.order,
+        order_access_token: orderAccessToken,
+      };
       setOrder(latestOrder);
 
       if (latestOrder.status === 'PAID') {
-        await runActivation(latestOrder);
+        const licenseToken = String(latestOrder.license_token || '').trim();
+
+        // Order may become PAID a moment before its License row/token is ready.
+        // Keep polling that transient PAID state instead of entering ERROR.
+        if (licenseToken) {
+          await runActivation(latestOrder);
+        }
       } else if (latestOrder.status === 'CANCELLED') {
         setFlowState('CANCELLED');
       } else if (latestOrder.status === 'EXPIRED') {
@@ -213,12 +221,24 @@ export function PaymentCard({ language, onActivated }: PaymentCardProps) {
     }
   }, [checking, flowState, order, runActivation, vi]);
 
+  useEffect(() => {
+    refreshOrderStatusRef.current = refreshOrderStatus;
+  }, [refreshOrderStatus]);
+
+  const pollingOrderId = order?.order_id ?? '';
+  const pollingOrderStatus = order?.status ?? '';
+
   const handleCancelOrder = useCallback(async () => {
     if (!order || !machine?.machineId || cancelling || flowState !== 'WAITING') return;
     setCancelling(true);
     setError(null);
     try {
-      const response = await cancelPaymentOrder(order.order_id, machine.machineId);
+      const orderAccessToken = String(order.order_access_token || '').trim();
+      if (!orderAccessToken) {
+        throw new Error(vi ? 'Thiếu khóa truy cập của đơn thanh toán.' : 'The payment order access token is missing.');
+      }
+
+      const response = await cancelPaymentOrder(order.order_id, orderAccessToken, machine.machineId);
       if (!response.success) {
         throw new Error(response.error || (vi ? 'Không hủy được đơn thanh toán.' : 'Could not cancel the payment order.'));
       }
@@ -232,12 +252,22 @@ export function PaymentCard({ language, onActivated }: PaymentCardProps) {
   }, [cancelling, flowState, machine?.machineId, order, vi]);
 
   const handleRetryActivation = useCallback(() => {
-    if (!order || order.status !== 'PAID' || checking || flowState !== 'ERROR') return;
+    if (!order || checking || flowState !== 'ERROR') return;
+
     activationStartedRef.current = false;
-    setChecking(true);
-    void runActivation(order).finally(() => {
-      setChecking(false);
-    });
+    setError(null);
+
+    const licenseToken = String(order.license_token || '').trim();
+    if (order.status === 'PAID' && licenseToken) {
+      setChecking(true);
+      void runActivation(order).finally(() => {
+        setChecking(false);
+      });
+      return;
+    }
+
+    // Re-enter polling so checkOrder can fetch a newly-created license_token.
+    setFlowState('WAITING');
   }, [checking, flowState, order, runActivation]);
 
   const handleCreateOrder = useCallback(async () => {
@@ -310,19 +340,24 @@ export function PaymentCard({ language, onActivated }: PaymentCardProps) {
   }, [order, paymentModalOpen]);
 
   useEffect(() => {
-    if (!paymentModalOpen || !order || order.status !== 'WAITING') return;
+    const pollableStatus = pollingOrderStatus === 'WAITING' || pollingOrderStatus === 'PAID';
+    if (!paymentModalOpen || !pollingOrderId || flowState !== 'WAITING' || !pollableStatus) return;
+
+    // Poll immediately, then every 3 seconds. Keep polling PAID briefly too:
+    // license_token can appear just after the Order flips to PAID.
+    void refreshOrderStatusRef.current();
 
     const poller = window.setInterval(() => {
-      void refreshOrderStatus();
+      void refreshOrderStatusRef.current();
     }, 3000);
 
     return () => window.clearInterval(poller);
-  }, [order, paymentModalOpen, refreshOrderStatus]);
+  }, [flowState, paymentModalOpen, pollingOrderId, pollingOrderStatus]);
 
   useEffect(() => {
-    if (!paymentModalOpen || !order || order.status !== 'WAITING' || remainingSeconds !== 0) return;
-    void refreshOrderStatus();
-  }, [order, paymentModalOpen, refreshOrderStatus, remainingSeconds]);
+    if (!paymentModalOpen || !pollingOrderId || pollingOrderStatus !== 'WAITING' || remainingSeconds !== 0) return;
+    void refreshOrderStatusRef.current();
+  }, [paymentModalOpen, pollingOrderId, pollingOrderStatus, remainingSeconds]);
 
   const safePaymentError = error && /script\\.google\\.com|script\\.googleusercontent\\.com|Payment Gateway HTTPS request/i.test(error)
     ? (vi

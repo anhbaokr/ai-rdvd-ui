@@ -4,7 +4,6 @@ import { PAYMENT_GATEWAY_URL } from '../payment/paymentContracts';
 import type {
   ActivateDeviceResponse,
   CheckLicenseResponse,
-  CreateLicenseResponse,
   LicenseRecord,
 } from './licenseContracts';
 
@@ -17,12 +16,6 @@ async function post<T>(action: string, data: Record<string, unknown> = {}): Prom
   });
 
   return JSON.parse(response) as T;
-}
-
-export async function createLicense(orderId: string): Promise<CreateLicenseResponse> {
-  return await post<CreateLicenseResponse>('createLicense', {
-    order_id: orderId,
-  });
 }
 
 export async function checkLicense(

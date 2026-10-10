@@ -1,7 +1,7 @@
 import type { LicenseRecord, PaymentOrder, PaymentQrResult } from '../paymentContracts';
 
 export type PaymentFlowState = 'WAITING' | 'PROCESSING' | 'SUCCESS' | 'CANCELLED' | 'EXPIRED' | 'ERROR';
-export type ActivationStep = 'CREATING_LICENSE' | 'CHECKING_LICENSE' | 'ACTIVATING_DEVICE' | null;
+export type ActivationStep = 'CHECKING_LICENSE' | 'ACTIVATING_DEVICE' | null;
 
 type PaymentModalProps = {
   language: 'vi' | 'en';
@@ -55,9 +55,7 @@ export function PaymentModal({
     ? new Date(license.expires_at).toLocaleString(vi ? 'vi-VN' : 'en-GB')
     : '';
 
-  const processingText = activationStep === 'CREATING_LICENSE'
-    ? (vi ? 'Đang tạo bản quyền...' : 'Creating license...')
-    : activationStep === 'CHECKING_LICENSE'
+  const processingText = activationStep === 'CHECKING_LICENSE'
       ? (vi ? 'Đang kiểm tra bản quyền...' : 'Checking license...')
       : (vi ? 'Đang kích hoạt thiết bị...' : 'Activating device...');
 

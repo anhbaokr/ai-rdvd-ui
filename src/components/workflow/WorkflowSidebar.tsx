@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import type { Dispatch, RefObject, SetStateAction } from 'react';
 import { VOICE_OPTIONS } from '../../constants/voices';
 import { PaymentCard } from '../../features/payment/components';
+import { LicenseRenewalModal } from '../../features/payment/components/LicenseRenewalModal';
 import type {
   Language,
   PipelineProgressView,
@@ -81,6 +82,7 @@ interface WorkflowSidebarProps {
   licenseRemainingMs: number;
   licenseDetailsOpen: boolean;
   onToggleLicenseDetails: () => void;
+  onLicenseActivated?: () => void | Promise<void>;
 }
 
 type LicenseSummary = {
@@ -120,8 +122,9 @@ export function WorkflowSidebar(props: WorkflowSidebarProps) {
     refreshTtsEnvironment, generationRunning, canGenerateVoice, handleGenerateVoice,
     ttsGeneration, backgroundAudioMode,
     setBackgroundAudioMode, pipelineDone, pipelineRunning, pipeline,
-    startAutoPipeline, autoActionLabel, exportLog, openLogFolder, clearLog, renderLogs, progressView, addLog, license, licenseRemainingMs, licenseDetailsOpen, onToggleLicenseDetails,
+    startAutoPipeline, autoActionLabel, exportLog, openLogFolder, clearLog, renderLogs, progressView, addLog, license, licenseRemainingMs, licenseDetailsOpen, onToggleLicenseDetails, onLicenseActivated,
   } = props;
+  const [renewalModalOpen, setRenewalModalOpen] = useState(false);
   const logRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -219,7 +222,25 @@ export function WorkflowSidebar(props: WorkflowSidebarProps) {
                 </div>
               </div>
             )}
+
+            <button
+              type="button"
+              className="rdvd-action blue-action"
+              style={{ width: '100%', marginTop: 9 }}
+              onClick={() => setRenewalModalOpen(true)}
+            >
+              {language === 'vi' ? 'KÍCH HOẠT / GIA HẠN BẢN QUYỀN' : 'ACTIVATE / RENEW LICENSE'}
+            </button>
           </section>
+        )}
+
+        {renewalModalOpen && license && (
+          <LicenseRenewalModal
+            language={language}
+            currentLicense={license}
+            onClose={() => setRenewalModalOpen(false)}
+            onActivated={onLicenseActivated}
+          />
         )}
 
         <section className="rdvd-card">

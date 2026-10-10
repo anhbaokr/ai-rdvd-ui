@@ -72,6 +72,10 @@ export interface PaymentOrder {
   expires_at: string;
   payment: PaymentAccountSnapshot;
   payment_note: PaymentNoteSnapshot;
+  /** Raw token returned once by createOrder and retained in Desktop memory. */
+  order_access_token?: string;
+  /** Returned by protected checkOrder after backend has created the License. */
+  license_token?: string;
 }
 
 export interface CreateOrderResponse {

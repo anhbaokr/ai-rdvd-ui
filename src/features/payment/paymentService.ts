@@ -9,7 +9,6 @@ import {
   type PaymentQrResult,
   type ActivateDeviceResponse,
   type CheckLicenseResponse,
-  type CreateLicenseResponse,
 } from './paymentContracts';
 
 export type CancelPaymentOrderResponse = {
@@ -56,15 +55,13 @@ export async function createPaymentOrder(
   return await post<CreateOrderResponse>('createOrder', data);
 }
 
-export async function checkPaymentOrder(orderId: string): Promise<CheckOrderResponse> {
+export async function checkPaymentOrder(
+  orderId: string,
+  orderAccessToken: string,
+): Promise<CheckOrderResponse> {
   return await post<CheckOrderResponse>('checkOrder', {
     order_id: orderId,
-  });
-}
-
-export async function createLicense(orderId: string): Promise<CreateLicenseResponse> {
-  return await post<CreateLicenseResponse>('createLicense', {
-    order_id: orderId,
+    order_access_token: orderAccessToken,
   });
 }
 
@@ -89,10 +86,12 @@ export async function activateDevice(
 
 export async function cancelPaymentOrder(
   orderId: string,
+  orderAccessToken: string,
   machineId: string,
 ): Promise<CancelPaymentOrderResponse> {
   return await post<CancelPaymentOrderResponse>('cancelOrder', {
     order_id: orderId,
+    order_access_token: orderAccessToken,
     machine_id: machineId,
   });
 }

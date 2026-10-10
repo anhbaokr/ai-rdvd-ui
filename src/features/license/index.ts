@@ -1,7 +1,6 @@
 export {
   activateDevice,
   checkLicense,
-  createLicense,
 } from './licenseService';
 
 export type {

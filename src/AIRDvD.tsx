@@ -1178,6 +1178,7 @@ export default function AIRDvD() {
           licenseRemainingMs={licenseRemainingMs}
           licenseDetailsOpen={showLicenseDetails}
           onToggleLicenseDetails={() => setShowLicenseDetails((current) => !current)}
+          onLicenseActivated={() => licenseGate.refresh()}
           />
 
           <section className="rdvd-workspace">
