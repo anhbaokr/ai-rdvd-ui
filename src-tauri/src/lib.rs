@@ -21,6 +21,9 @@ mod payment_gateway;
 mod payment;
 
 mod recognition;
+mod render;
+mod output_actions;
+mod runtime_manager;
 
 const DEFAULT_PROJECT_ROOT: &str = r"E:\ai-rdvd-ui";
 const RESULT_PREFIX: &str = "AI_RDVD_RESULT:";
@@ -344,7 +347,13 @@ fn python_candidates(app: &tauri::AppHandle) -> Vec<PathBuf> {
     }
 
     if cfg!(windows) {
-        // 2. System Python (preferred)
+        // 2. App-local self-provisioned TTS runtime
+        if let Ok(local_data) = app.path().app_local_data_dir() {
+            candidates.push(local_data.join("tts-runtime").join("python").join("python.exe"));
+            candidates.push(local_data.join("tts-runtime").join(".venv").join("Scripts").join("python.exe"));
+        }
+
+        // 3. Existing system Python fallback
         candidates.push(PathBuf::from(
             r"C:\Users\1stPK-MU\AppData\Local\Programs\Python\Python312\python.exe"
         ));
@@ -496,6 +505,9 @@ fn translation_assets_candidates(app: &tauri::AppHandle) -> Vec<PathBuf> {
     let mut candidates = Vec::new();
     if let Some(value) = env::var_os("AI_RDVD_TRANSLATION_ASSETS") {
         candidates.push(PathBuf::from(value));
+    }
+    if let Ok(local_data) = app.path().app_local_data_dir() {
+        candidates.push(local_data.join("translation-runtime").join("assets"));
     }
     candidates.push(project_root().join("translation-assets"));
     if let Ok(local_data) = app.path().app_local_data_dir() {
@@ -909,6 +921,30 @@ fn generate_tts_blocking(app: tauri::AppHandle, request: GenerateTtsRequest) -> 
 
 #[tauri::command]
 async fn generate_tts(app: tauri::AppHandle, request: GenerateTtsRequest) -> Result<TtsGenerationResult, String> {
+    let check_app = app.clone();
+    let initial = tauri::async_runtime::spawn_blocking(move || check_tts_environment_blocking(check_app))
+        .await
+        .map_err(|error| format!("TTS environment check bị gián đoạn: {error}"))?;
+
+    if !initial.ready {
+        append_log_lines(&app, &[
+            "TTS AUTO PROVISION — START".to_owned(),
+            format!("Initial: {}", initial.message),
+        ])?;
+
+        crate::runtime_manager::provision_runtime_module(app.clone(), "tts".to_owned())
+            .await
+            .map_err(|error| format!("TTS auto-provision thất bại: {error}"))?;
+
+        let verify_app = app.clone();
+        let checked = tauri::async_runtime::spawn_blocking(move || check_tts_environment_blocking(verify_app))
+            .await
+            .map_err(|error| format!("TTS post-install check bị gián đoạn: {error}"))?;
+        if !checked.ready {
+            return Err(format!("TTS đã tải nhưng health check chưa PASS: {}", checked.message));
+        }
+    }
+
     tauri::async_runtime::spawn_blocking(move || generate_tts_blocking(app, request))
         .await
         .map_err(|error| format!("Tác vụ TTS bị gián đoạn: {error}"))?
@@ -1174,6 +1210,33 @@ fn translate_segments_blocking(app: tauri::AppHandle, request: TranslationReques
 
 #[tauri::command]
 async fn translate_segments(app: tauri::AppHandle, request: TranslationRequest) -> Result<Value, String> {
+    let check_app = app.clone();
+    let initial = tauri::async_runtime::spawn_blocking(move || check_translation_environment_blocking(check_app))
+        .await
+        .map_err(|error| format!("Translation environment check bị gián đoạn: {error}"))?;
+
+    if !initial.ready {
+        append_log_lines(&app, &[
+            "TRANSLATION AUTO PROVISION — START".to_owned(),
+            format!("Initial: {}", initial.message),
+        ])?;
+
+        crate::runtime_manager::provision_runtime_module(app.clone(), "translation".to_owned())
+            .await
+            .map_err(|error| format!("Translation auto-provision thất bại: {error}"))?;
+
+        let verify_app = app.clone();
+        let checked = tauri::async_runtime::spawn_blocking(move || check_translation_environment_blocking(verify_app))
+            .await
+            .map_err(|error| format!("Translation post-install check bị gián đoạn: {error}"))?;
+        if !checked.ready {
+            return Err(format!(
+                "Translation đã tải nhưng health check chưa PASS: {}",
+                checked.message
+            ));
+        }
+    }
+
     tauri::async_runtime::spawn_blocking(move || translate_segments_blocking(app, request))
         .await
         .map_err(|error| format!("Tác vụ dịch bị gián đoạn: {error}"))?
@@ -1308,6 +1371,14 @@ pub fn run() {
         .invoke_handler(tauri::generate_handler![
             load_voice_preview,
             recognition::start_recognition,
+            render::check_render_environment,
+            runtime_manager::check_runtime_modules,
+            runtime_manager::get_runtime_manifest,
+            runtime_manager::provision_runtime_module,
+            render::start_render,
+            render::cancel_render,
+            output_actions::open_render_output,
+            output_actions::reveal_render_output,
             check_tts_environment,
             generate_tts,
             check_translation_environment,

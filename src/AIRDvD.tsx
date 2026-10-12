@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { convertFileSrc } from '@tauri-apps/api/core';
+import { open } from '@tauri-apps/plugin-dialog';
 import './styles/index.css';
 import { UI_TEXT } from './constants/uiText';
 import { CURSOR_BY_HANDLE, MIN_H, MIN_W, STAGE_H, STAGE_W } from './constants/editor';
@@ -24,6 +25,7 @@ import { useRecognition } from './hooks/useRecognition';
 import { isTauriRuntime } from './services/tts';
 import { PaymentCard } from './features/payment/components';
 import { useLicense } from './features/license/useLicense';
+import { useExport } from './features/export';
 
 export default function AIRDvD() {
   const [language, setLanguage] = useState<Language>(() => (localStorage.getItem('ai-rdvd-language') as Language) || 'vi');
@@ -181,12 +183,14 @@ export default function AIRDvD() {
   const [subtitleOutline, setSubtitleOutline] = useState(true);
   const [subtitleOutlineWidth, setSubtitleOutlineWidth] = useState(4);
   const [logoFile, setLogoFile] = useState<File | null>(null);
+  const [logoPath, setLogoPath] = useState<string | null>(null);
   const [logoUrl, setLogoUrl] = useState<string | null>(null);
   const [logoBox, setLogoBox] = useState<BoxState>({ x: 1680, y: 150, w: 190, h: 110 });
   const [logoDragging, setLogoDragging] = useState(false);
   const logoInputRef = useRef<HTMLInputElement>(null);
   const logoDragRef = useRef<{ mode: 'move' | 'resize'; handle?: SelectionHandle; pointerId: number; startClientX: number; startClientY: number; startBox: BoxState; scaleX: number; scaleY: number } | null>(null);
   const logoElementRef = useRef<HTMLDivElement>(null);
+  const logoViewportRef = useRef<HTMLDivElement>(null);
   const logoBoxRef = useRef<BoxState>({ x: 1680, y: 150, w: 190, h: 110 });
   const [box, setBox] = useState<BoxState>({ x: 964.21, y: 877.69, w: 960, h: 52 });
   const [dragging, setDragging] = useState(false);
@@ -262,8 +266,8 @@ export default function AIRDvD() {
 
   const {
     pipelineRunning, pipelineDone, setPipelineDone, autoStage, setAutoStage, editTab, setEditTab,
-    exportQueued, setExportQueued, pipeline, autoActionLabel,
-    startAutoPipeline, handleFinalExport,
+    setExportQueued, pipeline, autoActionLabel,
+    startAutoPipeline,
   } = usePipeline({
     videoFile,
     dialogueFile,
@@ -277,6 +281,25 @@ export default function AIRDvD() {
     subtitleSegments,
     addLog,
     sourceLanguage,
+  });
+
+  const exportController = useExport({
+    pipelineDone,
+    videoPath,
+    sourceDurationMs: Math.max(1, Math.round(videoDuration * 1000)),
+    dubbedAudioPath: ttsGeneration?.outputPath ?? null,
+    subtitleSegments,
+    subtitleTrackVisible,
+    subtitleBox: box,
+    subtitleSize,
+    subtitleColor,
+    subtitleBackgroundColor: subtitleBg,
+    subtitleTransparency: subtitleOpacity,
+    subtitleOutline,
+    subtitleOutlineWidth,
+    logoPath,
+    logoBox,
+    addLog,
   });
 
   const dubbedAudioRef = useRef<HTMLAudioElement>(null);
@@ -528,12 +551,13 @@ export default function AIRDvD() {
     if (logoUrl) URL.revokeObjectURL(logoUrl);
     const url = URL.createObjectURL(file);
     setLogoFile(file);
+    setLogoPath(null);
     setLogoUrl(url);
     const image = new Image();
     image.onload = () => {
-      const ratio = image.naturalWidth > 0 && image.naturalHeight > 0 ? image.naturalWidth / image.naturalHeight : 16 / 9;
+      // R4.2: default logo frame is fixed and independent of source image dimensions/aspect ratio.
       const w = 210;
-      const h = Math.max(70, Math.min(180, w / ratio));
+      const h = 110;
       const next = { x: STAGE_W - w / 2 - 55, y: h / 2 + 45, w, h };
       logoBoxRef.current = next;
       setLogoBox(next);
@@ -542,8 +566,54 @@ export default function AIRDvD() {
     image.src = URL.createObjectURL(file);
   }, [language, logoUrl]);
 
+  const handleChooseLogo = useCallback(async () => {
+    if (!isTauriRuntime()) {
+      logoInputRef.current?.click();
+      return;
+    }
+
+    try {
+      const selected = await open({
+        multiple: false,
+        directory: false,
+        filters: [{ name: 'Image', extensions: ['png', 'jpg', 'jpeg', 'webp', 'bmp'] }],
+      });
+
+      if (!selected || Array.isArray(selected)) return;
+
+      const name = selected.split(/[\\/]/).pop() || selected;
+      const ext = name.split('.').pop()?.toLowerCase() || '';
+      const mime = ext === 'png'
+        ? 'image/png'
+        : ext === 'webp'
+          ? 'image/webp'
+          : ext === 'bmp'
+            ? 'image/bmp'
+            : 'image/jpeg';
+
+      setLogoFile(new File([], name, { type: mime }));
+      setLogoPath(selected);
+      setLogoUrl(convertFileSrc(selected));
+
+      const image = new Image();
+      image.onload = () => {
+        // R4.2: default logo frame is fixed and independent of source image dimensions/aspect ratio.
+      const w = 210;
+      const h = 110;
+        const next = { x: STAGE_W - w / 2 - 55, y: h / 2 + 45, w, h };
+        logoBoxRef.current = next;
+        setLogoBox(next);
+      };
+      image.src = convertFileSrc(selected);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      addLog(`Không thể chọn logo: ${message}`, 'ERROR');
+    }
+  }, [addLog]);
+
   const removeLogo = useCallback(() => {
     setLogoFile(null);
+    setLogoPath(null);
     setLogoUrl((current) => {
       if (current) URL.revokeObjectURL(current);
       return null;
@@ -939,14 +1009,14 @@ export default function AIRDvD() {
 
   const handleLogoPointerDown = useCallback((event: React.PointerEvent<HTMLDivElement>) => {
     if (!logoUrl || (event.pointerType === 'mouse' && event.button !== 0)) return;
-    const scene = sceneRef.current;
+    const viewport = logoViewportRef.current;
     const element = logoElementRef.current;
-    if (!scene || !element) return;
+    if (!viewport || !element) return;
     event.preventDefault();
     event.stopPropagation();
     const target = event.target instanceof Element ? event.target.closest<HTMLElement>('[data-logo-handle]') : null;
     const handle = target?.dataset.logoHandle as SelectionHandle | undefined;
-    const rect = scene.getBoundingClientRect();
+    const rect = viewport.getBoundingClientRect();
     const startBox = logoBoxRef.current;
     logoDragRef.current = {
       mode: handle ? 'resize' : 'move', handle,
@@ -1185,7 +1255,7 @@ export default function AIRDvD() {
 
           <VideoPreview
             t={t} language={language} showSubtitlePanel={showSubtitlePanel} setShowSubtitlePanel={setShowSubtitlePanel}
-            logoInputRef={logoInputRef} logoFile={logoFile} handleLogoFile={handleLogoFile}
+            logoInputRef={logoInputRef} logoFile={logoFile} handleLogoFile={handleLogoFile} handleChooseLogo={handleChooseLogo}
             sceneRef={sceneRef} setIsPointerOverPlayer={setIsPointerOverPlayer} requestSceneFullscreen={requestSceneFullscreen}
             videoFile={videoFile} videoUrl={videoUrl} videoRef={videoRef} setVideoDuration={setVideoDuration}
             setVideoCurrentTime={setVideoCurrentTime} setIsVideoPlaying={setIsVideoPlaying} addLog={addLog}
@@ -1199,7 +1269,7 @@ export default function AIRDvD() {
             activeSubtitleIndex={activeSubtitleIndex}
             setSubtitleSegments={setSubtitleSegments}
             dragElementRef={dragElementRef} subtitleBoxRef={subtitleBoxRef} handlePointerDown={handlePointerDown}
-            handlePointerMove={handlePointerMove} endSession={endSession} logoUrl={logoUrl} logoBox={logoBox}
+            handlePointerMove={handlePointerMove} endSession={endSession} logoUrl={logoUrl} logoBox={logoBox} setLogoBox={setLogoBox} clampLogoBox={clampLogoBox} logoViewportRef={logoViewportRef}
             logoDragging={logoDragging} logoElementRef={logoElementRef} handleLogoPointerDown={handleLogoPointerDown}
             handleLogoPointerMove={handleLogoPointerMove} endLogoDrag={endLogoDrag} removeLogo={removeLogo}
             videoCurrentTime={videoCurrentTime} videoDuration={videoDuration} playbackSeekStep={playbackSeekStep}
@@ -1214,7 +1284,24 @@ export default function AIRDvD() {
 
           <EditPanel
             t={t} pipelineDone={pipelineDone} editTab={editTab} setEditTab={setEditTab}
-            addLog={addLog} exportQueued={exportQueued} handleFinalExport={handleFinalExport}
+            addLog={addLog}
+            exportStatus={exportController.status}
+            exportRunning={exportController.running}
+            exportProgress={exportController.progress}
+            exportCanStart={exportController.canExport}
+            exportSourceReady={exportController.exportSourceReady}
+            exportCancellable={exportController.cancellable}
+            exportSummary={exportController.exportSummary}
+            exportCancelling={exportController.cancelling}
+            exportMessage={exportController.message}
+            exportOutputPath={exportController.outputPath}
+            chooseExportOutput={exportController.chooseOutput}
+            handleFinalExport={exportController.renderMuteMvp}
+            cancelExport={exportController.cancelActiveRender}
+            exportErrorCode={exportController.errorCode}
+            openExportOutput={exportController.openCompletedOutput}
+            revealExportOutput={exportController.revealCompletedOutput}
+            copyExportOutputPath={exportController.copyCompletedOutputPath}
           />
 
           <Timeline

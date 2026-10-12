@@ -6,7 +6,7 @@
   "build": {
     "beforeDevCommand": "npm run dev",
     "devUrl": "http://127.0.0.1:5177",
-    "beforeBuildCommand": "npm run build",
+    "beforeBuildCommand": "npm run render:runtime:verify && npm run build",
     "frontendDist": "../dist"
   },
   "app": {
@@ -69,6 +69,13 @@
           "Vietnamese"
         ],
         "displayLanguageSelector": true
+      },
+      "wix": {
+        "language": {
+          "en-US": {
+            "localePath": "./wix/locales/en-US.wxl"
+          }
+        }
       }
     }
   },

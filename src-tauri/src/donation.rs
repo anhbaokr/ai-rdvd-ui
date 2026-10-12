@@ -1,5 +1,5 @@
 use base64::{engine::general_purpose::STANDARD, Engine as _};
-use ed25519_dalek::{Signature, Verifier, VerifyingKey};
+use ed25519_dalek::{Signature, VerifyingKey};
 use qrcode::{render::svg, EcLevel, QrCode};
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
@@ -201,7 +201,7 @@ pub fn get_donation_info() -> Result<DonationInfo, String> {
                 message: "Donation payload verified.".to_owned(),
             })
         }
-        Err(error) if !manifest.enabled => Ok(empty_info("unconfigured", "Donation is not configured yet.")),
+        Err(_error) if !manifest.enabled => Ok(empty_info("unconfigured", "Donation is not configured yet.")),
         Err(error) => Ok(empty_info("invalid", &error)),
     }
 }

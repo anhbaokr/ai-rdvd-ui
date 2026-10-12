@@ -14,7 +14,19 @@
     "tts:setup:windows": "powershell -ExecutionPolicy Bypass -File scripts/setup-tts-windows.ps1",
     "tts:import:windows": "powershell -ExecutionPolicy Bypass -File scripts/import-tts-environment.ps1",
     "translation:setup:windows": "powershell -ExecutionPolicy Bypass -File scripts/setup-translation-windows.ps1",
-    "translation:import:windows": "powershell -ExecutionPolicy Bypass -File scripts/import-translation-environment.ps1"
+    "translation:import:windows": "powershell -ExecutionPolicy Bypass -File scripts/import-translation-environment.ps1",
+    "render:runtime:prepare": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/prepare-ffmpeg-runtime.ps1",
+    "render:runtime:verify": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/verify-ffmpeg-runtime.ps1",
+    "render:license:prepare": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/prepare-ffmpeg-redistribution.ps1",
+    "packaging:verify": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/verify-windows-packaging.ps1",
+    "packaging:release:verify": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/verify-windows-packaging.ps1 -Release",
+    "packaging:build": "npm run packaging:local:build",
+    "packaging:release:build": "npm run packaging:release:verify && npm run packaging:signing:verify && tauri build",
+    "packaging:inspect": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/inspect-windows-bundles.ps1",
+    "packaging:local:build": "npm run packaging:verify && tauri build --config src-tauri/tauri.local.conf.json",
+    "packaging:local:msi": "npm run packaging:verify && tauri build --bundles msi --config src-tauri/tauri.local.conf.json",
+    "packaging:local:nsis": "npm run packaging:verify && tauri build --bundles nsis --config src-tauri/tauri.local.conf.json",
+    "packaging:signing:verify": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/verify-updater-signing.ps1"
   },
   "dependencies": {
     "@tauri-apps/api": "2.12.0",

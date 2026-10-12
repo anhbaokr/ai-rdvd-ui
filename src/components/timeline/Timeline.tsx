@@ -182,11 +182,15 @@ export function Timeline(props: TimelineProps) {
               <div className={`timeline-clip dubbed-track${ttsGeneration ? '' : ' empty-track'}${dubbedTrackMuted ? ' muted' : ''}`} style={{ width: 'var(--timeline-clip-width)' }} onPointerDown={startTimelineScrub} onPointerMove={moveTimelineScrub} onPointerUp={endTimelineScrub} onPointerCancel={endTimelineScrub} onContextMenu={openTimelineMenu}>
                 {ttsGeneration?.cues?.length
                   ? <>{ttsGeneration.cues.map((cue, index) => {
-                      const start = Math.max(0, Number(cue.startMs) || 0) / 1000;
-                      const end = Math.max(start, Number(cue.endMs) || cue.startMs) / 1000;
+                      const requestedStartMs = Math.max(0, Number(cue.startMs) || 0);
+                      const requestedEndMs = Math.max(requestedStartMs, Number(cue.endMs) || requestedStartMs);
+                      const actualStartMs = Number.isFinite(Number(cue.actualStartMs)) ? Number(cue.actualStartMs) : requestedStartMs;
+                      const actualEndMs = Number.isFinite(Number(cue.actualEndMs)) ? Number(cue.actualEndMs) : requestedEndMs;
+                      const start = Math.max(0, actualStartMs) / 1000;
+                      const end = Math.max(start, actualEndMs / 1000);
                       const left = videoDuration ? Math.min(100, (start / videoDuration) * 100) : 0;
                       const width = videoDuration ? Math.max(0, Math.min(100 - left, ((end - start) / videoDuration) * 100)) : 0;
-                      return <button key={`${cue.segmentId}-${index}`} type="button" className="dubbed-audio-cue" style={{ left: `${left}%`, width: `${width}%` }} onClick={(event) => { event.stopPropagation(); seekVideo(cue.startMs / 1000); }} title={`${formatTimecode(cue.startMs / 1000)} → ${formatTimecode(cue.endMs / 1000)} · ${cue.text}`}>{cue.segmentId}</button>;
+                      return <button key={`${cue.segmentId}-${index}`} type="button" className="dubbed-audio-cue" style={{ left: `${left}%`, width: `${width}%` }} onClick={(event) => { event.stopPropagation(); seekVideo(start); }} title={`${formatTimecode(start)} → ${formatTimecode(end)} · slot ${formatTimecode(requestedStartMs / 1000)} → ${formatTimecode(requestedEndMs / 1000)} · ${cue.text}`}>{cue.segmentId}</button>;
                     })}</>
                   : ttsGeneration
                     ? <span title={ttsGeneration.outputPath}>✓ {ttsGeneration.voiceName} · {ttsGeneration.outputPath.split(/[\\/]/).pop()} · {ttsGeneration.aligned ? 'aligned' : 'legacy'}</span>

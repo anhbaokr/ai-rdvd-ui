@@ -9,7 +9,7 @@ function fromSubtitleSegments(segments: SubtitleSegment[]): TranslationSegmentIn
   return segments.map((segment, index) => ({
     segmentId: `seg-${String(index + 1).padStart(6, '0')}`,
     startMs: Math.max(0, Math.round(segment.start * 1000)),
-    endMs: Math.max(Math.round(segment.start * 1000) + 250, Math.round(segment.end * 1000)),
+    endMs: Math.max(Math.round(segment.start * 1000) + 1, Math.round(segment.end * 1000)),
     sourceText: normalizeText(segment.text),
   })).filter((segment) => Boolean(segment.sourceText));
 }
@@ -71,7 +71,7 @@ function parseJsonSegments(content: string): TranslationSegmentInput[] {
     return [{
       segmentId: normalizeText(value.segmentId ?? value.id) || `seg-${String(index + 1).padStart(6, '0')}`,
       startMs: Math.max(0, Math.round(startMs)),
-      endMs: Math.max(Math.round(startMs) + 250, Math.round(endMs)),
+      endMs: Math.max(Math.round(startMs) + 1, Math.round(endMs)),
       sourceText,
     }];
   });

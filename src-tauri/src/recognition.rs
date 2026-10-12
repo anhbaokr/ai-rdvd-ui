@@ -150,7 +150,7 @@ fn configure_command(program: &Path) -> Command {
     command
 }
 
-fn resolve_python() -> Option<PathBuf> {
+pub(crate) fn resolve_python(app: &tauri::AppHandle) -> Option<PathBuf> {
     let root = project_root();
     let mut candidates = Vec::new();
 
@@ -159,10 +159,34 @@ fn resolve_python() -> Option<PathBuf> {
     }
 
     if cfg!(windows) {
+        if let Ok(local_data) = app.path().app_local_data_dir() {
+            candidates.push(
+                local_data
+                    .join("ocr-runtime")
+                    .join("python")
+                    .join("python.exe"),
+            );
+            candidates.push(
+                local_data
+                    .join("ocr-runtime")
+                    .join("venv")
+                    .join("Scripts")
+                    .join("python.exe"),
+            );
+        }
         candidates.push(root.join("ocr-runtime").join("venv").join("Scripts").join("python.exe"));
         candidates.push(PathBuf::from("python.exe"));
         candidates.push(PathBuf::from("py.exe"));
     } else {
+        if let Ok(local_data) = app.path().app_local_data_dir() {
+            candidates.push(
+                local_data
+                    .join("ocr-runtime")
+                    .join("venv")
+                    .join("bin")
+                    .join("python"),
+            );
+        }
         candidates.push(root.join("ocr-runtime").join("venv").join("bin").join("python"));
         candidates.push(PathBuf::from("python3"));
         candidates.push(PathBuf::from("python"));
@@ -178,17 +202,83 @@ fn resolve_python() -> Option<PathBuf> {
     })
 }
 
-fn resolve_worker() -> Option<PathBuf> {
+pub(crate) fn resolve_worker(app: &tauri::AppHandle) -> Option<PathBuf> {
+    if let Some(value) = env::var_os("AI_RDVD_OCR_WORKER") {
+        let path = PathBuf::from(value);
+        if path.is_file() {
+            return Some(path);
+        }
+    }
+
     let mut candidates = vec![
         project_root().join("backend").join("subtitle_ocr").join("worker.py"),
         env::current_dir().ok()?.join("backend").join("subtitle_ocr").join("worker.py"),
     ];
 
-    candidates.push(
-        project_root().join("backend").join("subtitle_ocr").join("worker.py"),
-    );
+    if let Ok(local_data) = app.path().app_local_data_dir() {
+        candidates.push(
+            local_data
+                .join("ocr-runtime")
+                .join("backend")
+                .join("subtitle_ocr")
+                .join("worker.py"),
+        );
+    }
+
+    if let Ok(resources) = app.path().resource_dir() {
+        candidates.push(resources.join("backend").join("subtitle_ocr").join("worker.py"));
+        candidates.push(resources.join("_up_").join("backend").join("subtitle_ocr").join("worker.py"));
+    }
 
     candidates.into_iter().find(|candidate| candidate.is_file())
+}
+
+fn worker_module_root(worker: &Path) -> Option<PathBuf> {
+    worker.parent()?.parent()?.parent().map(Path::to_path_buf)
+}
+
+pub(crate) struct OcrEnvironment {
+    pub python_path: PathBuf,
+    pub worker_path: PathBuf,
+    pub worker_root: PathBuf,
+    pub version: String,
+    pub diagnostics: Vec<String>,
+}
+
+pub(crate) fn check_ocr_environment(app: &tauri::AppHandle) -> Result<OcrEnvironment, String> {
+    let python = resolve_python(app)
+        .ok_or_else(|| "Không tìm thấy OCR Python runtime.".to_owned())?;
+    let worker = resolve_worker(app)
+        .ok_or_else(|| "Không tìm thấy backend/subtitle_ocr/worker.py.".to_owned())?;
+    let worker_root = worker_module_root(&worker)
+        .ok_or_else(|| format!("Không xác định được OCR worker root: {}", worker.display()))?;
+
+    let output = configure_command(&python)
+        .arg("-c")
+        .arg("from importlib.metadata import version; import paddle, paddleocr; print('paddlepaddle='+version('paddlepaddle')+';paddleocr='+version('paddleocr'))")
+        .output()
+        .map_err(|error| format!("Không chạy được OCR Python health check: {error}"))?;
+
+    if !output.status.success() {
+        return Err(format!(
+            "OCR Python chưa READY. stderr: {} stdout: {}",
+            String::from_utf8_lossy(&output.stderr).trim(),
+            String::from_utf8_lossy(&output.stdout).trim(),
+        ));
+    }
+
+    let version = String::from_utf8_lossy(&output.stdout).trim().to_owned();
+    Ok(OcrEnvironment {
+        python_path: python.clone(),
+        worker_path: worker.clone(),
+        worker_root,
+        version: version.clone(),
+        diagnostics: vec![
+            format!("Python: {}", python.display()),
+            format!("Worker: {}", worker.display()),
+            format!("Version: {version}"),
+        ],
+    })
 }
 
 fn emit_log(app: &tauri::AppHandle, level: &str, category: &str, message: impl Into<String>) {
@@ -284,12 +374,12 @@ fn parse_timeline(json_text: &str) -> Result<Vec<RecognitionSegment>, String> {
 fn run_recognition_worker(
     app: &tauri::AppHandle,
     python: &Path,
+    worker_root: &Path,
     request: &RecognitionRequest,
 ) -> Result<(String, String, Vec<String>), String> {
-    let root = project_root();
     let mut command = configure_command(python);
     command
-        .current_dir(&root)
+        .current_dir(worker_root)
         .arg("-m")
         .arg("backend.subtitle_ocr.worker")
         .arg(&request.video_path)
@@ -454,22 +544,24 @@ fn start_recognition_blocking(
         return Err(message);
     }
 
-    let python = resolve_python()
-        .ok_or_else(|| "Không tìm thấy OCR Python runtime. Expected ocr-runtime\\venv\\Scripts\\python.exe.".to_owned())?;
-    let worker = resolve_worker()
-        .ok_or_else(|| "Không tìm thấy backend/subtitle_ocr/worker.py.".to_owned())?;
+    let ocr_environment = check_ocr_environment(&app)?;
+    let python = ocr_environment.python_path.clone();
+    let worker = ocr_environment.worker_path.clone();
+    let worker_root = ocr_environment.worker_root.clone();
+
 
     technical_log.push(format!("Python: {}", python.display()));
     technical_log.push(format!("Worker: {}", worker.display()));
     technical_log.push(format!("Worker module: backend.subtitle_ocr.worker"));
-    technical_log.push(format!("Worker cwd: {}", project_root().display()));
+    technical_log.push(format!("Worker cwd: {}", worker_root.display()));
+    technical_log.push(format!("OCR health: {}", ocr_environment.version));
     technical_log.push("OCR runtime contract: PaddleOCR 2.9.1 / PaddlePaddle 3.0.0 / PP-OCRv4".to_owned());
 
     emit_log(&app, "INFO", "RECOGNITION", format!("Python: {}", python.display()));
     emit_log(&app, "INFO", "RECOGNITION", "Recognition Worker starting.");
     emit_progress(&app, "starting", 0, 0, "Starting OCR recognition.");
 
-    let run_result = run_recognition_worker(&app, &python, &request);
+    let run_result = run_recognition_worker(&app, &python, &worker_root, &request);
 
     let (timeline_base_path, stderr_text, stdout_lines) = match run_result {
         Ok(value) => value,
@@ -549,6 +641,30 @@ pub async fn start_recognition(
     app: tauri::AppHandle,
     request: RecognitionRequest,
 ) -> Result<RecognitionResult, String> {
+    let should_prepare = request.source_language == "zh"
+        && matches!(request.mode.as_str(), "subtitle" | "both")
+        && PathBuf::from(&request.video_path).is_file();
+
+    if should_prepare {
+        let check_app = app.clone();
+        let initial = tauri::async_runtime::spawn_blocking(move || check_ocr_environment(&check_app))
+            .await
+            .map_err(|error| format!("OCR environment check bị gián đoạn: {error}"))?;
+
+        if initial.is_err() {
+            emit_log(&app, "INFO", "RUNTIME", "OCR runtime thiếu/hỏng; đang tự động bổ sung.");
+            crate::runtime_manager::provision_runtime_module(app.clone(), "ocr".to_owned())
+                .await
+                .map_err(|error| format!("OCR auto-provision thất bại: {error}"))?;
+
+            let verify_app = app.clone();
+            tauri::async_runtime::spawn_blocking(move || check_ocr_environment(&verify_app))
+                .await
+                .map_err(|error| format!("OCR post-install check bị gián đoạn: {error}"))?
+                .map_err(|error| format!("OCR đã tải nhưng health check chưa PASS: {error}"))?;
+        }
+    }
+
     tauri::async_runtime::spawn_blocking(move || start_recognition_blocking(app, request))
         .await
         .map_err(|error| format!("Recognition task bị gián đoạn: {error}"))?

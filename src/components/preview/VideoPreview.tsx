@@ -1,6 +1,7 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { CSSProperties, Dispatch, PointerEventHandler, RefObject, SetStateAction } from 'react';
 import type { BoxState, Language, SubtitleSegment, UiText } from '../../types';
+import { STAGE_H, STAGE_W } from '../../constants/editor';
 import { formatTimecode } from '../../utils/timecode';
 import { LogoOverlay } from './LogoOverlay';
 import { SubtitleOverlay } from './SubtitleOverlay';
@@ -13,6 +14,7 @@ interface VideoPreviewProps {
   logoInputRef: RefObject<HTMLInputElement | null>;
   logoFile: File | null;
   handleLogoFile: (file: File | null) => void;
+  handleChooseLogo: () => void | Promise<void>;
   sceneRef: RefObject<HTMLDivElement | null>;
   setIsPointerOverPlayer: Dispatch<SetStateAction<boolean>>;
   requestSceneFullscreen: () => void;
@@ -48,6 +50,9 @@ interface VideoPreviewProps {
   endSession: PointerEventHandler<HTMLDivElement>;
   logoUrl: string | null;
   logoBox: BoxState;
+  logoViewportRef: RefObject<HTMLDivElement | null>;
+  setLogoBox: Dispatch<SetStateAction<BoxState>>;
+  clampLogoBox: (value: BoxState) => BoxState;
   logoDragging: boolean;
   logoElementRef: RefObject<HTMLDivElement | null>;
   handleLogoPointerDown: PointerEventHandler<HTMLDivElement>;
@@ -81,13 +86,13 @@ interface VideoPreviewProps {
 export function VideoPreview(props: VideoPreviewProps) {
   const {
     t, language, showSubtitlePanel, setShowSubtitlePanel, logoInputRef, logoFile,
-    handleLogoFile, sceneRef, setIsPointerOverPlayer, requestSceneFullscreen,
+    handleLogoFile, handleChooseLogo, sceneRef, setIsPointerOverPlayer, requestSceneFullscreen,
     videoFile, videoUrl, videoRef, setVideoDuration, setVideoCurrentTime,
     setIsVideoPlaying, addLog, videoTrackVisible, isPointerOverPlayer, isVideoPlaying,
     subtitleFrameVisible, dragging, hasDialogue, subtitleVisible, subtitleDragStyle,
     subtitleColor, subtitleBg, subtitleOpacity, subtitleSize,
     subtitleOutline, subtitleOutlineWidth, subtitleText, subtitleSegments, activeSubtitleIndex, setSubtitleSegments, dragElementRef, subtitleBoxRef,
-    handlePointerDown, handlePointerMove, endSession, logoUrl, logoBox, logoDragging,
+    handlePointerDown, handlePointerMove, endSession, logoUrl, logoBox, setLogoBox, clampLogoBox, logoViewportRef, logoDragging,
     logoElementRef, handleLogoPointerDown, handleLogoPointerMove, endLogoDrag,
     removeLogo, videoCurrentTime, videoDuration, playbackSeekStep, isMuted, setIsMuted,
     timelineMuted, setTimelineMuted, volume, setVolume, setSubtitleFrameVisible,
@@ -97,7 +102,101 @@ export function VideoPreview(props: VideoPreviewProps) {
   } = props;
 
   const subtitlePanelRef = useRef<HTMLDivElement | null>(null);
+  const [videoViewportStyle, setVideoViewportStyle] = useState<CSSProperties>({
+    left: 0,
+    top: 0,
+    width: '100%',
+    height: '100%',
+  });
   const subtitlePanelButtonRef = useRef<HTMLButtonElement | null>(null);
+  const logoPanelRef = useRef<HTMLDivElement | null>(null);
+  const logoPanelButtonRef = useRef<HTMLButtonElement | null>(null);
+  const [showLogoPanel, setShowLogoPanel] = useState(false);
+
+  useEffect(() => {
+    if (!logoUrl) setShowLogoPanel(false);
+  }, [logoUrl]);
+
+  useEffect(() => {
+    if (!showLogoPanel) return;
+
+    const closeLogoPanelWhenPointerIsOutside = (event: PointerEvent) => {
+      const target = event.target;
+      if (!(target instanceof Node)) return;
+      if (logoPanelRef.current?.contains(target)) return;
+      if (logoPanelButtonRef.current?.contains(target)) return;
+      setShowLogoPanel(false);
+    };
+
+    document.addEventListener('pointerdown', closeLogoPanelWhenPointerIsOutside);
+    return () => document.removeEventListener('pointerdown', closeLogoPanelWhenPointerIsOutside);
+  }, [showLogoPanel]);
+
+  useEffect(() => {
+    const scene = sceneRef.current;
+    const video = videoRef.current;
+    if (!scene) return;
+
+    const updateVideoViewport = () => {
+      const sceneWidth = scene.clientWidth;
+      const sceneHeight = scene.clientHeight;
+      if (sceneWidth <= 0 || sceneHeight <= 0) return;
+
+      const sourceWidth = video?.videoWidth || STAGE_W;
+      const sourceHeight = video?.videoHeight || STAGE_H;
+      const sourceRatio = sourceWidth > 0 && sourceHeight > 0
+        ? sourceWidth / sourceHeight
+        : STAGE_W / STAGE_H;
+      const sceneRatio = sceneWidth / sceneHeight;
+      const objectFit = video ? window.getComputedStyle(video).objectFit : 'contain';
+
+      let width = sceneWidth;
+      let height = sceneHeight;
+      let left = 0;
+      let top = 0;
+
+      if (objectFit === 'contain' || objectFit === 'scale-down') {
+        if (sceneRatio > sourceRatio) {
+          height = sceneHeight;
+          width = height * sourceRatio;
+          left = (sceneWidth - width) / 2;
+        } else {
+          width = sceneWidth;
+          height = width / sourceRatio;
+          top = (sceneHeight - height) / 2;
+        }
+      } else if (objectFit === 'cover') {
+        if (sceneRatio > sourceRatio) {
+          width = sceneWidth;
+          height = width / sourceRatio;
+          top = (sceneHeight - height) / 2;
+        } else {
+          height = sceneHeight;
+          width = height * sourceRatio;
+          left = (sceneWidth - width) / 2;
+        }
+      }
+
+      setVideoViewportStyle({ left, top, width, height });
+    };
+
+    updateVideoViewport();
+
+    const observer = new ResizeObserver(updateVideoViewport);
+    observer.observe(scene);
+    if (video) observer.observe(video);
+
+    video?.addEventListener('loadedmetadata', updateVideoViewport);
+    window.addEventListener('resize', updateVideoViewport);
+    document.addEventListener('fullscreenchange', updateVideoViewport);
+
+    return () => {
+      observer.disconnect();
+      video?.removeEventListener('loadedmetadata', updateVideoViewport);
+      window.removeEventListener('resize', updateVideoViewport);
+      document.removeEventListener('fullscreenchange', updateVideoViewport);
+    };
+  }, [sceneRef, videoRef, videoUrl]);
 
   useEffect(() => {
     if (!showSubtitlePanel) return;
@@ -122,7 +221,7 @@ export function VideoPreview(props: VideoPreviewProps) {
             <button
               ref={subtitlePanelButtonRef}
               className={showSubtitlePanel ? 'subtitle-head-btn active' : 'subtitle-head-btn'}
-              onClick={() => setShowSubtitlePanel((v) => !v)}
+              onClick={() => { setShowLogoPanel(false); setShowSubtitlePanel((v) => !v); }}
               aria-pressed={showSubtitlePanel}
               aria-keyshortcuts="Ctrl+Shift+S"
               title={`${t.subtitleCustomize} — Ctrl+Shift+S`}
@@ -130,7 +229,22 @@ export function VideoPreview(props: VideoPreviewProps) {
               <span>▣ {t.subtitleCustomize}</span>
               <kbd>Ctrl&nbsp;Shift&nbsp;S</kbd>
             </button>
-            <button type="button" onClick={() => logoInputRef.current?.click()} title={logoFile ? t.replaceLogo : t.importLogo}>▧ {logoFile ? t.replaceLogo : t.importLogo}</button>
+            <button type="button" onClick={() => void handleChooseLogo()} title={logoFile ? t.replaceLogo : t.importLogo}>▧ {logoFile ? t.replaceLogo : t.importLogo}</button>
+            {logoUrl && (
+              <button
+                ref={logoPanelButtonRef}
+                type="button"
+                className={showLogoPanel ? 'subtitle-head-btn active' : 'subtitle-head-btn'}
+                onClick={() => {
+                  setShowSubtitlePanel(false);
+                  setShowLogoPanel((value) => !value);
+                }}
+                aria-pressed={showLogoPanel}
+                title={t.logoSettings}
+              >
+                <span>◇ {t.logoSettings}</span>
+              </button>
+            )}
           </div>
         </div>
         <input ref={logoInputRef} className="rdvd-hidden-file" type="file" accept="image/*" onChange={(event) => handleLogoFile(event.target.files?.[0] ?? null)} />
@@ -175,12 +289,20 @@ export function VideoPreview(props: VideoPreviewProps) {
               dragElementRef={dragElementRef} subtitleBoxRef={subtitleBoxRef}
               onPointerDown={handlePointerDown} onPointerMove={handlePointerMove} onPointerEnd={endSession}
             />}
-            {videoFile && logoUrl && <LogoOverlay
+            {videoFile && logoUrl && (
+              <div
+                ref={logoViewportRef}
+                className="rdvd-video-overlay-space"
+                style={videoViewportStyle}
+              >
+                <LogoOverlay
               t={t} logoUrl={logoUrl} logoFile={logoFile} logoBox={logoBox}
               logoDragging={logoDragging} logoElementRef={logoElementRef}
               onPointerDown={handleLogoPointerDown} onPointerMove={handleLogoPointerMove}
               onPointerEnd={endLogoDrag} removeLogo={removeLogo}
-            />}
+            />
+              </div>
+            )}
           </div>
           <div className="rdvd-controls">
             <span>{formatTimecode(videoCurrentTime)} / {formatTimecode(videoDuration)}</span>
@@ -255,6 +377,72 @@ export function VideoPreview(props: VideoPreviewProps) {
             <div className="rdvd-panel-row"><label>{t.fontStyle}</label><div className="rdvd-fixed-font">AI RDvD Review · Vietnamese</div></div>
             <div className="rdvd-panel-row"><label>{t.outline}</label><div className="dual-input"><select value={subtitleOutline ? 'yes' : 'no'} onChange={(e) => setSubtitleOutline(e.target.value === 'yes')}><option value="yes">{t.yes}</option><option value="no">{t.no}</option></select><input type="number" min="0" max="10" value={subtitleOutlineWidth} onChange={(e) => setSubtitleOutlineWidth(Number(e.target.value) || 0)} /></div></div>
             <button className="rdvd-reset-subtitle" onClick={resetSubtitleDefaults}>{t.resetSubtitle}</button>
+          </div>
+        )}
+        {showLogoPanel && logoUrl && (
+          <div ref={logoPanelRef} className="rdvd-subtitle-panel rdvd-logo-settings-panel">
+            <div className="rdvd-panel-head">
+              <span>{t.logoSettings}</span>
+              <button aria-label={t.closePanel} title={t.closePanel} onClick={() => setShowLogoPanel(false)}>×</button>
+            </div>
+            <div className="rdvd-panel-row">
+              <label>{t.logoPosition}</label>
+              <div className="dual-input">
+                <input
+                  type="number"
+                  value={Math.round(logoBox.x * 100) / 100}
+                  onChange={(event) => {
+                    const value = Number(event.target.value);
+                    if (!Number.isFinite(value)) return;
+                    setLogoBox((current) => clampLogoBox({ ...current, x: value }));
+                  }}
+                />
+                <input
+                  type="number"
+                  value={Math.round(logoBox.y * 100) / 100}
+                  onChange={(event) => {
+                    const value = Number(event.target.value);
+                    if (!Number.isFinite(value)) return;
+                    setLogoBox((current) => clampLogoBox({ ...current, y: value }));
+                  }}
+                />
+              </div>
+            </div>
+            <div className="rdvd-panel-row">
+              <label>{t.logoSize}</label>
+              <div className="dual-input">
+                <input
+                  type="number"
+                  min="40"
+                  value={Math.round(logoBox.w * 100) / 100}
+                  onChange={(event) => {
+                    const value = Number(event.target.value);
+                    if (!Number.isFinite(value)) return;
+                    setLogoBox((current) => clampLogoBox({ ...current, w: value }));
+                  }}
+                />
+                <input
+                  type="number"
+                  min="24"
+                  value={Math.round(logoBox.h * 100) / 100}
+                  onChange={(event) => {
+                    const value = Number(event.target.value);
+                    if (!Number.isFinite(value)) return;
+                    setLogoBox((current) => clampLogoBox({ ...current, h: value }));
+                  }}
+                />
+              </div>
+            </div>
+            <button
+              type="button"
+              className="rdvd-reset-subtitle"
+              onClick={() => {
+                setShowLogoPanel(false);
+                removeLogo();
+              }}
+            >
+              {t.removeLogo}
+            </button>
           </div>
         )}
       </div>
