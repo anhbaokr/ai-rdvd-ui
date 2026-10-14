@@ -3,8 +3,8 @@
 **Application:** AI RDvD  
 **Repository:** `anhbaokr/ai-rdvd-ui`  
 **Current app version:** `0.1.5`  
-**Audited code baseline:** `99cb1c2` — `fix: secure payment activation and license renewal flow`  
-**Baseline checkpoint tag already existing:** `checkpoint/payment-security-2026-10-10`  
+**Pre-SECURITY-10D audited baseline:** `213aa37` â€” `security: harden offline entitlement and access flow`
+**Pre-SECURITY-10D checkpoint:** `checkpoint/security-offline-entitlement-2026-10-14`
 **Documentation scope:** full Desktop application workflow, runtime architecture, business rules, completed / partial / missing functionality, security invariants, technical debt, and recommended next changes.
 
 > This document replaces the old short V47 README as the main operational baseline for future AI RDvD Desktop development. Historical V45–V47 notes remain under `docs/history/readme/` for reference.
@@ -1616,3 +1616,187 @@ Important historical milestones include:
 - V47 Vocalize/Hachimi Chinese → Vietnamese translation worker.
 
 This README is now the primary current-state document; historical READMEs should be treated as implementation history, not the current source of truth.
+---
+
+## 38. Current state update â€” 2026-10-14
+
+This section supersedes older status statements elsewhere in this README when they conflict with current source. Historical sections are intentionally retained for development context.
+
+### 38.1 Current audited baseline
+
+```text
+Pre-SECURITY-10D HEAD:
+213aa37 â€” security: harden offline entitlement and access flow
+
+Checkpoint:
+checkpoint/security-offline-entitlement-2026-10-14
+
+Application version:
+0.1.5
+```
+
+### 38.2 Render / runtime status
+
+The earlier README sections that describe final render/export as missing are now historical.
+
+Current source includes a real Rust/FFmpeg render path with:
+
+- MP4 output,
+- H.264 video,
+- AAC audio,
+- native source/output path validation,
+- typed render settings,
+- subtitle rendering,
+- logo overlay,
+- progress events,
+- cancellation,
+- temporary output before finalization,
+- duplicate-job/output protection,
+- render environment preflight,
+- open/reveal output actions.
+
+Runtime infrastructure also includes FFmpeg/module auto-provision support with HTTPS download, SHA-256 checking, size checks, staging, atomic activation and rollback safeguards.
+
+The product is still not a complete non-linear editor: durable project graph, real cut/split/trim operations, effects/transitions, advanced ducking and some generalized A1/A2 mixing remain future work.
+
+### 38.3 License / access security status
+
+Security milestones:
+
+```text
+SECURITY-10A  DONE
+Server-issued signed offline entitlement
+
+SECURITY-10B  DONE
+Rust RS256 entitlement verifier with pinned public key
+
+SECURITY-10C  DONE
+Windows DPAPI protection for the local license token
+
+SECURITY-10D  DONE + E2E PASS
+Rust-authoritative offline authorization
+
+SECURITY-10E  NEXT
+Trusted-time / clock-rollback hardening
+
+SECURITY-10F  NEXT
+Local-state schema migration and cleanup
+```
+
+Current SECURITY-10D architecture:
+
+```text
+online verification
+  â†“
+backend returns signed offline_entitlement
+  â†“
+Rust verifies:
+  RS256 signature
+  pinned key
+  machine_id
+  device_fingerprint
+  ACTIVE status
+  license expiry
+  offline grace
+  â†“
+verified entitlement is saved with local snapshot
+```
+
+When online verification is unavailable:
+
+```text
+local signed entitlement
+  â†“
+Rust verify_offline_entitlement
+  â”œâ”€â”€ reject â†’ no offline authorization
+  â””â”€â”€ verify â†’ ACTIVE during the signed grace window
+```
+
+Mutable frontend/local values such as `Date.now()`, `offlineGraceUntilMs` and stored `license.status` are no longer sufficient to grant offline access.
+
+The local license token remains protected using Windows DPAPI (`dpapi:v1:`), including migration from legacy plaintext state.
+
+Free Hour access remains server-authoritative and does not gain a fabricated local grant when network/server checks fail.
+
+### 38.4 SECURITY-10D validation record
+
+Final automated validation before commit:
+
+```text
+git diff --check                         PASS
+npm run build                            PASS
+SECURITY-10D static assertions           PASS â€” 14/14
+cargo test offline_entitlement           PASS â€” 5/5
+cargo test                               PASS â€” 11/11
+cargo check                              PASS
+```
+
+Behavioral E2E validation:
+
+```text
+Online ACTIVE license                    PASS
+Backend issued offline_entitlement       PASS
+Rust verified entitlement before save    PASS
+Valid signed entitlement while offline   PASS
+Tampered signature while offline         PASS â€” rejected / fail-closed
+```
+
+Observed valid offline event:
+
+```text
+OFFLINE_ENTITLEMENT_ACTIVE
+```
+
+Observed tamper event:
+
+```text
+OFFLINE_ENTITLEMENT_REJECTED
+```
+
+A tampered entitlement signature keeps the workspace locked.
+
+Not re-run as part of this specific SECURITY-10D validation:
+
+- a new real bank-transfer purchase,
+- a new full renewal purchase,
+- cross-machine replay on a second physical machine,
+- waiting in real time for the full 72-hour grace boundary.
+
+Those remain release/regression cases rather than claims of this patch.
+
+### 38.5 Next security work
+
+After SECURITY-10D:
+
+1. SECURITY-10E â€” trusted-time / clock-rollback defense.
+2. SECURITY-10F â€” versioned local-state migration and cleanup.
+3. Add native entitlement enforcement before valuable Rust operations such as recognition, translation, TTS and render/export.
+4. Review `claimTrial` against the protected Desktop-HMAC action list before exposing direct claim UI.
+5. Consolidate security regression scripts into repository-owned tests.
+
+### 38.6 Repository mutation rule
+
+Project workflow remains:
+
+```text
+audit
+â†’ local patch
+â†’ build/test
+â†’ PASS
+â†’ explicit staging
+â†’ commit/tag/push only with user approval
+```
+
+Do not use `git restore`, `reset`, `clean` or `stash` as part of the normal patch workflow.
+
+Do not automatically stage local runtime/log/backup artifacts such as:
+
+```text
+R7-2-MSI-build-log.txt
+R7-2-ffmpeg-packaging-snapshot.txt
+R7-3-runtime-bootstrap-snapshot.txt
+R7-4-ffmpeg-auto-provision-snapshot.txt
+R7-5-module-auto-provision-snapshot.txt
+runtime/ffmpeg/
+src-tauri/src/donation - Copy.rs
+```

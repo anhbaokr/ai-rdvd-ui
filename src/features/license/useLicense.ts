@@ -6,9 +6,14 @@ import {
   getLocalLicenseState,
   getMachineIdentity,
   saveLicenseState,
+  verifyOfflineEntitlement,
 } from './licenseService';
 import { OFFLINE_GRACE_MS } from './licensePolicy';
-import type { LicenseRecord } from './licenseContracts';
+import type {
+  LicenseRecord,
+  OfflineEntitlementEnvelope,
+  OfflineEntitlementVerification,
+} from './licenseContracts';
 
 export type LicenseGateStatus =
   | 'CHECKING'
@@ -41,36 +46,56 @@ function errorMessage(cause: unknown): string {
   return cause instanceof Error ? cause.message : String(cause);
 }
 
-function offlineGraceDecision(
-  localState: Awaited<ReturnType<typeof getLocalLicenseState>>,
-  machineId: string,
-): { status: 'ACTIVE' | 'EXPIRED' | 'UNAVAILABLE'; license?: Omit<LicenseRecord, 'license_token'> } {
-  if (!localState || localState.schemaVersion < 2 || !localState.license) {
-    return { status: 'UNAVAILABLE' };
-  }
-
-  if (localState.machineId && localState.machineId !== machineId) {
-    return { status: 'UNAVAILABLE' };
-  }
-
-  const now = Date.now();
-  const graceUntil = Number(localState.offlineGraceUntilMs);
-  if (!Number.isFinite(graceUntil) || now >= graceUntil) {
-    return { status: 'UNAVAILABLE' };
-  }
-
-  const expiresAtMs = Date.parse(localState.license.expires_at);
-  if (!Number.isFinite(expiresAtMs) || now >= expiresAtMs) {
-    return { status: 'EXPIRED', license: localState.license };
-  }
-
-  if (localState.license.status !== 'ACTIVE') {
-    return { status: 'UNAVAILABLE' };
-  }
-
-  return { status: 'ACTIVE', license: localState.license };
+function entitlementFrom(
+  ...candidates: Array<OfflineEntitlementEnvelope | undefined | null>
+): OfflineEntitlementEnvelope | null {
+  return candidates.find(Boolean) ?? null;
 }
 
+function isOfflineExpiryError(message: string): boolean {
+  const normalized = message.toLowerCase();
+  return (
+    normalized.includes('hết offline grace') ||
+    normalized.includes('đã hết hạn') ||
+    normalized.includes('license trong offline entitlement đã hết hạn')
+  );
+}
+
+function assertLocalSnapshotMatchesVerifiedEntitlement(
+  license: Omit<LicenseRecord, 'license_token'>,
+  verification: OfflineEntitlementVerification,
+  expectedMachineId: string,
+): void {
+  if (license.machine_id !== expectedMachineId) {
+    throw new Error('OFFLINE_LOCAL_MACHINE_ID_MISMATCH');
+  }
+  if (license.status !== 'ACTIVE') {
+    throw new Error('OFFLINE_LOCAL_STATUS_MISMATCH');
+  }
+  if (license.license_id !== verification.licenseId) {
+    throw new Error('OFFLINE_LOCAL_LICENSE_ID_MISMATCH');
+  }
+  if (license.order_id && verification.orderId && license.order_id !== verification.orderId) {
+    throw new Error('OFFLINE_LOCAL_ORDER_ID_MISMATCH');
+  }
+  if (license.package !== verification.package) {
+    throw new Error('OFFLINE_LOCAL_PACKAGE_MISMATCH');
+  }
+  if (typeof verification.licenseExpiresAtMs === 'number') {
+    const localExpiryMs = Date.parse(license.expires_at);
+    if (!Number.isFinite(localExpiryMs) || localExpiryMs !== verification.licenseExpiresAtMs) {
+      throw new Error('OFFLINE_LOCAL_EXPIRY_MISMATCH');
+    }
+  }
+}
+
+/**
+ * SECURITY-10D:
+ * Offline authorization is Rust-authoritative.
+ *
+ * TypeScript never grants offline ACTIVE from local timestamps/status alone.
+ * The only offline path to ACTIVE is a signed entitlement accepted by Rust.
+ */
 export function useLicense(addLog: (message: string, category?: string) => void) {
   const [state, setState] = useState<LicenseGateState>({
     status: 'CHECKING',
@@ -87,22 +112,48 @@ export function useLicense(addLog: (message: string, category?: string) => void)
     let machineId: string | null = null;
     setState((current) => ({ ...current, status: 'CHECKING', error: null }));
 
-    const activateFromVerifiedLicense = async (
+    const persistVerifiedOnlineLicense = async (
       token: string,
       identityMachineId: string,
       license: Omit<LicenseRecord, 'license_token'>,
+      entitlement: OfflineEntitlementEnvelope | null,
     ) => {
       const verifiedAtMs = Date.now();
-      const offlineGraceUntilMs = verifiedAtMs + OFFLINE_GRACE_MS;
+      const persistedLicenseBase = { ...license };
+      delete persistedLicenseBase.offline_entitlement;
+      let persistedLicense: Omit<LicenseRecord, 'license_token'> = persistedLicenseBase;
+      let offlineGraceUntilMs = verifiedAtMs + OFFLINE_GRACE_MS;
+
+      if (entitlement) {
+        try {
+          const verification = await verifyOfflineEntitlement(entitlement);
+          assertLocalSnapshotMatchesVerifiedEntitlement(license, verification, identityMachineId);
+
+          persistedLicense = {
+            ...license,
+            offline_entitlement: entitlement,
+          };
+          offlineGraceUntilMs = verification.offlineGraceExpiresAtMs;
+          addLog('OFFLINE_ENTITLEMENT_VERIFIED_AND_SAVED', 'LICENSE');
+        } catch (cause) {
+          // Online authorization remains server-authoritative. If the signed
+          // offline entitlement is invalid, online use continues but offline
+          // authorization is intentionally disabled for this snapshot.
+          addLog(`OFFLINE_ENTITLEMENT_SAVE_REJECTED: ${errorMessage(cause)}`, 'LICENSE');
+        }
+      } else {
+        addLog('OFFLINE_ENTITLEMENT_NOT_ISSUED', 'LICENSE');
+      }
+
       try {
         await saveLicenseState({
           licenseToken: token,
           machineId: identityMachineId,
           lastVerifiedAtMs: verifiedAtMs,
           offlineGraceUntilMs,
-          license,
+          license: persistedLicense,
         });
-        addLog('OFFLINE_GRACE_SAVED', 'LICENSE');
+        addLog('LOCAL_LICENSE_STATE_SAVED', 'LICENSE');
       } catch (cause) {
         addLog(`LOCAL_STATE_SAVE_FAILED: ${errorMessage(cause)}`, 'LICENSE');
       }
@@ -183,7 +234,19 @@ export function useLicense(addLog: (message: string, category?: string) => void)
         const status = classifyLicenseError(activation.error, activation.license?.status);
         if ((activation.error ?? '').toUpperCase().includes('DEVICE_ALREADY_ACTIVE')) {
           const activeLicense = activation.license ?? checkResponse.license;
-          await activateFromVerifiedLicense(localState.licenseToken, identity.machineId, activeLicense);
+          const entitlement = entitlementFrom(
+            activation.offline_entitlement,
+            activeLicense.offline_entitlement,
+            checkResponse.offline_entitlement,
+            checkResponse.license.offline_entitlement,
+          );
+
+          await persistVerifiedOnlineLicense(
+            localState.licenseToken,
+            identity.machineId,
+            activeLicense,
+            entitlement,
+          );
           addLog('ACTIVATION_ACTIVE', 'LICENSE');
           setState({
             status: 'ACTIVE',
@@ -205,7 +268,19 @@ export function useLicense(addLog: (message: string, category?: string) => void)
       }
 
       const activeLicense = activation.license ?? checkResponse.license;
-      await activateFromVerifiedLicense(localState.licenseToken, identity.machineId, activeLicense);
+      const entitlement = entitlementFrom(
+        activation.offline_entitlement,
+        activeLicense.offline_entitlement,
+        checkResponse.offline_entitlement,
+        checkResponse.license.offline_entitlement,
+      );
+
+      await persistVerifiedOnlineLicense(
+        localState.licenseToken,
+        identity.machineId,
+        activeLicense,
+        entitlement,
+      );
       addLog('ACTIVATION_ACTIVE', 'LICENSE');
       setState({
         status: 'ACTIVE',
@@ -218,27 +293,48 @@ export function useLicense(addLog: (message: string, category?: string) => void)
       const message = errorMessage(cause);
 
       if (stage !== 'local' && machineId) {
-        const offline = offlineGraceDecision(localState, machineId);
-        if (offline.status === 'EXPIRED') {
-          addLog('OFFLINE_LICENSE_EXPIRED', 'LICENSE');
-          setState({
-            status: 'EXPIRED',
-            machineId,
-            license: offline.license ?? null,
-            error: 'License đã hết hạn.',
-          });
-          return;
+        const localLicense = localState?.license;
+        const entitlement = localLicense?.offline_entitlement;
+
+        if (localLicense && entitlement) {
+          try {
+            const verification = await verifyOfflineEntitlement(entitlement);
+            if (requestId !== requestIdRef.current) return;
+
+            assertLocalSnapshotMatchesVerifiedEntitlement(localLicense, verification, machineId);
+            addLog('OFFLINE_ENTITLEMENT_ACTIVE', 'LICENSE');
+            setState({
+              status: 'ACTIVE',
+              machineId,
+              license: localLicense,
+              error: null,
+            });
+            return;
+          } catch (offlineCause) {
+            const offlineMessage = errorMessage(offlineCause);
+            addLog(`OFFLINE_ENTITLEMENT_REJECTED: ${offlineMessage}`, 'LICENSE');
+
+            if (isOfflineExpiryError(offlineMessage)) {
+              setState({
+                status: 'EXPIRED',
+                machineId,
+                license: localLicense,
+                error: offlineMessage,
+              });
+              return;
+            }
+
+            setState({
+              status: 'INVALID',
+              machineId,
+              license: localLicense,
+              error: offlineMessage,
+            });
+            return;
+          }
         }
-        if (offline.status === 'ACTIVE' && offline.license) {
-          addLog('OFFLINE_GRACE_ACTIVE', 'LICENSE');
-          setState({
-            status: 'ACTIVE',
-            machineId,
-            license: offline.license,
-            error: null,
-          });
-          return;
-        }
+
+        addLog('OFFLINE_ENTITLEMENT_UNAVAILABLE', 'LICENSE');
       }
 
       if (stage === 'local') {

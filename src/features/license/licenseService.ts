@@ -5,6 +5,8 @@ import type {
   ActivateDeviceResponse,
   CheckLicenseResponse,
   LicenseRecord,
+  OfflineEntitlementEnvelope,
+  OfflineEntitlementVerification,
 } from './licenseContracts';
 
 async function post<T>(action: string, data: Record<string, unknown> = {}): Promise<T> {
@@ -55,6 +57,18 @@ export async function getMachineIdentity(): Promise<MachineIdentity> {
 
 export async function getLocalLicenseState(): Promise<LocalLicenseState | null> {
   return await invoke<LocalLicenseState | null>('get_local_license_state');
+}
+
+/**
+ * SECURITY-10D authority boundary.
+ * TypeScript transports the signed entitlement; Rust alone verifies it.
+ */
+export async function verifyOfflineEntitlement(
+  entitlement: OfflineEntitlementEnvelope,
+): Promise<OfflineEntitlementVerification> {
+  return await invoke<OfflineEntitlementVerification>('verify_offline_entitlement', {
+    entitlement,
+  });
 }
 
 export async function saveLicenseState(state: {
