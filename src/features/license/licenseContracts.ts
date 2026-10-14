@@ -4,6 +4,26 @@
  * Desktop chỉ làm client của backend. Không tự quyết định trạng thái License.
  */
 
+export interface OfflineEntitlementEnvelope {
+  version: number;
+  alg: string;
+  key_id: string;
+  payload: string;
+  signature: string;
+}
+
+export interface OfflineEntitlementVerification {
+  valid: boolean;
+  keyId: string;
+  licenseId: string;
+  orderId: string;
+  package: string;
+  issuedAtMs: number;
+  offlineGraceExpiresAtMs: number;
+  licenseExpiresAt: string;
+  licenseExpiresAtMs?: number | null;
+}
+
 export interface LicenseRecord {
   license_id: string;
   order_id: string;
@@ -16,6 +36,11 @@ export interface LicenseRecord {
   package_name?: string;
   device_limit?: number;
   license_token?: string;
+  /**
+   * Signed server-issued entitlement used only for offline authorization.
+   * Desktop must never treat this object as trusted until Rust verifies it.
+   */
+  offline_entitlement?: OfflineEntitlementEnvelope;
 }
 
 export interface CreateLicenseResponse {
@@ -23,12 +48,14 @@ export interface CreateLicenseResponse {
   duplicate?: boolean;
   message?: string;
   license?: LicenseRecord;
+  offline_entitlement?: OfflineEntitlementEnvelope;
   error?: string;
 }
 
 export interface CheckLicenseResponse {
   success: boolean;
   license?: Omit<LicenseRecord, 'license_token'>;
+  offline_entitlement?: OfflineEntitlementEnvelope;
   error?: string;
 }
 
@@ -46,6 +73,7 @@ export interface ActivateDeviceResponse {
   message?: string;
   device?: ActivateDeviceRecord;
   license?: Omit<LicenseRecord, 'license_token'>;
+  offline_entitlement?: OfflineEntitlementEnvelope;
   device_count?: number;
   device_limit?: number;
   error?: string;
