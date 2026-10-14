@@ -3,6 +3,7 @@ use std::{
     time::{Instant, SystemTime, UNIX_EPOCH},
 };
 
+use chrono::DateTime;
 use reqwest::Client;
 use serde::Deserialize;
 use serde_json::Value;
@@ -216,6 +217,114 @@ fn append_payment_log(app: &tauri::AppHandle, lines: Vec<String>) {
     let _ = crate::append_log_lines(app, &lines);
 }
 
+fn is_license_time_sync_action(action: &str) -> bool {
+    matches!(action, "checkLicense" | "activateDevice")
+}
+
+fn response_date_ms(response: &reqwest::Response) -> Option<u64> {
+    let value = response.headers().get(reqwest::header::DATE)?.to_str().ok()?;
+    let parsed = DateTime::parse_from_rfc2822(value).ok()?;
+    let millis = parsed.timestamp_millis();
+
+    if millis <= 0 {
+        return None;
+    }
+
+    Some(millis as u64)
+}
+
+fn response_offline_entitlement(text: &str) -> Option<Value> {
+    let response = serde_json::from_str::<Value>(text).ok()?;
+
+    response
+        .get("offline_entitlement")
+        .filter(|value| !value.is_null())
+        .cloned()
+        .or_else(|| {
+            response
+                .get("license")
+                .and_then(|license| license.get("offline_entitlement"))
+                .filter(|value| !value.is_null())
+                .cloned()
+        })
+}
+
+fn sync_trusted_time_from_signed_entitlement(
+    app: &tauri::AppHandle,
+    action: &str,
+    response_text: &str,
+) {
+    if !is_license_time_sync_action(action) {
+        return;
+    }
+
+    let Some(entitlement) = response_offline_entitlement(response_text) else {
+        return;
+    };
+
+    let machine_id = match crate::license::machine_id_value() {
+        Ok(value) => value,
+        Err(error) => {
+            append_payment_log(
+                app,
+                vec![
+                    "TRUSTED TIME — FALLBACK REJECTED".to_owned(),
+                    format!("Action: {action}"),
+                    format!("Error: {error}"),
+                ],
+            );
+            return;
+        }
+    };
+
+    let device_fingerprint = match crate::license::device_fingerprint_value() {
+        Ok(value) => value,
+        Err(error) => {
+            append_payment_log(
+                app,
+                vec![
+                    "TRUSTED TIME — FALLBACK REJECTED".to_owned(),
+                    format!("Action: {action}"),
+                    format!("Error: {error}"),
+                ],
+            );
+            return;
+        }
+    };
+
+    match crate::offline_entitlement::trusted_issued_at_ms(
+        entitlement,
+        &machine_id,
+        &device_fingerprint,
+    ) {
+        Ok(issued_at_ms) => match crate::trusted_time::observe_server_time(app, issued_at_ms) {
+            Ok(()) => append_payment_log(
+                app,
+                vec![
+                    "TRUSTED TIME — SIGNED ENTITLEMENT SYNCED".to_owned(),
+                    format!("Action: {action}"),
+                ],
+            ),
+            Err(error) => append_payment_log(
+                app,
+                vec![
+                    "TRUSTED TIME — FALLBACK SAVE FAILED".to_owned(),
+                    format!("Action: {action}"),
+                    format!("Error: {error}"),
+                ],
+            ),
+        },
+        Err(error) => append_payment_log(
+            app,
+            vec![
+                "TRUSTED TIME — SIGNED ENTITLEMENT REJECTED".to_owned(),
+                format!("Action: {action}"),
+                format!("Error: {error}"),
+            ],
+        ),
+    }
+}
+
 fn validate_url(url: &str) -> Result<(), String> {
     let parsed = reqwest::Url::parse(url)
         .map_err(|error| format!("URL Payment Gateway không hợp lệ: {error}"))?;
@@ -360,6 +469,7 @@ pub async fn payment_gateway_post(
     };
 
     let status = response.status();
+    let trusted_response_date_ms = response_date_ms(&response);
     let final_host = response
         .url()
         .host_str()
@@ -387,6 +497,28 @@ pub async fn payment_gateway_post(
         return Err(message);
     }
 
+    if is_license_time_sync_action(&action) {
+        if let Some(server_time_ms) = trusted_response_date_ms {
+            match crate::trusted_time::observe_server_time(&app, server_time_ms) {
+                Ok(()) => append_payment_log(
+                    &app,
+                    vec![
+                        "TRUSTED TIME — HTTPS DATE SYNCED".to_owned(),
+                        format!("Action: {action}"),
+                    ],
+                ),
+                Err(error) => append_payment_log(
+                    &app,
+                    vec![
+                        "TRUSTED TIME — HTTPS DATE SAVE FAILED".to_owned(),
+                        format!("Action: {action}"),
+                        format!("Error: {error}"),
+                    ],
+                ),
+            }
+        }
+    }
+
     let text = match response.text().await {
         Ok(text) => text,
         Err(error) => {
@@ -406,6 +538,10 @@ pub async fn payment_gateway_post(
             return Err(message);
         }
     };
+
+    if trusted_response_date_ms.is_none() {
+        sync_trusted_time_from_signed_entitlement(&app, &action, &text);
+    }
 
     if !status.is_success() {
         let message = format!("Payment Gateway HTTP {status}: {text}");

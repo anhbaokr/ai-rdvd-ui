@@ -229,18 +229,95 @@ fn verify_with_context(
     })
 }
 
-pub(crate) fn verify_offline_entitlement(
+fn untrusted_issued_at_ms(entitlement: &Value) -> Result<u64, String> {
+    let envelope = serde_json::from_value::<OfflineEntitlementEnvelope>(entitlement.clone())
+        .map_err(|error| format!("Offline entitlement envelope không hợp lệ: {error}"))?;
+
+    if envelope.payload.is_empty() || envelope.payload.len() > MAX_ENCODED_PAYLOAD_BYTES {
+        return Err("Offline entitlement payload có kích thước không hợp lệ.".to_owned());
+    }
+
+    let payload_bytes = URL_SAFE_NO_PAD
+        .decode(envelope.payload.as_bytes())
+        .map_err(|_| "Không giải mã được offline entitlement payload dạng base64url.".to_owned())?;
+
+    if payload_bytes.is_empty() || payload_bytes.len() > MAX_ENCODED_PAYLOAD_BYTES {
+        return Err("Offline entitlement payload sau giải mã có kích thước không hợp lệ.".to_owned());
+    }
+
+    let payload = serde_json::from_slice::<OfflineEntitlementPayload>(&payload_bytes)
+        .map_err(|error| format!("Offline entitlement payload JSON không hợp lệ: {error}"))?;
+
+    if payload.issued_at_ms == 0 {
+        return Err("Offline entitlement issued_at_ms không hợp lệ.".to_owned());
+    }
+
+    Ok(payload.issued_at_ms)
+}
+
+fn trusted_issued_at_ms_with_context(
     entitlement: Value,
     expected_machine_id: &str,
     expected_device_fingerprint: &str,
+    public_key_pem: &str,
+    expected_key_id: &str,
+) -> Result<u64, String> {
+    // Decode issued_at only as an untrusted candidate, then verify the complete
+    // signed entitlement with that timestamp as the temporal reference. The
+    // returned value is trusted only after RS256 + binding + entitlement rules pass.
+    let issued_at_ms = untrusted_issued_at_ms(&entitlement)?;
+    let verification = verify_with_context(
+        entitlement,
+        expected_machine_id,
+        expected_device_fingerprint,
+        issued_at_ms,
+        public_key_pem,
+        expected_key_id,
+    )?;
+    Ok(verification.issued_at_ms)
+}
+
+pub(crate) fn trusted_issued_at_ms(
+    entitlement: Value,
+    expected_machine_id: &str,
+    expected_device_fingerprint: &str,
+) -> Result<u64, String> {
+    trusted_issued_at_ms_with_context(
+        entitlement,
+        expected_machine_id,
+        expected_device_fingerprint,
+        OFFLINE_ENTITLEMENT_PUBLIC_KEY_PEM,
+        OFFLINE_ENTITLEMENT_KEY_ID,
+    )
+}
+
+pub(crate) fn verify_offline_entitlement_at(
+    entitlement: Value,
+    expected_machine_id: &str,
+    expected_device_fingerprint: &str,
+    now_ms: u64,
 ) -> Result<OfflineEntitlementVerification, String> {
     verify_with_context(
         entitlement,
         expected_machine_id,
         expected_device_fingerprint,
-        current_time_ms()?,
+        now_ms,
         OFFLINE_ENTITLEMENT_PUBLIC_KEY_PEM,
         OFFLINE_ENTITLEMENT_KEY_ID,
+    )
+}
+
+#[allow(dead_code)]
+pub(crate) fn verify_offline_entitlement(
+    entitlement: Value,
+    expected_machine_id: &str,
+    expected_device_fingerprint: &str,
+) -> Result<OfflineEntitlementVerification, String> {
+    verify_offline_entitlement_at(
+        entitlement,
+        expected_machine_id,
+        expected_device_fingerprint,
+        current_time_ms()?,
     )
 }
 
@@ -342,6 +419,37 @@ jQIDAQAB
             TEST_KEY_ID,
         )
         .expect_err("tampered payload must fail signature verification");
+
+        assert!(error.contains("signature"));
+    }
+
+    #[test]
+    fn signed_fixture_yields_trusted_issued_at() {
+        let issued_at_ms = trusted_issued_at_ms_with_context(
+            valid_entitlement(),
+            TEST_MACHINE_ID,
+            TEST_DEVICE_FP,
+            TEST_PUBLIC_KEY_PEM,
+            TEST_KEY_ID,
+        )
+        .expect("valid signed entitlement must yield trusted issued_at");
+
+        assert_eq!(issued_at_ms, 1_730_000_000_000);
+    }
+
+    #[test]
+    fn tampered_fixture_cannot_seed_trusted_time() {
+        let mut entitlement = valid_entitlement();
+        entitlement["signature"] = Value::String(format!("A{}", TEST_SIGNATURE));
+
+        let error = trusted_issued_at_ms_with_context(
+            entitlement,
+            TEST_MACHINE_ID,
+            TEST_DEVICE_FP,
+            TEST_PUBLIC_KEY_PEM,
+            TEST_KEY_ID,
+        )
+        .expect_err("tampered entitlement must not seed trusted time");
 
         assert!(error.contains("signature"));
     }

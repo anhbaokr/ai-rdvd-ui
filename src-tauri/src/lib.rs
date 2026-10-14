@@ -16,6 +16,7 @@ use tauri::{Emitter, Manager};
 
 mod donation;
 mod dpapi;
+mod trusted_time;
 
 mod license;
 mod offline_entitlement;

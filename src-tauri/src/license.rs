@@ -262,16 +262,22 @@ pub fn get_machine_id() -> Result<MachineIdentity, String> {
 
 #[tauri::command]
 pub fn verify_offline_entitlement(
+    app: AppHandle,
     entitlement: Value,
 ) -> Result<crate::offline_entitlement::OfflineEntitlementVerification, String> {
     let machine_id = machine_id_value()?;
     let device_fingerprint = device_fingerprint_value()?;
+    let guarded_now_ms = crate::trusted_time::guarded_now_ms(&app)?;
 
-    crate::offline_entitlement::verify_offline_entitlement(
+    let verification = crate::offline_entitlement::verify_offline_entitlement_at(
         entitlement,
         &machine_id,
         &device_fingerprint,
-    )
+        guarded_now_ms,
+    )?;
+
+    crate::trusted_time::observe_verified_now(&app, guarded_now_ms)?;
+    Ok(verification)
 }
 
 #[tauri::command]
