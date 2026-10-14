@@ -15,8 +15,10 @@ use std::{
 use tauri::{Emitter, Manager};
 
 mod donation;
+mod dpapi;
 
 mod license;
+mod offline_entitlement;
 mod payment_gateway;
 mod payment;
 
@@ -1396,6 +1398,7 @@ pub fn run() {
             license::save_license_state,
             license::save_license_token,
             license::clear_license_token,
+            license::verify_offline_entitlement,
             payment::generate_payment_qr,
             payment_gateway::payment_gateway_post
         ])

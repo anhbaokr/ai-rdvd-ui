@@ -1,7 +1,8 @@
+use crate::dpapi::{is_protected_value, protect_string, unprotect_string};
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use sha2::{Digest, Sha256};
-use std::{fs, path::PathBuf, process::Command};
+use std::{fs, path::PathBuf, process::Command, sync::OnceLock};
 use tauri::{AppHandle, Manager};
 
 #[derive(Debug, Serialize)]
@@ -49,11 +50,134 @@ fn read_machine_guid() -> Result<String, String> {
     }
 }
 
+
+static MACHINE_ID_CACHE: OnceLock<String> = OnceLock::new();
+static DEVICE_FINGERPRINT_CACHE: OnceLock<String> = OnceLock::new();
+
+fn license_sha256_hex(value: &str) -> String {
+    Sha256::digest(value.as_bytes())
+        .iter()
+        .map(|byte| format!("{byte:02x}"))
+        .collect::<String>()
+}
+
+fn normalize_hardware_fingerprint_source(raw: &str) -> String {
+    raw.split('|')
+        .filter_map(|item| {
+            let item = item.trim().to_ascii_lowercase();
+            let (label, value) = item.split_once('=')?;
+            let value = value.split_whitespace().collect::<Vec<_>>().join(" ");
+
+            if value.is_empty() {
+                return None;
+            }
+
+            let rejected = [
+                "to be filled by o.e.m.",
+                "default string",
+                "system serial number",
+                "unknown",
+                "none",
+                "not specified",
+                "00000000-0000-0000-0000-000000000000",
+            ];
+
+            if rejected.iter().any(|candidate| value == *candidate) {
+                return None;
+            }
+
+            Some(format!("{}={}", label.trim(), value))
+        })
+        .collect::<Vec<_>>()
+        .join("|")
+}
+
+#[cfg(windows)]
+fn read_hardware_fingerprint_source() -> Result<String, String> {
+    let script = r#"
+$ErrorActionPreference = 'SilentlyContinue'
+$parts = @()
+$v = (Get-CimInstance Win32_ComputerSystemProduct | Select-Object -First 1 -ExpandProperty UUID)
+if ($v) { $parts += ('uuid=' + [string]$v) }
+$v = (Get-CimInstance Win32_BaseBoard | Select-Object -First 1 -ExpandProperty SerialNumber)
+if ($v) { $parts += ('board=' + [string]$v) }
+$v = (Get-CimInstance Win32_BIOS | Select-Object -First 1 -ExpandProperty SerialNumber)
+if ($v) { $parts += ('bios=' + [string]$v) }
+$v = (Get-CimInstance Win32_Processor | Select-Object -First 1 -ExpandProperty ProcessorId)
+if ($v) { $parts += ('cpu=' + [string]$v) }
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+[Console]::Write(($parts -join '|'))
+"#;
+
+    let output = Command::new("powershell")
+        .args(["-NoProfile", "-NonInteractive", "-Command", script])
+        .output()
+        .map_err(|error| format!("Không đọc được hardware fingerprint: {error}"))?;
+
+    if !output.status.success() {
+        return Err("Windows không trả về hardware fingerprint.".to_owned());
+    }
+
+    let source = String::from_utf8_lossy(&output.stdout).trim().to_owned();
+
+    if source.is_empty() {
+        return Err("Hardware fingerprint rỗng.".to_owned());
+    }
+
+    Ok(source)
+}
+
+#[cfg(not(windows))]
+fn read_hardware_fingerprint_source() -> Result<String, String> {
+    std::env::var("HOSTNAME")
+        .or_else(|_| std::env::var("COMPUTERNAME"))
+        .map(|value| format!("host={value}"))
+        .map_err(|_| "Không xác định được hardware fingerprint.".to_owned())
+}
+
+pub(crate) fn machine_id_value() -> Result<String, String> {
+    if let Some(value) = MACHINE_ID_CACHE.get() {
+        return Ok(value.clone());
+    }
+
+    let source = read_machine_guid()?;
+    let canonical = format!("AI-RDvD|machine_id_v1|{source}");
+    let digest = license_sha256_hex(&canonical);
+    let value = format!("machine_id_v1_{digest}");
+
+    let _ = MACHINE_ID_CACHE.set(value.clone());
+    Ok(value)
+}
+
+pub(crate) fn device_fingerprint_value() -> Result<String, String> {
+    if let Some(value) = DEVICE_FINGERPRINT_CACHE.get() {
+        return Ok(value.clone());
+    }
+
+    let hardware_source = match read_hardware_fingerprint_source() {
+        Ok(value) => value,
+        Err(_) => format!("machine_guid={}", read_machine_guid()?),
+    };
+
+    let mut normalized = normalize_hardware_fingerprint_source(&hardware_source);
+
+    if normalized.is_empty() {
+        normalized = format!("machine_guid={}", read_machine_guid()?);
+    }
+
+    let canonical = format!("AI-RDvD|device_fingerprint_v1|{normalized}");
+    let digest = license_sha256_hex(&canonical);
+    let value = format!("device_fp_v1_{digest}");
+
+    let _ = DEVICE_FINGERPRINT_CACHE.set(value.clone());
+    Ok(value)
+}
+
 const LICENSE_STATE_SCHEMA: u32 = 2;
 const LEGACY_LICENSE_STATE_SCHEMA: u32 = 1;
 const LICENSE_STATE_FILE: &str = "license-state.json";
 
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct LocalLicenseState {
     pub schema_version: u32,
@@ -97,20 +221,57 @@ fn validate_machine_id(machine_id: &str) -> Result<String, String> {
     Ok(value.to_owned())
 }
 
+fn decode_disk_license_token(value: &str) -> Result<(String, bool), String> {
+    let raw = value.trim();
+    if raw.is_empty() {
+        return Err("License token không được để trống.".to_owned());
+    }
+
+    if is_protected_value(raw) {
+        let plaintext = unprotect_string(raw)?;
+        return Ok((validate_license_token(&plaintext)?, false));
+    }
+
+    Ok((validate_license_token(raw)?, true))
+}
+
+fn write_license_state_file(path: &PathBuf, state: &LocalLicenseState) -> Result<(), String> {
+    let json = serde_json::to_string_pretty(state)
+        .map_err(|error| format!("Không mã hóa được trạng thái license: {error}"))?;
+    fs::write(path, format!("{json}\n"))
+        .map_err(|error| format!("Không lưu được trạng thái license {}: {error}", path.display()))
+}
+
+fn migrate_plaintext_license_token(
+    path: &PathBuf,
+    state: &LocalLicenseState,
+    plaintext_token: &str,
+) -> Result<(), String> {
+    let mut migrated = state.clone();
+    migrated.license_token = protect_string(plaintext_token)?;
+    write_license_state_file(path, &migrated)
+}
+
 #[tauri::command]
 pub fn get_machine_id() -> Result<MachineIdentity, String> {
-    let source = read_machine_guid()?;
-    let canonical = format!("AI-RDvD|machine_id_v1|{source}");
-    let digest = Sha256::digest(canonical.as_bytes());
-    let machine_id = digest
-        .iter()
-        .map(|byte| format!("{byte:02x}"))
-        .collect::<String>();
-
     Ok(MachineIdentity {
-        machine_id: format!("machine_id_v1_{machine_id}"),
+        machine_id: machine_id_value()?,
         scheme: "machine_id_v1".to_owned(),
     })
+}
+
+#[tauri::command]
+pub fn verify_offline_entitlement(
+    entitlement: Value,
+) -> Result<crate::offline_entitlement::OfflineEntitlementVerification, String> {
+    let machine_id = machine_id_value()?;
+    let device_fingerprint = device_fingerprint_value()?;
+
+    crate::offline_entitlement::verify_offline_entitlement(
+        entitlement,
+        &machine_id,
+        &device_fingerprint,
+    )
 }
 
 #[tauri::command]
@@ -132,7 +293,11 @@ pub fn get_local_license_state(app: AppHandle) -> Result<Option<LocalLicenseStat
         ));
     }
 
-    let token = validate_license_token(&state.license_token)?;
+    let (token, needs_migration) = decode_disk_license_token(&state.license_token)?;
+    if needs_migration {
+        migrate_plaintext_license_token(&path, &state, &token)?;
+    }
+
     let machine_id = match state.machine_id.as_deref() {
         Some(value) => Some(validate_machine_id(value)?),
         None => None,
@@ -171,16 +336,13 @@ pub fn save_license_state(
     let path = license_state_path(&app)?;
     let state = LocalLicenseState {
         schema_version: LICENSE_STATE_SCHEMA,
-        license_token: token,
+        license_token: protect_string(&token)?,
         machine_id: Some(machine),
         last_verified_at_ms: Some(last_verified_at_ms),
         offline_grace_until_ms: Some(offline_grace_until_ms),
         license: Some(license),
     };
-    let json = serde_json::to_string_pretty(&state)
-        .map_err(|error| format!("Không mã hóa được trạng thái license: {error}"))?;
-    fs::write(&path, format!("{json}\n"))
-        .map_err(|error| format!("Không lưu được trạng thái license {}: {error}", path.display()))
+    write_license_state_file(&path, &state)
 }
 
 #[tauri::command]
@@ -189,16 +351,13 @@ pub fn save_license_token(app: AppHandle, license_token: String) -> Result<(), S
     let path = license_state_path(&app)?;
     let state = LocalLicenseState {
         schema_version: LICENSE_STATE_SCHEMA,
-        license_token: token,
+        license_token: protect_string(&token)?,
         machine_id: None,
         last_verified_at_ms: None,
         offline_grace_until_ms: None,
         license: None,
     };
-    let json = serde_json::to_string_pretty(&state)
-        .map_err(|error| format!("Không mã hóa được trạng thái license: {error}"))?;
-    fs::write(&path, format!("{json}\n"))
-        .map_err(|error| format!("Không lưu được trạng thái license {}: {error}", path.display()))
+    write_license_state_file(&path, &state)
 }
 
 #[tauri::command]

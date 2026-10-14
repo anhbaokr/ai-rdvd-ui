@@ -25,6 +25,7 @@ import { useRecognition } from './hooks/useRecognition';
 import { isTauriRuntime } from './services/tts';
 import { PaymentCard } from './features/payment/components';
 import { useLicense } from './features/license/useLicense';
+import { useAccessGate } from './features/access';
 import { useExport } from './features/export';
 
 export default function AIRDvD() {
@@ -53,6 +54,22 @@ export default function AIRDvD() {
     renderLogs, addLog, clearLog, exportLog, openLogFolder,
   } = useAppLog(t.logReady);
   const licenseGate = useLicense(addLog);
+  const accessGate = useAccessGate(addLog);
+
+  /**
+   * Workspace access is additive:
+   * - Existing verified License ACTIVE keeps its current behavior.
+   * - Server-verified FREE_HOUR_ACTIVE may also open the workspace.
+   *
+   * Trial/paid activation is not changed in B3.
+   */
+  const canUseWorkspace =
+    licenseGate.state.status === 'ACTIVE' ||
+    accessGate.canUseFreeWorkspace;
+
+  // B5.2: Free Hour đã hết; Trial 7 ngày là gói trả phí qua PaymentCard.
+  const hasFreeHourEnded =
+    accessGate.state.status === 'TRIAL_AVAILABLE';
   const [showLicenseDetails, setShowLicenseDetails] = useState(false);
   const [licenseRemainingMs, setLicenseRemainingMs] = useState(0);
 
@@ -1216,7 +1233,7 @@ export default function AIRDvD() {
         defaultTimelineZoom={defaultTimelineZoom} setDefaultTimelineZoom={setDefaultTimelineZoom}
         resetAppSettings={resetAppSettings} onClose={() => setShowSettings(false)}
       />}
-      {licenseGate.state.status === 'ACTIVE' ? (
+      {canUseWorkspace ? (
         <main className="rdvd-main">
           <WorkflowSidebar
           t={t} language={language} sourceLanguage={sourceLanguage} setSourceLanguage={setSourceLanguage} videoInputRef={videoInputRef} handleVideoFile={handleVideoFile} handleChooseMedia={handleChooseMedia}
@@ -1356,7 +1373,9 @@ export default function AIRDvD() {
             >
               <div style={{ fontSize: 12, letterSpacing: '0.16em', opacity: 0.58, textTransform: 'uppercase' }}>AI RDvD · License Gate</div>
               <h1 style={{ margin: '8px 0 6px', fontSize: 'clamp(22px, 3vw, 30px)' }}>
-                {licenseGate.state.status === 'CHECKING'
+                {hasFreeHourEnded
+                  ? (language === 'vi' ? 'Thời gian tham quan đã kết thúc' : 'Free preview has ended')
+                  : licenseGate.state.status === 'CHECKING'
                   ? (language === 'vi' ? 'Đang kiểm tra bản quyền' : 'Checking license')
                   : licenseGate.state.status === 'NO_LICENSE'
                     ? (language === 'vi' ? 'Chưa kích hoạt' : 'Not activated')
@@ -1371,7 +1390,11 @@ export default function AIRDvD() {
                             : (language === 'vi' ? 'Bản quyền không hợp lệ' : 'Invalid license')}
               </h1>
               <p style={{ margin: 0, opacity: 0.72, lineHeight: 1.6 }}>
-                {licenseGate.state.status === 'CHECKING'
+                {hasFreeHourEnded
+                  ? (language === 'vi'
+                    ? 'Bạn đã sử dụng hết 1 giờ trải nghiệm miễn phí. Để tiếp tục sử dụng AI RDvD, hãy chọn gói dùng thử 7 ngày với giá 49.000 VNĐ hoặc một gói bản quyền phù hợp bên dưới.'
+                    : 'Your 1-hour free preview has ended. To continue using AI RDvD, choose the 7-day trial for 49,000 VND or another license package below.')
+                  : licenseGate.state.status === 'CHECKING'
                   ? (language === 'vi' ? 'Đang đọc trạng thái cục bộ và xác thực với Payment Gateway.' : 'Reading local state and validating with the Payment Gateway.')
                   : licenseGate.state.status === 'NO_LICENSE'
                     ? (language === 'vi' ? 'Vui lòng chọn gói và hoàn tất thanh toán để kích hoạt AI RDvD trên máy này.' : 'Choose a package and complete payment to activate AI RDvD on this device.')
@@ -1393,7 +1416,9 @@ export default function AIRDvD() {
               )}
             </div>
 
-            {licenseGate.state.status !== 'CHECKING' && licenseGate.state.status !== 'NETWORK_ERROR' && (
+            {(hasFreeHourEnded ||
+              (licenseGate.state.status !== 'CHECKING' &&
+                licenseGate.state.status !== 'NETWORK_ERROR')) && (
               <PaymentCard
                 language={language}
                 onActivated={() => licenseGate.refresh()}
