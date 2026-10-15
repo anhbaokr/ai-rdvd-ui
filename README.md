@@ -1625,16 +1625,15 @@ This section supersedes older status statements elsewhere in this README when th
 ### 38.1 Current audited baseline
 
 ```text
-Pre-SECURITY-10D HEAD:
-213aa37 â€” security: harden offline entitlement and access flow
+Pre-SECURITY-10F HEAD:
+fb122b2 — security: add trusted time rollback protection
 
 Checkpoint:
-checkpoint/security-offline-entitlement-2026-10-14
+checkpoint/security-trusted-time-2026-10-14
 
 Application version:
 0.1.5
 ```
-
 ### 38.2 Render / runtime status
 
 The earlier README sections that describe final render/export as missing are now historical.
@@ -1676,13 +1675,12 @@ Windows DPAPI protection for the local license token
 SECURITY-10D  DONE + E2E PASS
 Rust-authoritative offline authorization
 
-SECURITY-10E  NEXT
+SECURITY-10E  DONE + AUTOMATED PASS
 Trusted-time / clock-rollback hardening
 
-SECURITY-10F  NEXT
-Local-state schema migration and cleanup
+SECURITY-10F  DONE + E2E PASS
+Local-state schema v3 migration and cleanup
 ```
-
 Current SECURITY-10D architecture:
 
 ```text
@@ -1715,6 +1713,10 @@ Rust verify_offline_entitlement
 Mutable frontend/local values such as `Date.now()`, `offlineGraceUntilMs` and stored `license.status` are no longer sufficient to grant offline access.
 
 The local license token remains protected using Windows DPAPI (`dpapi:v1:`), including migration from legacy plaintext state.
+
+Trusted time is persisted separately in DPAPI-protected `trusted-time-state.json`; offline entitlement verification uses the Rust guarded-time path and rejects clock rollback beyond the configured tolerance.
+
+Local license persistence now uses schema v3. Schema v1/v2 state is migrated on read, legacy `lastVerifiedAtMs` / `offlineGraceUntilMs` fields are removed, and the signed `offline_entitlement` remains inside the local license snapshot only after Rust verification.
 
 Free Hour access remains server-authoritative and does not gain a fabricated local grant when network/server checks fail.
 
@@ -1764,17 +1766,54 @@ Not re-run as part of this specific SECURITY-10D validation:
 
 Those remain release/regression cases rather than claims of this patch.
 
-### 38.5 Next security work
+### 38.5 SECURITY-10E / SECURITY-10F validation record
 
-After SECURITY-10D:
+SECURITY-10E automated validation:
 
-1. SECURITY-10E â€” trusted-time / clock-rollback defense.
-2. SECURITY-10F â€” versioned local-state migration and cleanup.
-3. Add native entitlement enforcement before valuable Rust operations such as recognition, translation, TTS and render/export.
-4. Review `claimTrial` against the protected Desktop-HMAC action list before exposing direct claim UI.
-5. Consolidate security regression scripts into repository-owned tests.
+```text
+git diff --check                         PASS
+npm run build                            PASS
+SECURITY-10E static assertions           PASS
+trusted-time Rust tests                  PASS — 3/3
+offline-entitlement Rust tests           PASS — 7/7
+cargo test                               PASS — 16/16
+cargo check                              PASS
+```
 
-### 38.6 Repository mutation rule
+SECURITY-10F automated validation:
+
+```text
+git diff --check                         PASS
+npm run build                            PASS
+SECURITY-10F static assertions           PASS
+trusted-time regression tests            PASS — 4/4
+cargo test                               PASS — 16/16
+cargo check                              PASS
+```
+
+SECURITY-10F live migration / regression:
+
+```text
+schema v2 -> schema v3 migration         PASS
+DPAPI token retained                     PASS
+machine/license snapshot retained        PASS
+signed offline_entitlement retained      PASS
+legacy local time fields removed         PASS
+offline launch with network disabled     PASS
+OFFLINE_ENTITLEMENT_ACTIVE               observed
+```
+
+SECURITY-10E clock-rollback detection is covered by Rust tests; this record does not claim a live Windows-clock rollback simulation.
+
+### 38.6 Next security work
+
+After SECURITY-10F:
+
+1. Add native entitlement enforcement before valuable Rust operations such as recognition, translation, TTS and render/export.
+2. Review `claimTrial` against the protected Desktop-HMAC action list before exposing direct claim UI.
+3. Consolidate security regression scripts into repository-owned tests.
+4. Keep cross-machine replay and full real-time offline-grace-boundary testing in the release/regression matrix.
+### 38.7 Repository mutation rule
 
 Project workflow remains:
 

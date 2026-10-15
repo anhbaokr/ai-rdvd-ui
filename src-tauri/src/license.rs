@@ -173,8 +173,9 @@ pub(crate) fn device_fingerprint_value() -> Result<String, String> {
     Ok(value)
 }
 
-const LICENSE_STATE_SCHEMA: u32 = 2;
-const LEGACY_LICENSE_STATE_SCHEMA: u32 = 1;
+const LICENSE_STATE_SCHEMA: u32 = 3;
+const LEGACY_LICENSE_STATE_SCHEMA_V1: u32 = 1;
+const LEGACY_LICENSE_STATE_SCHEMA_V2: u32 = 2;
 const LICENSE_STATE_FILE: &str = "license-state.json";
 
 #[derive(Clone, Debug, Deserialize, Serialize)]
@@ -184,10 +185,6 @@ pub struct LocalLicenseState {
     pub license_token: String,
     #[serde(default)]
     pub machine_id: Option<String>,
-    #[serde(default)]
-    pub last_verified_at_ms: Option<u64>,
-    #[serde(default)]
-    pub offline_grace_until_ms: Option<u64>,
     #[serde(default)]
     pub license: Option<Value>,
 }
@@ -242,12 +239,13 @@ fn write_license_state_file(path: &PathBuf, state: &LocalLicenseState) -> Result
         .map_err(|error| format!("Không lưu được trạng thái license {}: {error}", path.display()))
 }
 
-fn migrate_plaintext_license_token(
+fn migrate_license_state(
     path: &PathBuf,
     state: &LocalLicenseState,
     plaintext_token: &str,
 ) -> Result<(), String> {
     let mut migrated = state.clone();
+    migrated.schema_version = LICENSE_STATE_SCHEMA;
     migrated.license_token = protect_string(plaintext_token)?;
     write_license_state_file(path, &migrated)
 }
@@ -292,29 +290,31 @@ pub fn get_local_license_state(app: AppHandle) -> Result<Option<LocalLicenseStat
     let state = serde_json::from_str::<LocalLicenseState>(&text)
         .map_err(|error| format!("Trạng thái license lưu cục bộ không hợp lệ: {error}"))?;
 
-    if state.schema_version != LICENSE_STATE_SCHEMA && state.schema_version != LEGACY_LICENSE_STATE_SCHEMA {
+    if state.schema_version != LICENSE_STATE_SCHEMA
+        && state.schema_version != LEGACY_LICENSE_STATE_SCHEMA_V1
+        && state.schema_version != LEGACY_LICENSE_STATE_SCHEMA_V2
+    {
         return Err(format!(
             "Phiên bản trạng thái license không được hỗ trợ: {}.",
             state.schema_version
         ));
     }
 
-    let (token, needs_migration) = decode_disk_license_token(&state.license_token)?;
-    if needs_migration {
-        migrate_plaintext_license_token(&path, &state, &token)?;
-    }
+    let (token, token_needs_migration) = decode_disk_license_token(&state.license_token)?;
 
     let machine_id = match state.machine_id.as_deref() {
         Some(value) => Some(validate_machine_id(value)?),
         None => None,
     };
 
+    if token_needs_migration || state.schema_version != LICENSE_STATE_SCHEMA {
+        migrate_license_state(&path, &state, &token)?;
+    }
+
     Ok(Some(LocalLicenseState {
-        schema_version: state.schema_version,
+        schema_version: LICENSE_STATE_SCHEMA,
         license_token: token,
         machine_id,
-        last_verified_at_ms: state.last_verified_at_ms,
-        offline_grace_until_ms: state.offline_grace_until_ms,
         license: state.license,
     }))
 }
@@ -324,16 +324,10 @@ pub fn save_license_state(
     app: AppHandle,
     license_token: String,
     machine_id: String,
-    last_verified_at_ms: u64,
-    offline_grace_until_ms: u64,
     license: Value,
 ) -> Result<(), String> {
     let token = validate_license_token(&license_token)?;
     let machine = validate_machine_id(&machine_id)?;
-
-    if last_verified_at_ms == 0 || offline_grace_until_ms <= last_verified_at_ms {
-        return Err("Mốc thời gian license local không hợp lệ.".to_owned());
-    }
 
     if license.is_null() || !license.is_object() {
         return Err("Snapshot License local không hợp lệ.".to_owned());
@@ -344,8 +338,6 @@ pub fn save_license_state(
         schema_version: LICENSE_STATE_SCHEMA,
         license_token: protect_string(&token)?,
         machine_id: Some(machine),
-        last_verified_at_ms: Some(last_verified_at_ms),
-        offline_grace_until_ms: Some(offline_grace_until_ms),
         license: Some(license),
     };
     write_license_state_file(&path, &state)
@@ -359,8 +351,6 @@ pub fn save_license_token(app: AppHandle, license_token: String) -> Result<(), S
         schema_version: LICENSE_STATE_SCHEMA,
         license_token: protect_string(&token)?,
         machine_id: None,
-        last_verified_at_ms: None,
-        offline_grace_until_ms: None,
         license: None,
     };
     write_license_state_file(&path, &state)

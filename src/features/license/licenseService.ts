@@ -46,8 +46,6 @@ export interface LocalLicenseState {
   schemaVersion: number;
   licenseToken: string;
   machineId?: string;
-  lastVerifiedAtMs?: number;
-  offlineGraceUntilMs?: number;
   license?: Omit<LicenseRecord, 'license_token'>;
 }
 
@@ -74,8 +72,6 @@ export async function verifyOfflineEntitlement(
 export async function saveLicenseState(state: {
   licenseToken: string;
   machineId: string;
-  lastVerifiedAtMs: number;
-  offlineGraceUntilMs: number;
   license: Omit<LicenseRecord, 'license_token'>;
 }): Promise<void> {
   await invoke('save_license_state', state);

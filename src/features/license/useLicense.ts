@@ -8,7 +8,6 @@ import {
   saveLicenseState,
   verifyOfflineEntitlement,
 } from './licenseService';
-import { OFFLINE_GRACE_MS } from './licensePolicy';
 import type {
   LicenseRecord,
   OfflineEntitlementEnvelope,
@@ -118,11 +117,9 @@ export function useLicense(addLog: (message: string, category?: string) => void)
       license: Omit<LicenseRecord, 'license_token'>,
       entitlement: OfflineEntitlementEnvelope | null,
     ) => {
-      const verifiedAtMs = Date.now();
       const persistedLicenseBase = { ...license };
       delete persistedLicenseBase.offline_entitlement;
       let persistedLicense: Omit<LicenseRecord, 'license_token'> = persistedLicenseBase;
-      let offlineGraceUntilMs = verifiedAtMs + OFFLINE_GRACE_MS;
 
       if (entitlement) {
         try {
@@ -133,7 +130,6 @@ export function useLicense(addLog: (message: string, category?: string) => void)
             ...license,
             offline_entitlement: entitlement,
           };
-          offlineGraceUntilMs = verification.offlineGraceExpiresAtMs;
           addLog('OFFLINE_ENTITLEMENT_VERIFIED_AND_SAVED', 'LICENSE');
         } catch (cause) {
           // Online authorization remains server-authoritative. If the signed
@@ -149,8 +145,6 @@ export function useLicense(addLog: (message: string, category?: string) => void)
         await saveLicenseState({
           licenseToken: token,
           machineId: identityMachineId,
-          lastVerifiedAtMs: verifiedAtMs,
-          offlineGraceUntilMs,
           license: persistedLicense,
         });
         addLog('LOCAL_LICENSE_STATE_SAVED', 'LICENSE');
