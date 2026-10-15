@@ -9,6 +9,9 @@ use serde::Deserialize;
 use serde_json::Value;
 use sha2::{Digest, Sha256};
 
+pub(crate) const OFFICIAL_PAYMENT_GATEWAY_URL: &str =
+    "https://script.google.com/macros/s/AKfycbyivg56bk-LyvZa3YrRXwlk3R2tI-URE3dlC2L0BmEaZ_ema-QMgW_xzFH7TKZVOQh2/exec";
+
 #[derive(Debug, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct PaymentGatewayPostRequest {

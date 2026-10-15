@@ -458,6 +458,10 @@ pub async fn start_render(app:AppHandle,request:ExportRequestV1)->Result<RenderR
     let job_id=request.job_id.clone();
     let duration_ms=request.source_duration_ms.max(1);
 
+    if let Err(error)=crate::protected_access::authorize_protected_command(&app,"render").await {
+        return Err(render_error("ACCESS_DENIED",error));
+    }
+
     if let Err(initial_error)=resolve_ffmpeg(&app) {
         emit_render_progress(&app,&job_id,"PREPARING",0.0,0,duration_ms,None);
         emit_render_log(

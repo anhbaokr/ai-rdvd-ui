@@ -22,6 +22,7 @@ mod license;
 mod offline_entitlement;
 mod payment_gateway;
 mod payment;
+mod protected_access;
 
 mod recognition;
 mod render;
@@ -924,6 +925,8 @@ fn generate_tts_blocking(app: tauri::AppHandle, request: GenerateTtsRequest) -> 
 
 #[tauri::command]
 async fn generate_tts(app: tauri::AppHandle, request: GenerateTtsRequest) -> Result<TtsGenerationResult, String> {
+    crate::protected_access::authorize_protected_command(&app, "tts").await?;
+
     let check_app = app.clone();
     let initial = tauri::async_runtime::spawn_blocking(move || check_tts_environment_blocking(check_app))
         .await
@@ -1213,6 +1216,8 @@ fn translate_segments_blocking(app: tauri::AppHandle, request: TranslationReques
 
 #[tauri::command]
 async fn translate_segments(app: tauri::AppHandle, request: TranslationRequest) -> Result<Value, String> {
+    crate::protected_access::authorize_protected_command(&app, "translation").await?;
+
     let check_app = app.clone();
     let initial = tauri::async_runtime::spawn_blocking(move || check_translation_environment_blocking(check_app))
         .await

@@ -641,6 +641,8 @@ pub async fn start_recognition(
     app: tauri::AppHandle,
     request: RecognitionRequest,
 ) -> Result<RecognitionResult, String> {
+    crate::protected_access::authorize_protected_command(&app, "recognition").await?;
+
     let should_prepare = request.source_language == "zh"
         && matches!(request.mode.as_str(), "subtitle" | "both")
         && PathBuf::from(&request.video_path).is_file();
