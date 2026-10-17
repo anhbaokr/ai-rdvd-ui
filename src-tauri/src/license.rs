@@ -2,8 +2,27 @@ use crate::dpapi::{is_protected_value, protect_string, unprotect_string};
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use sha2::{Digest, Sha256};
-use std::{fs, path::PathBuf, process::Command, sync::OnceLock};
+use std::{
+    fs,
+    path::PathBuf,
+    process::Command,
+    sync::{Mutex, OnceLock},
+};
 use tauri::{AppHandle, Manager};
+
+
+fn hidden_command(program: &str) -> Command {
+    let mut command = Command::new(program);
+
+    #[cfg(windows)]
+    {
+        use std::os::windows::process::CommandExt;
+        const CREATE_NO_WINDOW: u32 = 0x0800_0000;
+        command.creation_flags(CREATE_NO_WINDOW);
+    }
+
+    command
+}
 
 #[derive(Debug, Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -15,7 +34,7 @@ pub struct MachineIdentity {
 fn read_machine_guid() -> Result<String, String> {
     #[cfg(windows)]
     {
-        let output = Command::new("reg")
+        let output = hidden_command("reg.exe")
             .args([
                 "query",
                 r"HKLM\SOFTWARE\Microsoft\Cryptography",
@@ -53,6 +72,7 @@ fn read_machine_guid() -> Result<String, String> {
 
 static MACHINE_ID_CACHE: OnceLock<String> = OnceLock::new();
 static DEVICE_FINGERPRINT_CACHE: OnceLock<String> = OnceLock::new();
+static DEVICE_FINGERPRINT_INIT_LOCK: Mutex<()> = Mutex::new(());
 
 fn license_sha256_hex(value: &str) -> String {
     Sha256::digest(value.as_bytes())
@@ -109,8 +129,16 @@ if ($v) { $parts += ('cpu=' + [string]$v) }
 [Console]::Write(($parts -join '|'))
 "#;
 
-    let output = Command::new("powershell")
-        .args(["-NoProfile", "-NonInteractive", "-Command", script])
+    let output = hidden_command("powershell.exe")
+        .args([
+            "-NoLogo",
+            "-NoProfile",
+            "-NonInteractive",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-Command",
+            script,
+        ])
         .output()
         .map_err(|error| format!("Không đọc được hardware fingerprint: {error}"))?;
 
@@ -150,6 +178,15 @@ pub(crate) fn machine_id_value() -> Result<String, String> {
 }
 
 pub(crate) fn device_fingerprint_value() -> Result<String, String> {
+    if let Some(value) = DEVICE_FINGERPRINT_CACHE.get() {
+        return Ok(value.clone());
+    }
+
+    let _guard = DEVICE_FINGERPRINT_INIT_LOCK
+        .lock()
+        .map_err(|_| "Device fingerprint init lock bị lỗi.".to_owned())?;
+
+    // Another thread may have initialized the cache while this thread waited.
     if let Some(value) = DEVICE_FINGERPRINT_CACHE.get() {
         return Ok(value.clone());
     }

@@ -1,6 +1,6 @@
 [package]
 name = "ai-rdvd"
-version = "0.1.5"
+version = "0.1.10"
 description = "AI RDvD desktop application"
 authors = ["AI RDvD"]
 edition = "2021"

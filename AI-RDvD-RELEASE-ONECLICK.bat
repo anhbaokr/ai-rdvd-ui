@@ -60,31 +60,44 @@ if errorlevel 1 (
 
 REM ---- Version input ----
 echo.
-set "LATEST_JSON_TMP=%TEMP%\airdvd-latest-%RANDOM%.json"
 set "CURRENT_VERSION="
 set "NEXT_VERSION="
+set "PACKAGE_VERSION="
+set "REMOTE_VERSION="
+set "REMOTE_TAG_VERSION="
 
-REM Uu tien doc latest.json tu GitHub de lay phien ban dang phat hanh thuc te.
-curl -fsSL "https://github.com/anhbaokr/ai-rdvd-ui/releases/latest/download/latest.json" -o "%LATEST_JSON_TMP%" >nul 2>&1
-if not errorlevel 1 (
-  for /f "usebackq delims=" %%V in (`python -c "import json; from pathlib import Path; p=Path(r'%LATEST_JSON_TMP%'); print(json.loads(p.read_text(encoding='utf-8-sig'))['version'])" 2^>nul`) do set "CURRENT_VERSION=%%V"
-)
-
-REM Neu khong doc duoc remote, thu latest.json o project root.
-if not defined CURRENT_VERSION if exist "%ROOT%\latest.json" (
-  for /f "usebackq delims=" %%V in (`python -c "import json; from pathlib import Path; p=Path(r'%ROOT%\latest.json'); print(json.loads(p.read_text(encoding='utf-8-sig'))['version'])" 2^>nul`) do set "CURRENT_VERSION=%%V"
-)
-
-REM Cuoi cung fallback ve version hien tai cua package.json.
-if not defined CURRENT_VERSION (
-  for /f "usebackq delims=" %%V in (`python -c "import json; from pathlib import Path; print(json.loads(Path(r'%ROOT%\package.json').read_text(encoding='utf-8-sig'))['version'])" 2^>nul`) do set "CURRENT_VERSION=%%V"
-)
-
-del /q "%LATEST_JSON_TMP%" >nul 2>&1
-
-if not defined CURRENT_VERSION (
-  echo [LOI] Khong doc duoc phien ban hien tai tu latest.json/package.json.
+REM package.json local la nguon version local chinh.
+for /f "usebackq delims=" %%V in (`python -c "import json; from pathlib import Path; print(json.loads(Path(r'%ROOT%\package.json').read_text(encoding='utf-8-sig'))['version'])" 2^>nul`) do set "PACKAGE_VERSION=%%V"
+if not defined PACKAGE_VERSION (
+  echo [LOI] Khong doc duoc version tu package.json.
   goto :FAIL
+)
+
+REM GitHub Latest Release tag la nguon version da phat hanh thuc te.
+REM KHONG dung latest.json local de quyet dinh version release, vi file nay co the bi cu.
+for /f "usebackq delims=" %%V in (`gh api "repos/anhbaokr/ai-rdvd-ui/releases/latest" --jq ".tag_name" 2^>nul`) do set "REMOTE_TAG_VERSION=%%V"
+if defined REMOTE_TAG_VERSION (
+  for /f "usebackq delims=" %%V in (`python -c "import os; v=os.environ.get('REMOTE_TAG_VERSION','').strip(); print(v[1:] if v.lower().startswith('v') else v)" 2^>nul`) do set "REMOTE_VERSION=%%V"
+)
+
+REM Chon version lon nhat giua local package.json va GitHub Latest Release.
+REM Nhu vay latest.json local bi cu se khong the lam version bi lui.
+for /f "usebackq delims=" %%V in (`python -c "import os,re,sys; vals=[os.environ.get('PACKAGE_VERSION','').strip(),os.environ.get('REMOTE_VERSION','').strip()]; good=[v for v in vals if re.fullmatch(r'\d+\.\d+\.\d+',v)]; sys.exit(1) if not good else print(max(good,key=lambda v:tuple(map(int,v.split('.')))))" 2^>nul`) do set "CURRENT_VERSION=%%V"
+
+if not defined CURRENT_VERSION (
+  echo [LOI] Khong xac dinh duoc version hien tai tu package.json/GitHub Release.
+  goto :FAIL
+)
+
+if exist "%ROOT%\latest.json" (
+  echo [INFO] Co latest.json local tai project root - file nay BI BO QUA khi tinh version release.
+)
+
+echo Local package.json : v%PACKAGE_VERSION%
+if defined REMOTE_VERSION (
+  echo GitHub latest tag  : v%REMOTE_VERSION%
+) else (
+  echo GitHub latest tag  : ^(khong doc duoc / chua co release^)
 )
 
 for /f "usebackq delims=" %%V in (`python -c "v='%CURRENT_VERSION%'.strip(); a=v.split('.'); import sys; ok=len(a)==3 and all(x.isdigit() for x in a); sys.exit(1) if not ok else print(f'{a[0]}.{a[1]}.{int(a[2])+1}')" 2^>nul`) do set "NEXT_VERSION=%%V"
@@ -245,6 +258,7 @@ python -c "from pathlib import Path; import os, datetime; t='AI RDvD Release\nVe
 if errorlevel 1 goto :FAIL
 
 REM ---- GitHub Release ----
+set "RELEASE_ID="
 echo.
 echo [8/9] Tao/cap nhat GitHub Release %TAG%...
 set "NOTES_FILE=%TEMP%\airdvd-release-notes-%RANDOM%.txt"
@@ -257,31 +271,56 @@ if errorlevel 1 (
   gh release edit "%TAG%" --title "AI RDvD %TAG%" --notes-file "%NOTES_FILE%" --latest || goto :FAIL
 )
 
-REM Upload EXE + SIG first. GitHub may normalize the asset name.
-gh release upload "%TAG%" "%INSTALLER_PATH%" "%SIG_PATH%" --clobber || goto :FAIL
+REM Upload installer rieng voi timeout + retry.
+REM File EXE lon co the bi GitHub CLI treo o state=starter. Neu vay script se:
+REM   1) timeout sau 5 phut,
+REM   2) xoa asset EXE dang do,
+REM   3) thu lai toi da 3 lan,
+REM   4) chi tiep tuc khi state=uploaded va size khop file local.
+call :UPLOAD_INSTALLER_WITH_RETRY
+if errorlevel 1 (
+  echo [LOI] Upload installer that bai sau 3 lan thu.
+  echo       File local van an toan tai: %INSTALLER_PATH%
+  goto :FAIL
+)
 
-REM Read the ACTUAL asset URL assigned by GitHub.
-REM IMPORTANT:
-REM Do not use `gh release view --json assets` here. On the installed
-REM GitHub CLI version, browserDownloadUrl is not exposed by that command.
-REM GitHub's REST API returns browser_download_url reliably.
+REM Upload signature rieng, co timeout/retry ngan hon.
+set "ASSET_PATH=%SIG_PATH%"
+set "ASSET_SUFFIX=_%NEW_VERSION%_x64-setup.exe.sig"
+set "ASSET_LABEL=signature"
+call :UPLOAD_SMALL_ASSET_WITH_RETRY
+if errorlevel 1 (
+  echo [LOI] Upload signature that bai sau 3 lan thu.
+  goto :FAIL
+)
+
+REM Read the ACTUAL uploaded installer asset URL assigned by GitHub.
+REM GitHub co the doi dau cach trong ten asset thanh dau cham.
 echo.
 echo Lay URL installer thuc te tu GitHub...
-set "REMOTE_RELEASE_JSON=%TEMP%\airdvd-release-%RANDOM%.json"
+set "REMOTE_RELEASE_JSON=%TEMP%\airdvd-release-assets-%RANDOM%.json"
 set "REMOTE_INSTALLER_META=%TEMP%\airdvd-installer-meta-%RANDOM%.txt"
 set "REMOTE_INSTALLER_NAME="
 set "REMOTE_INSTALLER_URL="
 
-gh api "repos/anhbaokr/ai-rdvd-ui/releases/tags/%TAG%" > "%REMOTE_RELEASE_JSON%"
+if not defined RELEASE_ID (
+  for /f "usebackq delims=" %%I in (`gh api "repos/anhbaokr/ai-rdvd-ui/releases/tags/%TAG%" --jq ".id" 2^>nul`) do set "RELEASE_ID=%%I"
+)
+if not defined RELEASE_ID (
+  echo [LOI] Khong lay duoc Release ID cua %TAG%.
+  goto :FAIL
+)
+
+gh api "repos/anhbaokr/ai-rdvd-ui/releases/%RELEASE_ID%/assets" > "%REMOTE_RELEASE_JSON%"
 if errorlevel 1 (
-  echo [LOI] Khong lay duoc thong tin Release %TAG% tu GitHub API.
+  echo [LOI] Khong lay duoc danh sach asset cua Release %TAG%.
   del /q "%REMOTE_RELEASE_JSON%" >nul 2>&1
   goto :FAIL
 )
 
-python -c "import json,os; from pathlib import Path; d=json.loads(Path(os.environ['REMOTE_RELEASE_JSON']).read_text(encoding='utf-8')); assets=[a for a in d.get('assets',[]) if a.get('name','').lower().endswith('.exe')]; assert assets, 'Khong tim thay asset .exe trong Release'; assert len(assets)==1, 'Phat hien nhieu asset .exe trong Release'; a=assets[0]; Path(os.environ['REMOTE_INSTALLER_META']).write_text(a['name']+chr(10)+a['browser_download_url']+chr(10),encoding='utf-8'); print('GitHub asset =',a['name']); print('GitHub URL   =',a['browser_download_url'])"
+python -c "import json,os; from pathlib import Path; assets=json.loads(Path(os.environ['REMOTE_RELEASE_JSON']).read_text(encoding='utf-8')); size=Path(os.environ['INSTALLER_PATH']).stat().st_size; suffix=('_'+os.environ['NEW_VERSION']+'_x64-setup.exe').lower(); ms=[a for a in assets if a.get('name','').lower().endswith(suffix) and a.get('state')=='uploaded' and int(a.get('size') or -1)==size]; assert len(ms)==1, 'Khong tim thay dung 1 installer uploaded co size khop local'; a=ms[0]; Path(os.environ['REMOTE_INSTALLER_META']).write_text(a['name']+chr(10)+a['browser_download_url']+chr(10),encoding='utf-8'); print('GitHub asset =',a['name']); print('GitHub state =',a.get('state')); print('GitHub size  =',a.get('size')); print('GitHub URL   =',a['browser_download_url'])"
 if errorlevel 1 (
-  echo [LOI] Khong xac dinh duoc browser_download_url cua installer.
+  echo [LOI] Khong xac dinh duoc installer uploaded hop le tren GitHub.
   del /q "%REMOTE_RELEASE_JSON%" >nul 2>&1
   del /q "%REMOTE_INSTALLER_META%" >nul 2>&1
   goto :FAIL
@@ -321,8 +360,15 @@ if errorlevel 1 goto :FAIL
 python -c "import json,os; from pathlib import Path; m=Path(os.environ['MANIFEST']); d=json.loads(m.read_text(encoding='utf-8')); sig=Path(os.environ['SIG_PATH']).read_text(encoding='utf-8').strip(); b=m.read_bytes(); assert d['version']==os.environ['NEW_VERSION']; assert d['platforms']['windows-x86_64']['signature']==sig; assert d['platforms']['windows-x86_64']['url']==os.environ['REMOTE_INSTALLER_URL']; assert not b.startswith(b'\xef\xbb\xbf'); print('latest.json OK'); print('URL='+d['platforms']['windows-x86_64']['url'])"
 if errorlevel 1 goto :FAIL
 
-REM Upload the final manifest only after the GitHub asset URL is known.
-gh release upload "%TAG%" "%MANIFEST%" --clobber || goto :FAIL
+REM Upload final manifest only after the GitHub asset URL is known.
+set "ASSET_PATH=%MANIFEST%"
+set "ASSET_SUFFIX=latest.json"
+set "ASSET_LABEL=latest.json"
+call :UPLOAD_SMALL_ASSET_WITH_RETRY
+if errorlevel 1 (
+  echo [LOI] Upload latest.json that bai sau 3 lan thu.
+  goto :FAIL
+)
 del /q "%NOTES_FILE%" >nul 2>&1
 
 REM ---- Remote verify ----
@@ -359,6 +405,128 @@ echo File      : %FILE_UPDATE_DIR%
 echo Backup    : %BACKUP_DIR%
 echo ============================================================
 pause
+exit /b 0
+
+REM ============================================================
+REM GitHub upload helpers
+REM ============================================================
+
+:ENSURE_RELEASE_ID
+if defined RELEASE_ID exit /b 0
+for /f "usebackq delims=" %%I in (`gh api "repos/anhbaokr/ai-rdvd-ui/releases/tags/%TAG%" --jq ".id" 2^>nul`) do set "RELEASE_ID=%%I"
+if not defined RELEASE_ID exit /b 1
+exit /b 0
+
+:CHECK_REMOTE_INSTALLER
+call :ENSURE_RELEASE_ID
+if errorlevel 1 exit /b 1
+set "CHECK_ASSETS_JSON=%TEMP%\airdvd-assets-check-%RANDOM%.json"
+gh api "repos/anhbaokr/ai-rdvd-ui/releases/%RELEASE_ID%/assets" > "%CHECK_ASSETS_JSON%" 2>nul
+if errorlevel 1 (
+  del /q "%CHECK_ASSETS_JSON%" >nul 2>&1
+  exit /b 1
+)
+python -c "import json,os,sys; from pathlib import Path; assets=json.loads(Path(os.environ['CHECK_ASSETS_JSON']).read_text(encoding='utf-8')); size=Path(os.environ['INSTALLER_PATH']).stat().st_size; suffix=('_'+os.environ['NEW_VERSION']+'_x64-setup.exe').lower(); ms=[a for a in assets if a.get('name','').lower().endswith(suffix)]; ok=len(ms)==1 and ms[0].get('state')=='uploaded' and int(ms[0].get('size') or -1)==size; print('[OK] Installer da co tren GitHub, state=uploaded, size khop.') if ok else None; sys.exit(0 if ok else 1)"
+set "CHECK_RC=%ERRORLEVEL%"
+del /q "%CHECK_ASSETS_JSON%" >nul 2>&1
+exit /b %CHECK_RC%
+
+:DELETE_REMOTE_INSTALLER_ASSETS
+call :ENSURE_RELEASE_ID
+if errorlevel 1 exit /b 1
+set "DELETE_ASSETS_JSON=%TEMP%\airdvd-assets-delete-%RANDOM%.json"
+gh api "repos/anhbaokr/ai-rdvd-ui/releases/%RELEASE_ID%/assets" > "%DELETE_ASSETS_JSON%" 2>nul
+if errorlevel 1 (
+  del /q "%DELETE_ASSETS_JSON%" >nul 2>&1
+  exit /b 1
+)
+for /f "usebackq delims=" %%A in (`python -c "import json,os; from pathlib import Path; assets=json.loads(Path(os.environ['DELETE_ASSETS_JSON']).read_text(encoding='utf-8')); suffix=('_'+os.environ['NEW_VERSION']+'_x64-setup.exe').lower(); [print(a['id']) for a in assets if a.get('name','').lower().endswith(suffix)]" 2^>nul`) do (
+  echo Xoa installer asset dang do/khong hop le ID=%%A...
+  gh api --method DELETE "repos/anhbaokr/ai-rdvd-ui/releases/assets/%%A" >nul 2>&1
+)
+del /q "%DELETE_ASSETS_JSON%" >nul 2>&1
+exit /b 0
+
+:UPLOAD_INSTALLER_WITH_RETRY
+set "UPLOAD_OK="
+call :CHECK_REMOTE_INSTALLER
+if not errorlevel 1 (
+  set "UPLOAD_OK=1"
+  exit /b 0
+)
+for /L %%R in (1,1,3) do call :UPLOAD_INSTALLER_ATTEMPT %%R
+if not defined UPLOAD_OK exit /b 1
+exit /b 0
+
+:UPLOAD_INSTALLER_ATTEMPT
+if defined UPLOAD_OK exit /b 0
+set "ATTEMPT_NO=%~1"
+echo.
+echo Upload installer - lan %ATTEMPT_NO%/3...
+call :DELETE_REMOTE_INSTALLER_ASSETS
+powershell -NoProfile -ExecutionPolicy Bypass -Command ^
+ "$psi=New-Object System.Diagnostics.ProcessStartInfo;" ^
+ "$psi.FileName='gh'; $psi.UseShellExecute=$false;" ^
+ "$q=[char]34; $p=$q+$env:INSTALLER_PATH+$q;" ^
+ "$psi.Arguments='release upload '+$env:TAG+' '+$p+' --clobber';" ^
+ "$proc=[System.Diagnostics.Process]::Start($psi);" ^
+ "if(-not $proc.WaitForExit(300000)){try{$proc.Kill()}catch{}; Write-Host '[TIMEOUT] Upload EXE qua 5 phut - se retry.'; exit 124};" ^
+ "exit $proc.ExitCode"
+if errorlevel 1 (
+  echo [CANH BAO] Upload installer lan %ATTEMPT_NO% that bai/timeout.
+  timeout /t 3 /nobreak >nul
+  exit /b 0
+)
+timeout /t 2 /nobreak >nul
+call :CHECK_REMOTE_INSTALLER
+if not errorlevel 1 (
+  set "UPLOAD_OK=1"
+  echo Installer upload: OK
+  exit /b 0
+)
+echo [CANH BAO] GitHub chua bao state=uploaded hoac size chua khop. Se retry.
+timeout /t 3 /nobreak >nul
+exit /b 0
+
+:DELETE_REMOTE_ASSET_BY_SUFFIX
+call :ENSURE_RELEASE_ID
+if errorlevel 1 exit /b 1
+set "DELETE_SMALL_JSON=%TEMP%\airdvd-assets-small-%RANDOM%.json"
+gh api "repos/anhbaokr/ai-rdvd-ui/releases/%RELEASE_ID%/assets" > "%DELETE_SMALL_JSON%" 2>nul
+if errorlevel 1 (
+  del /q "%DELETE_SMALL_JSON%" >nul 2>&1
+  exit /b 1
+)
+for /f "usebackq delims=" %%A in (`python -c "import json,os; from pathlib import Path; assets=json.loads(Path(os.environ['DELETE_SMALL_JSON']).read_text(encoding='utf-8')); suffix=os.environ.get('ASSET_SUFFIX','').lower(); [print(a['id']) for a in assets if a.get('name','').lower().endswith(suffix)]" 2^>nul`) do gh api --method DELETE "repos/anhbaokr/ai-rdvd-ui/releases/assets/%%A" >nul 2>&1
+del /q "%DELETE_SMALL_JSON%" >nul 2>&1
+exit /b 0
+
+:UPLOAD_SMALL_ASSET_WITH_RETRY
+set "SMALL_UPLOAD_OK="
+for /L %%R in (1,1,3) do call :UPLOAD_SMALL_ASSET_ATTEMPT %%R
+if not defined SMALL_UPLOAD_OK exit /b 1
+exit /b 0
+
+:UPLOAD_SMALL_ASSET_ATTEMPT
+if defined SMALL_UPLOAD_OK exit /b 0
+set "SMALL_ATTEMPT_NO=%~1"
+echo Upload %ASSET_LABEL% - lan %SMALL_ATTEMPT_NO%/3...
+call :DELETE_REMOTE_ASSET_BY_SUFFIX
+powershell -NoProfile -ExecutionPolicy Bypass -Command ^
+ "$psi=New-Object System.Diagnostics.ProcessStartInfo;" ^
+ "$psi.FileName='gh'; $psi.UseShellExecute=$false;" ^
+ "$q=[char]34; $p=$q+$env:ASSET_PATH+$q;" ^
+ "$psi.Arguments='release upload '+$env:TAG+' '+$p+' --clobber';" ^
+ "$proc=[System.Diagnostics.Process]::Start($psi);" ^
+ "if(-not $proc.WaitForExit(120000)){try{$proc.Kill()}catch{}; Write-Host '[TIMEOUT] Upload asset qua 2 phut - se retry.'; exit 124};" ^
+ "exit $proc.ExitCode"
+if errorlevel 1 (
+  echo [CANH BAO] Upload %ASSET_LABEL% lan %SMALL_ATTEMPT_NO% that bai/timeout.
+  timeout /t 2 /nobreak >nul
+  exit /b 0
+)
+set "SMALL_UPLOAD_OK=1"
+echo Upload %ASSET_LABEL%: OK
 exit /b 0
 
 :REMOTE_WARN
